@@ -1,0 +1,52 @@
+body{background:#F5F7F6;}
+.clearfix{clear:both!important;}
+/* Buttons CSS */
+.primary-button{}
+.full{}
+/* Float:left-right-none */
+.f-left{float:left!important;}
+.f-right{float:right!important;}
+.f-none{float:none!important;}
+/*//TOP PAGE  */
+.toppage {
+  background: #ffffff none repeat scroll 0 0;
+  border-top: 3px solid #2ea8e6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  left: 0;
+  padding: 5px 0;
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.sitelogo {
+  margin-left: 5px;
+  max-width: 400px;
+  width: 40%;
+}
+.sitelogo img {
+  max-width: 100%;
+}
+/* Product Switcher */
+.item-switcher{margin-right:5px;}
+.top-menu-item {
+  margin: 0;
+  padding: 0;
+}
+.top-menu-item li {
+  display: inline-block;
+  margin-left: 18px;
+}
+.top-menu-item li a {
+  color: #00a1f0;
+  font-size: 0.8rem;
+  line-height: 30px;
+  text-decoration: none;
+  font-weight:normal;
+}
+.tooltip-outline{display:none;}
+.tooptip-outline a{}
+.tooptip-outline strong{}
+.tooptip-outline .tooltip-pointer{}
+/* //END TOPPAGE */

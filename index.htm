@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html language="en" ng-app>
+  <head>
+  <title>Online Products Designer Tool</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="assets/css/normalize.css" rel="stylesheet" type="text/css" />
+  <link href="assets/css/styles.css" rel="stylesheet" type="text/css" />
+  <!-- Load icon font from linearicon free font. Reference Cheat Sheet: https://linearicons.com/free#cheat-sheet -->
+  <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"> 
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js" ></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js" ></script>
+  <script type="text/javascript" src="js/theme.js" ></script>  
+  </head>
+  <body>
+	<div class="toppage">
+		<div class="sitelogo f-left">
+			<a href="#" class="logo">
+				<img src="assets/images/app-logo-m.svg" alt="Site Logo" />
+			</a>
+		</div>
+		<div ng-include="'html/product-switcher.htm'" class="item-switcher f-right"><!-- Load product switcher --></div>
+	</div>
+  </body>
+</html>
