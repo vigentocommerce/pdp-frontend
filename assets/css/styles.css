@@ -1,5 +1,5 @@
 body{background:#F5F7F6;}
-a{color:#00a1f0;text-decoration:none;}
+a{color:#00a1f0;text-decoration:none;font-size: 0.9rem;}
 .clearfix{clear:both!important;line-height:normal;}
 /* Buttons CSS */
 .primary-button {
@@ -149,6 +149,17 @@ a{color:#00a1f0;text-decoration:none;}
     top: 0;
     width: 0;
 }
+.tooltip-pointer::before {
+  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff;
+  border-style: solid;
+  border-width: 7px;
+  content: "";
+  height: 0;
+  position: absolute;
+  top: 1px;
+  width: 0;
+  z-index: 99;
+}
 .tooltip-pointer {
     background: #ff0000 none repeat scroll 0 0;
     border: 0 none;
@@ -191,12 +202,15 @@ a{color:#00a1f0;text-decoration:none;}
   cursor: pointer;
   display: inline-block;
   font-size: 20px;
-  line-height: 40px!important;
+  line-height: 40px !important;
   padding: 0 5px;
-  position:absolute;
-  z-index:98;
-  right:0px;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  width: 95%;
+  z-index: 98;
 }
+.side-down.small{width:auto;}
 .side-switcher ul {
   background: #ffffff none repeat scroll 0 0;
   display: block;
@@ -211,15 +225,17 @@ a{color:#00a1f0;text-decoration:none;}
   
 
 }
-.side-switcher ul.expand{
+.side-switcher ul.expanded{
 	-moz-transition: height 250ms ease-in-out;
 	-ms-transition: height 250ms ease-in-out;
 	-o-transition: height 250ms ease-in-out;
 	transition: height 250ms ease-in-out;
 	-webkit-transition: height 250ms ease-in-out;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+   
 }
-.side-switcher ul.expand > li {border-bottom: 1px solid rgba(0, 0, 0, 0.1);display:inline-block;}
-.side-switcher ul.expand > li:last-child {border-bottom: 0px solid rgba(0, 0, 0, 0.1);}
+.side-switcher ul.expanded > li {border-bottom: 1px solid rgba(0, 0, 0, 0.1);display:inline-block;}
+.side-switcher ul.expanded > li:last-child {border-bottom: 0px solid rgba(0, 0, 0, 0.1);}
 .side-switcher ul > li {
   display: none;
   text-align: center;
@@ -228,8 +244,58 @@ a{color:#00a1f0;text-decoration:none;}
 .side-switcher ul > li a{color:#000;}
 .side-switcher ul > li.current {display:inline-block;}
 .side-switcher ul > li.current a,.side-switcher ul > li:hover a{color:#00a1f0;}
-.main-actions{}
-.main-actions ul{}
-.main-actions ul > li{}
-.main-actions ul > li a{}
+/* Main actions such as Quote & Buy, Save design, Share design ..etc */
+.main-actions {
+  display: inline-block;
+  padding: 0 5px;
+  position: relative;
+}
+.main-actions ul {
+  line-height: 40px;
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+.action-down { 
+	/*  Visible on smartphone  */
+	display:none;
+}
+@media screen and (max-width:480px){
+	.main-actions{width:170px;}
+	.main-actions ul {
+	  max-height: 40px;
+	  overflow: hidden;
+	}
+	.main-actions ul.expanded {
+	  background: #ffffff none repeat scroll 0 0;
+	  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+	  display: block;
+	  left: 0;
+	  max-height: none;
+	  padding: 0 5px;
+	  position: absolute;
+	  right: 0;
+	  width: auto;
+	}
+	.main-actions ul.expanded > li:last-child {
+		border-width: 0;
+	}
+	.main-actions ul.expanded > li {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	}
+	.action-down {
+	  background: rgba(0, 0, 0, 0) url("../images/squares.png") no-repeat scroll center center;
+	  cursor: pointer;
+	  height: 40px;
+	  line-height: 40px;
+	  position: absolute;
+	  right: 0;
+	  top: 0;
+	  width: 30px;
+	  display:block;
+	}
+	
+}
+.main-actions ul > li a{color:#000;}
+.main-actions ul > li.current a,.main-actions ul > li:hover a{color:#00a1f0;}
 .main-actions:after{}

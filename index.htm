@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"> 
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js" ></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js" ></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js" ></script>
+  <script type="text/javascript" src="js/load-sample-canvas.js" ></script>  
   <script type="text/javascript" src="js/theme.js" ></script>  
   </head>
   <body>
@@ -22,5 +24,6 @@
 		<div ng-include="'view/product-switcher.htm'" class="item-switcher f-right"><!-- Load product switcher --></div>
 	</div>
 	<div class="toolbar"><div ng-include="'view/toolbar.htm'"><!-- Load toolber designer tool --></div></div>
+	<div class="main-view"><div ng-include="'view/mainview.htm'"><!-- Load ng-view for canvas design area --></div></div>
   </body>
 </html>

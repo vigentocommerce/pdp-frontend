@@ -6,6 +6,12 @@ jQuery(document).ready(function($) {
     });
 	/* Side Switcher */
 	$('.toolbar').on("click",".side-down",function(){
-		$('.side-switcher ul').toggleClass('expand');
+		$('.side-switcher ul').toggleClass('expanded');
+		$(this).toggleClass('small');
 	});
+	/* Toggle Main actions dropdown */
+	$('.toolbar').on("click",".action-down",function(){
+		$('.main-actions ul').toggleClass('expanded');
+	});
+	
 });
