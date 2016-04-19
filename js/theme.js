@@ -1,4 +1,11 @@
 /* Javascript actions for frontend theme */
 jQuery(document).ready(function($) {
-	$('.help').click(function(){ $('.tooltip-outline').toggle();});
+	/* Top help dropdown */
+	 $('.toppage').on("click", ".help", function(){ 
+        $('.tooltip-outline').toggle();
+    });
+	/* Side Switcher */
+	$('.toolbar').on("click",".side-down",function(){
+		$('.side-switcher ul').toggleClass('expand');
+	});
 });
