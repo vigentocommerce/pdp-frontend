@@ -1,5 +1,6 @@
 body{background:#F5F7F6;}
 a{color:#00a1f0;text-decoration:none;font-size: 0.9rem;}
+canvas {    border: 1px solid #ccc;}
 .clearfix{clear:both!important;line-height:normal;}
 /* Buttons CSS */
 .primary-button {
@@ -133,6 +134,7 @@ a{color:#00a1f0;text-decoration:none;font-size: 0.9rem;}
   width: 100%;
   z-index: 99;
 }
+.tooltip-outline.expanded{display:block;}
 .tooptip-outline a{}
 .tooltip-outline strong {
   display: inline-block;
@@ -181,7 +183,7 @@ a{color:#00a1f0;text-decoration:none;font-size: 0.9rem;}
   width: 100%;
   z-index: 2;
 }
-.nav-toggle {}
+.nav-toggle {cursor:pointer;}
 .nav-toggle span {
   display: block;
   font-size: 20px;
@@ -195,7 +197,7 @@ a{color:#00a1f0;text-decoration:none;font-size: 0.9rem;}
   padding: 0 5px;
   position: relative;
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 767px) {
 	.side-switcher {width:160px;}
 }
 .side-down {
@@ -260,7 +262,7 @@ a{color:#00a1f0;text-decoration:none;font-size: 0.9rem;}
 	/*  Visible on smartphone  */
 	display:none;
 }
-@media screen and (max-width:480px){
+@media screen and (max-width:767px){
 	.main-actions{width:170px;}
 	.main-actions ul {
 	  max-height: 40px;
@@ -299,3 +301,90 @@ a{color:#00a1f0;text-decoration:none;font-size: 0.9rem;}
 .main-actions ul > li a{color:#000;}
 .main-actions ul > li.current a,.main-actions ul > li:hover a{color:#00a1f0;}
 .main-actions:after{}
+/* //END Toolbar */
+/* //MAIN VIEW (NG-VIEW) */
+.mainContent {
+  display: block;
+  padding: 0;
+  position: relative;
+  z-index: 0;
+}
+.main-view {
+  background: rgba(0, 0, 0, 0) url("../images/loading-logo.png") no-repeat scroll center center;
+}
+/* //END Main View */
+/* //BLOCK SIDEBAR */
+/* //Block Left */
+.block-sidebar-left {
+  background: #ffffff none repeat scroll 0 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  float: left;
+  min-height: 100%;
+  left: 0;
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  width: 150px;
+  z-index: 999;
+  left: -100%;
+  opacity: 0;
+}
+.block-sidebar-left.expanded {
+  left: 0;
+  opacity: 1;
+		-moz-transition: all 150ms ease-in-out;
+	-ms-transition: all 150ms ease-in-out;
+	-o-transition: all 150ms ease-in-out;
+	transition: all 150ms ease-in-out;
+	-webkit-transition: all 150ms ease-in-out;
+}
+/* //Block Right */
+.block-sidebar-right{}
+/* Block Item price: subtotal price for an customized design */
+.block-item-price {
+  font-size: 12px;
+  line-height: 30px;
+  padding: 15px 0;
+  text-align: center;
+}
+/* Block Design Template Library */
+.block-design-template{}
+.block-design-template h3 {
+  background: rgba(0, 0, 0, 0.1) none repeat scroll 0 0;
+  border-bottom: 1px solid #cccccc;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 40px;
+  text-align: center;
+}
+.block-design-template .block-content {
+  display: block;
+  position: relative;
+}
+.template-listing {
+  display: block;
+  margin: 5px 0 0;
+  max-height: 300px;
+  overflow: auto;
+  width: 100%;
+  position:relative;
+}
+.template-listing ul {
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+.template-listing ul li{}
+.template-listing ul li a{}
+.template-listing ul li a img{}
+.template-listing ul li a .item-price{}
+.template-listing ul li:hover{}
+.instant-search {
+  display: block;
+  font-size: 12px;
+  line-height: 25px;
+  margin: 0 auto;
+  text-align: center;
+  width: 90%;
+}
+.instant-search:after{}

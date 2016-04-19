@@ -5,12 +5,14 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="assets/css/normalize.css" rel="stylesheet" type="text/css" />
+  <link href="assets/css/simplebar.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/styles.css" rel="stylesheet" type="text/css" />
   <!-- Load icon font from linearicon free font. Reference Cheat Sheet: https://linearicons.com/free#cheat-sheet -->
   <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"> 
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js" ></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js" ></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js" ></script>
+  <script type="text/javascript" src="js/load-sample-canvas.js" ></script>  
   <script type="text/javascript" src="js/load-sample-canvas.js" ></script>  
   <script type="text/javascript" src="js/theme.js" ></script>  
   </head>
@@ -24,6 +26,12 @@
 		<div ng-include="'view/product-switcher.htm'" class="item-switcher f-right"><!-- Load product switcher --></div>
 	</div>
 	<div class="toolbar"><div ng-include="'view/toolbar.htm'"><!-- Load toolber designer tool --></div></div>
-	<div class="main-view"><div ng-include="'view/mainview.htm'"><!-- Load ng-view for canvas design area --></div></div>
+	<div class="mainContent clearfix">
+		<div class="block-sidebar-left"><div ng-include="'view/sidebar-left.htm'"><!-- Left block position --></div></div>
+		<div class="main-view">
+			<canvas id="c" width="480" height="480"></canvas>
+		</div>
+		<div class="block-sidebar-right"><div ng-include="'view/sidebar-right.htm'"><!-- Right block position --></div></div>
+	</div>
   </body>
 </html>
