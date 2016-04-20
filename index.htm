@@ -13,7 +13,7 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js" ></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js" ></script>
   <script type="text/javascript" src="js/load-sample-canvas.js" ></script>  
-  <script type="text/javascript" src="js/load-sample-canvas.js" ></script>  
+  <script type="text/javascript" src="js/simplebar.js" ><!-- Simple bar for custom scrollbar --></script>  
   <script type="text/javascript" src="js/theme.js" ></script>  
   </head>
   <body>
@@ -27,11 +27,50 @@
 	</div>
 	<div class="toolbar"><div ng-include="'view/toolbar.htm'"><!-- Load toolber designer tool --></div></div>
 	<div class="mainContent clearfix">
-		<div class="block-sidebar-left"><div ng-include="'view/sidebar-left.htm'"><!-- Left block position --></div></div>
+		<div class="block-sidebar-left expanded">
+			<div class="block-item-price clearfix">
+				<span class="item-price"><strong>$12.5</strong> per item</span>
+				<button type="button" class="primary-button medium"><span><span class="lnr lnr-arrow-right"></span> View Details</span></button>
+			</div>
+			<div class="block-design-template clearfix">
+				<h3><span class="lnr lnr-store"></span> Design template</h3>
+				<div class="block-content">
+					<input type="text" class="instant-search" placeholder="Search design name" />
+					<div class="template-listing simplebar" data-simplebar-direction="vertical">
+						<ul>
+							<li><a><img src="assets/media/design-template.png" alt="" /><span class="item-price">Free</span>
+							</a></li>
+							<li><a><img src="assets/media/design-template.png" alt="" /><span class="item-price">Free</span>
+							</a></li>
+							<li><a><img src="assets/media/design-template.png" alt="" /><span class="item-price">Free</span>
+							</a></li>				
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="main-view">
+			<div class="toolbox" ng-include="'view/toolbox.htm'">
+			<!-- Load Toolbox (show grid | show ruler | Preview | Duplicate | Rotate | Send to Front | Send to Back | Delete-->
+			</div>
 			<canvas id="c" width="480" height="480"></canvas>
 		</div>
-		<div class="block-sidebar-right"><div ng-include="'view/sidebar-right.htm'"><!-- Right block position --></div></div>
+		<div class="block-sidebar-right">
+			<div class="block-plugins">
+				<ul>
+					<li><a title="Upload photo" data-plugin="upload" class="current"><img src="assets/images/lnr-camera.svg" width="24px" alt="" /><span>Upload</span></a></li>
+					<li><a title="Add image"  data-plugin="image"><img src="assets/images/lnr-picture.svg" width="24px" alt="" /><span>Image</span></a></li>
+					<li><a title="Add text" data-plugin="text"><img src="assets/images/software_font_size.svg" width="24px" alt="" /><span>Text</span></a></li>
+					<li><a title="Add shape"  data-plugin="shapes"><img src="assets/images/lnr-heart.svg" width="24px" alt="" /><span>Shape</span></a></li>
+					<li><a title="Change Layout"  data-plugin="layout"><img src="assets/images/software_layout_header_4boxes.svg" width="24px" alt="" /><span>Layout</span></a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-plugin-content="upload" class="plugin-content"><div ng-include="'view/upload.htm'"><!-- Upload plugin --></div></div>
+		<div data-plugin-content="image" class="plugin-content"><div ng-include="'view/image.htm'"><!-- Photo library plugin --></div></div>
+		<div data-plugin-content="text" class="plugin-content"><div ng-include="'view/text.htm'"><!-- Text plugin --></div></div>
+		<div data-plugin-content="shapes" class="plugin-content"><div ng-include="'view/shapes.htm'"><!-- Shape plugin --></div></div>
+		<div data-plugin-content="layout" class="plugin-content"><div ng-include="'view/layout.htm'"><!-- Layout plugin --></div></div>
 	</div>
   </body>
 </html>

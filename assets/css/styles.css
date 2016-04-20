@@ -1,6 +1,7 @@
 body{background:#F5F7F6;}
 a{color:#00a1f0;text-decoration:none;font-size: 0.9rem;}
 canvas {    border: 1px solid #ccc;}
+ul,ol{margin:0px;padding:0px;list-style:none;}
 .clearfix{clear:both!important;line-height:normal;}
 /* Buttons CSS */
 .primary-button {
@@ -311,6 +312,73 @@ canvas {    border: 1px solid #ccc;}
 }
 .main-view {
   background: rgba(0, 0, 0, 0) url("../images/loading-logo.png") no-repeat scroll center center;
+  display: inline-block;
+  width: 100%;
+}
+.toolbox {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 auto;
+  padding: 0 5px;
+  position: relative;
+  text-align: center;
+}
+/* Toolbox transform buttons*/
+.canvas-btn {
+    float: left;
+}
+.object-btn {
+  float: right;
+}
+.toolbox-buttons {
+    display: inline;
+    margin: 0 auto;
+}
+.toolbox-buttons li {
+  display: inline-block;
+  padding: 0;
+}
+
+.toolbox-buttons li a:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+}
+.toolbox-buttons li a {
+    border: 1px dotted rgba(0, 0, 0, 0);
+    cursor: pointer;
+    display: inline-block;
+    line-height: 30px;
+    padding: 0 12px;
+    position: relative;
+}
+@media screen and (max-width: 450px){
+.toolbox-buttons li a {padding:0px 8px;}
+}
+.toolbox-buttons li a img{}
+.toolbox-buttons li a span {
+  display: none;
+}
+/* Tooltip */
+.toolbox-buttons li:hover a::after {display:block;}
+.toolbox-buttons li a::after {
+    background: #00a1f0 none repeat scroll 0 0;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    color: #ffffff;
+    content: attr(title);
+    display: none;
+    font-size: 10px;
+    font-weight: bold;
+    left: 0;
+    line-height: 20px;
+    padding: 0 5px;
+    position: absolute;
+    right: auto;
+    text-align: center;
+    top: 32px;
+    white-space: nowrap;
+    z-index: 999;
 }
 /* //END Main View */
 /* //BLOCK SIDEBAR */
@@ -338,8 +406,7 @@ canvas {    border: 1px solid #ccc;}
 	transition: all 150ms ease-in-out;
 	-webkit-transition: all 150ms ease-in-out;
 }
-/* //Block Right */
-.block-sidebar-right{}
+
 /* Block Item price: subtotal price for an customized design */
 .block-item-price {
   font-size: 12px;
@@ -364,8 +431,8 @@ canvas {    border: 1px solid #ccc;}
 .template-listing {
   display: block;
   margin: 5px 0 0;
+  height: 250px;
   max-height: 300px;
-  overflow: auto;
   width: 100%;
   position:relative;
 }
@@ -374,17 +441,114 @@ canvas {    border: 1px solid #ccc;}
   margin: 0;
   padding: 0;
 }
-.template-listing ul li{}
-.template-listing ul li a{}
-.template-listing ul li a img{}
-.template-listing ul li a .item-price{}
+.template-listing ul li {
+  display: inline-block;
+  margin-bottom: 5px;
+  position: relative;
+}
+.template-listing ul li a {
+  border: 2px solid rgba(0, 0, 0, 0);
+  display: block;
+  position: relative;
+}
+.template-listing ul li a:hover,.template-listing ul li.current a {
+  border: 2px solid #00a1f0;
+  cursor: pointer;
+}
+.template-listing ul li a .item-price {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  color: #000000;
+  cursor: pointer;
+  font-size: 0.6rem;
+  left: 3px;
+  padding: 0 5px;
+  position: absolute;
+  top: 3px;
+}
 .template-listing ul li:hover{}
 .instant-search {
+  background: rgba(0, 0, 0, 0) url("../images/lnr-magnifier.svg") no-repeat scroll 3px center / 10% auto;
   display: block;
   font-size: 12px;
   line-height: 25px;
   margin: 0 auto;
+  position: relative;
   text-align: center;
   width: 90%;
 }
-.instant-search:after{}
+/* //Block Right */
+.block-sidebar-right {
+  background: #ffffff none repeat scroll 0 0;
+  bottom: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  display: block;
+  left: 0;
+  line-height: 45px;
+  padding: 10px 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  z-index:999;
+}
+.block-plugins {
+  padding: 0 5px;
+}
+.block-plugins ul {
+  display: inline-block;
+}
+.block-plugins ul li {
+  display: inline-block;
+  line-height: 45px;
+}
+.block-plugins ul li a {
+  cursor: pointer;
+  display: block;
+  line-height: 25px;
+  padding: 0 15px;
+  position: relative;
+  text-align: center;
+}
+.block-plugins ul li a img{}
+.block-plugins ul li a span {
+  color: #000000;
+  display: block;
+  font-size: 1rem;
+  font-weight: lighter;
+  line-height: 20px;
+  width: 100%;
+}
+.block-plugins ul li a.current::after,.block-plugins ul li:hover a::after {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 10%;
+  box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.15);
+  content: "";
+  height: 65px;
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: -20px;
+  width: 65px;
+  z-index: -1;
+}
+.block-plugins ul li a.current,.block-plugins ul li a:hover{}
+.block-plugins ul li.current a.current span, .block-plugins ul li a:hover span {
+  color: #00a1f0;
+}
+/* //Plugin Content */
+.plugin-content {
+  background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
+  bottom: 0;
+  display: none;
+  left: 0;
+  padding: 15px 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.plugin-content.current {
+  display: block;
+}
