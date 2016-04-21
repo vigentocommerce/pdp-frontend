@@ -623,9 +623,17 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
   text-align: center;
 }
 /* Upload plugin */
-.user-photo{}
+.user-photo {
+  display: table;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
 .upload-prv{}	
-.plugin-tab{}
+.plugin-tab {
+  bottom: 0;
+  position: absolute;
+}
 .plugin-tab ul {
   background: #00afd8 none repeat scroll 0 0;
   display: inline-block;
