@@ -28,10 +28,34 @@ jQuery(document).ready(function($) {
 	$('[data-plugin]').each(function() {
 		$(this).on('click',function(){
 			var plugin_name = $(this).data("plugin");
-			$('[data-plugin], [data-plugin-content]').removeClass('current');
-			$(this).addClass('current');
-			$('[data-plugin-content='+plugin_name+']').addClass('current');
+			if($(this).hasClass('current')){ 
+				/* Remove current status if it is */
+				$('[data-plugin], [data-plugin-content]').removeClass('current');
+				$(this).removeClass('current');
+			}else{
+				/* If not active then remove other tab, active it */
+				$('[data-plugin], [data-plugin-content]').removeClass('current');
+				$(this).addClass('current');
+				$('[data-plugin-content='+plugin_name+']').addClass('current');
+			}
+			/* Remove all activated expanded div/dropdown */
+			$('body').find('.expanded').removeClass('expanded');
+			/* Return unactivated status for .nav-toggle on topbar */
+			$('.toolbar').find('.lnr-cross').removeClass('lnr-cross').addClass('lnr-menu');
 		});
-	  
+	});
+	/* UI Tab: User Upload Photo tab */
+	$('.plugin-content').on('click','[data-photo]',function() {
+			var plugin_name = $(this).data("photo");
+			$('[data-photo], [data-photo-upload]').removeClass('current');
+			$(this).addClass('current');
+			$('[data-photo-upload='+plugin_name+']').addClass('current');
+	});
+	/* Click to close preview/current tab from toolbar bottom */
+	$('.plugin-content').on('click','.close',function() {
+			//console.log($(this).parent());
+			var plugin_name = $(this).data("close");
+			console.log(plugin_name);
+			$('[data-plugin='+plugin_name+'], [data-plugin-content='+plugin_name+']').removeClass('current');
 	});
 });
