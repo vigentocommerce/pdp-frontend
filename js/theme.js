@@ -44,13 +44,28 @@ jQuery(document).ready(function($) {
 			$('.toolbar').find('.lnr-cross').removeClass('lnr-cross').addClass('lnr-menu');
 		});
 	});
-	/* UI Tab: User Upload Photo tab */
-	$('.plugin-content').on('click','[data-photo]',function() {
-			var plugin_name = $(this).data("photo");
-			$('[data-photo], [data-photo-upload]').removeClass('current');
+	/* UI Tab: User Upload Photo plugin */
+	$('.plugin-content').on('click','[data-upload]',function() {
+			var plugin_name = $(this).data("upload");
+			$('[data-upload], [data-upload-content]').removeClass('current');
 			$(this).addClass('current');
-			$('[data-photo-upload='+plugin_name+']').addClass('current');
+			$('[data-upload-content='+plugin_name+']').addClass('current');
 	});
+	/* UI Tab: Image library  plugin*/
+	$('.plugin-content').on('click','[data-image]',function() {
+			var plugin_name = $(this).data("image");
+			$('[data-image], [data-image-content]').removeClass('current');
+			$(this).addClass('current');
+			$('[data-image-content='+plugin_name+']').addClass('current');
+	});
+	/* UI Tab: Text plugin */
+	$('.plugin-content').on('click','[data-text]',function() {
+			var plugin_name = $(this).data("text");
+			$('[data-text], [data-text-content]').removeClass('current');
+			$(this).addClass('current');
+			$('[data-text-content='+plugin_name+']').addClass('current');
+	});
+	
 	/* Click to close preview/current tab from toolbar bottom */
 	$('.plugin-content').on('click','.close',function() {
 			//console.log($(this).parent());

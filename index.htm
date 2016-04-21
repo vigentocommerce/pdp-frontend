@@ -23,11 +23,11 @@
 				<img src="assets/images/app-logo-m.svg" alt="Site Logo" />
 			</a>
 		</div>
-		<div ng-include="'view/product-switcher.htm'" class="item-switcher f-right"><!-- Load product switcher --></div>
+		<div ng-include="'view/help.htm'" class="help-info f-right"><!-- Load help inforamtion --></div>
 	</div>
 	<div class="toolbar"><div ng-include="'view/toolbar.htm'"><!-- Load toolber designer tool --></div></div>
 	<div class="mainContent clearfix">
-		<div class="block-sidebar-left expanded">
+		<div class="block-sidebar-left">
 			<div class="block-item-price clearfix">
 				<span class="item-price"><strong>$12.5</strong> per item</span>
 				<button type="button" class="primary-button medium"><span><span class="lnr lnr-arrow-right"></span> View Details</span></button>
@@ -59,7 +59,7 @@
 			<div class="block-plugins">
 				<ul>
 					<li><a title="Upload photo" data-plugin="upload"><img src="assets/images/lnr-camera.svg" width="24px" alt="" /><span>Upload</span></a></li>
-					<li><a title="Add image"  data-plugin="image"><img src="assets/images/lnr-picture.svg" width="24px" alt="" /><span>Image</span></a></li>
+					<li><a title="Add image"  data-plugin="imagelibrary"><img src="assets/images/lnr-picture.svg" width="24px" alt="" /><span>Image</span></a></li>
 					<li><a title="Add text" data-plugin="text"><img src="assets/images/software_font_size.svg" width="24px" alt="" /><span>Text</span></a></li>
 					<li><a title="Add shape"  data-plugin="shapes"><img src="assets/images/lnr-heart.svg" width="24px" alt="" /><span>Shape</span></a></li>
 					<li><a title="Change Layout"  data-plugin="layout"><img src="assets/images/software_layout_header_4boxes.svg" width="24px" alt="" /><span>Layout</span></a></li>
@@ -67,7 +67,7 @@
 			</div>
 		</div>
 		<div data-plugin-content="upload" class="plugin-content"><div ng-include="'view/upload.htm'"><!-- Upload plugin --></div></div>
-		<div data-plugin-content="image" class="plugin-content"><div ng-include="'view/image.htm'"><!-- Photo library plugin --></div></div>
+		<div data-plugin-content="imagelibrary" class="plugin-content"><div ng-include="'view/image.htm'"><!-- Photo library plugin --></div></div>
 		<div data-plugin-content="text" class="plugin-content"><div ng-include="'view/text.htm'"><!-- Text plugin --></div></div>
 		<div data-plugin-content="shapes" class="plugin-content"><div ng-include="'view/shapes.htm'"><!-- Shape plugin --></div></div>
 		<div data-plugin-content="layout" class="plugin-content"><div ng-include="'view/layout.htm'"><!-- Layout plugin --></div></div>
