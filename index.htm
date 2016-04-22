@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="assets/css/normalize.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/simplebar.css" rel="stylesheet" type="text/css" />
-  <link href="assets/css/styles.css" rel="stylesheet" type="text/css" />
+  <link href="assets/css/styles.css" rel="stylesheet" type="text/css" media="all"/>
+  <link href="assets/css/m360.css" rel="stylesheet" type="text/css" media="screen and (max-width: 360px) and (orientation: portrait)" />
+  <link href="assets/css/m768.css" rel="stylesheet" type="text/css" media="screen and (max-width: 768px) and (orientation: portrait)" />
   <!-- Load icon font from linearicon free font. Reference Cheat Sheet: https://linearicons.com/free#cheat-sheet -->
   <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"> 
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js" ></script>
@@ -53,7 +55,7 @@
 			<div class="toolbox" ng-include="'view/toolbox.htm'">
 			<!-- Load Toolbox (show grid | show ruler | Preview | Duplicate | Rotate | Send to Front | Send to Back | Delete-->
 			</div>
-			<canvas id="c" width="480" height="480"></canvas>
+			<canvas id="c" width="768" height="768"></canvas>
 		</div>
 		<div class="block-sidebar-right">
 			<div class="block-plugins">

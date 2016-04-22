@@ -181,7 +181,7 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
   background: #ffffff none repeat scroll 0 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   display: inline-block;
-  padding: 5px 0;
+  padding: 0;
   position: relative;
   width: 100%;
   z-index: 2;
@@ -190,10 +190,9 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
 .nav-toggle span {
   display: block;
   font-size: 20px;
-  line-height: 40px;
-  padding: 0 5px;
+  line-height: 45px;
+  padding: 0 15px 0 5px;
 }
-
 .side-switcher {
   display: inline-block;
   width: 220px;
@@ -207,28 +206,28 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
   cursor: pointer;
   display: inline-block;
   font-size: 20px;
-  line-height: 40px !important;
+  line-height: 45px !important;
   padding: 0 5px;
   position: absolute;
   right: 0;
   text-align: right;
+  top: 0;
   width: 95%;
   z-index: 98;
 }
-.side-down.small{width:auto;}
+.side-down.small{/* width:auto; */}
 .side-switcher ul {
   background: #ffffff none repeat scroll 0 0;
   display: block;
   left: 0;
-  line-height: 40px;
+  line-height: 44px;
   list-style: outside none none;
   margin: 0;
   overflow: hidden;
   padding: 0;
   position: absolute;
+  top: 0;
   width: 100%;
-  
-
 }
 .side-switcher ul.expanded{
 	-moz-transition: height 250ms ease-in-out;
@@ -256,7 +255,7 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
   position: relative;
 }
 .main-actions ul {
-  line-height: 40px;
+  line-height: 45px;
   list-style: outside none none;
   margin: 0;
   padding: 0;
@@ -268,7 +267,7 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
 @media screen and (max-width:767px){
 	.main-actions{width:170px;}
 	.main-actions ul {
-	  max-height: 40px;
+	  max-height: 45px;
 	  overflow: hidden;
 	}
 	.main-actions ul.expanded {
@@ -493,7 +492,7 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
   display: block;
   left: 0;
   line-height: 45px;
-  padding: 10px 0;
+  padding: 5px 0;
   position: fixed;
   text-align: center;
   width: 100%;
@@ -552,9 +551,9 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
   display: none;
   left: 0;
   padding: 15px 5px;
-  position: absolute;
+  position: fixed;
   right: 0;
-  top: 0;
+  top: 0px;
   z-index: 999;
 }
 .plugin-content.current {
@@ -573,9 +572,30 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
   overflow: hidden;
   width: 100%;
 }
+.overlay-e::after {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  bottom: 0;
+  color: rgba(255, 255, 255, 0.3);
+  content: "Click to hide";
+  cursor: pointer;
+  font-size: 35px;
+  font-weight: lighter;
+  left: 0;
+  padding: 25% 0;
+  position: absolute;
+  right: auto;
+  text-align: center;
+  text-transform: uppercase;
+  top: 0;
+  width: 100%;
+}
 @media screen and (max-width: 480px){
 	.overlay-e {
-	  height: 200px;
+	  height: 145px;
+	}
+	.plugin-tab {
+	  top: 30%;
 	}	
 }
 .preview {
@@ -631,26 +651,29 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
 }
 .upload-prv{}	
 .plugin-tab {
-  bottom: 0;
+  bottom: 90px;
   position: absolute;
+  width:100%;
+  top:auto;
 }
 .plugin-tab ul {
   background: #00afd8 none repeat scroll 0 0;
-  display: inline-block;
-  padding: 5px 0;
+  display: block;
+  padding: 0;
   text-align: center;
   width: 100%;
 }
 .plugin-tab ul li {
-  display: inline;
+  display: inline-block;
   padding: 0;
+  line-height: 45px;
 }
 .plugin-tab ul li a {
   color: #ffffff;
   cursor: pointer;
-  display: inline-block;
+  display: block;
   font-size: 14px;
-  line-height: 30px;
+  line-height: 45px;
   padding: 0px 15px;
   position:relative;
 }
@@ -670,7 +693,7 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
   border-image: none;
   border-style: solid;
   border-width: 6px;
-  bottom: -8px;
+  bottom: 0px;
   content: "";
   display: block;
   height: 0;
@@ -682,24 +705,27 @@ ul,ol{margin:0px;padding:0px;list-style:none;}
   width: 0;
 }
 .plugin-tab ul li a .tab-label {
-  font-size: 0;
+  text-indent: -9999px;
   line-height: 25px;
-  transition: all 0.1s ease 0s;
+  font-size:14px;
+  /* transition: all 0.1s ease 0s; */
+  display:inline-block;
 }
 .plugin-tab ul li a.current .tab-label {
-  font-size: 14px;
-  transition: all 0.1s ease 0s;
+  text-indent: 0;
+  /* transition: all 0.1s ease 0s; */
 }
 .photo-tab-content {
   display: block;
   height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: opacity 0.2s ease 0s;
+  transition: opacity 0.3s ease 0s;
   width: 100%;
+  background:#fff;
 }
 .photo-tab-content.current {
   height: 100%;
   opacity: 1;
-  transition: opacity 0.2s ease 0s;
+  transition: opacity 0.3s ease 0s;
 }

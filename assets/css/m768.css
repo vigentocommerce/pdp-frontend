@@ -1,0 +1,30 @@
+.main-actions ul li {
+  float: left;
+  padding: 0 15px;
+}
+.template-listing {
+  height: 600px;
+}
+.overlay-e {
+  height: 300px;
+
+}
+.overlay-e::after {
+  font-size: 35px;
+}
+.plugin-tab {
+  bottom: 90px;
+  top: auto;
+}
+.photo-tab-content.current {
+  height: 385px;
+}
+@media screen and (max-width:480px) and (orientation: portrait){
+	.photo-tab-content.current {
+	  height: 285px;
+	}
+	.overlay-e::after {
+	  font-size: 22px;
+	  padding: 30% 0;
+	}
+}
