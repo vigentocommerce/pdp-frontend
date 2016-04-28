@@ -1,13 +1,86 @@
 <div class="plugin-content-popout">
 	<div class="image-library">
-		<div class="overlay-e close" data-close="text"></div>
+		<div class="overlay-e close" data-close="layout"></div>
 		<div class="plugin-tab">
+			<div class="preview-text" data-text-field="preview"><textarea readonly="readonly"></textarea></div>
 			<ul>
 				<li><a href="#" data-text="plaintext" class="current"><img src="assets/images/plaintext.svg" alt="" /> <span class="tab-label">Plain text</span></a></li>
 				<li><a href="#" data-text="curvetext"><img src="assets/images/curvetext.svg" alt="" /> <span class="tab-label">Curve text</span></a></li>
 			</ul>
 			<div class="photo-tab-content current" data-text-content="plaintext">
-				<div><img src="assets/media/plaintext.jpg" alt="" width="100%"/></div>
+				<div class="tab-content-text">
+					<form>
+						<div class="form-col">
+							<div class="form-group">
+								<textarea class="form-field input-text" data-text-field="object" name="text-1">Enter your text</textarea>
+								<div class="col-6 f-left">
+									<ul class="txt-list-btn">
+										<li><a title="Bold"><span class="lnr lnr-bold"></span></a></li>
+										<li><a title="Italic"><span class="lnr lnr-italic"></span></a></li>
+										<li><a title="Underline"><span class="lnr lnr-underline"></span></a></li>
+										<li><a title="Strike Through"><span class="lnr lnr-strikethrough"></span></a></li>
+									</ul>
+								</div>
+								<div class="col-6 f-right">
+									<ul class="txt-list-btn f-right">
+										<li><a title="Left"><span class="lnr lnr-text-align-left"></span></a></li>
+										<li><a title="Center"><span class="lnr lnr-text-align-center"></span></a></li>
+										<li><a title="Right"><span class="lnr lnr-text-align-right"></span></a></li>
+										<li><a title="Justufy"><span class="lnr lnr-text-align-justify"></span></a></li>
+									</ul>
+									
+								</div>
+							</div>
+								<div class="form-group">
+									
+									<label for="text-2">Change Font:</label>
+									<input type="text" class="text-field-readonly" data-text-field="font" name="text-2" style="font-family: Arial;" value="Arial" readonly="readonly" />
+									<div class="font-options">
+										<h5>Select font <span class="lnr lnr-cross f-right"></span></h5>
+										<ul  data-simplebar-direction="vertical">
+											<li><a style="font-family:'Arial';">Arial</a></li>
+											<li><a style="font-family:'Trebuchet MS';">Trebuchet MS</a></li>
+											<li><a style="font-family:'Verdana';">Verdana</a></li>
+											<li><a style="font-family:'Times New Roman';">Times New Roman</a></li>
+											<li><a style="font-family:'Arial';">Arial</a></li>
+											<li><a style="font-family:'Trebuchet MS';">Trebuchet MS</a></li>
+											<li><a style="font-family:'Verdana';">Verdana</a></li>
+											<li><a style="font-family:'Times New Roman';">Times New Roman</a></li>
+											<li><a style="font-family:'Arial';">Arial</a></li>
+											<li><a style="font-family:'Trebuchet MS';">Trebuchet MS</a></li>
+											<li><a style="font-family:'Verdana';">Verdana</a></li>
+											<li><a style="font-family:'Times New Roman';">Times New Roman</a></li>
+											<li><a style="font-family:'Arial';">Arial</a></li>
+											<li><a style="font-family:'Trebuchet MS';">Trebuchet MS</a></li>
+											<li><a style="font-family:'Verdana';">Verdana</a></li>
+											<li><a style="font-family:'Times New Roman';">Times New Roman</a></li>
+											
+										</ul>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="text-3">Text Color:</label>
+									<input type="text" class="text-field-readonly" data-text-field="color" name="text-3" style="background-color: #000;"  readonly="readonly" />
+									<!-- <button type="button" class="primary-button medium"><span><span class="lnr lnr-plus-circle"></span> Add Text</span></button> -->
+									 
+								</div>
+								<div class="form-group">
+									<label for="text-5">Text Size: <small>(inch)</small> </label>
+									<input type="text" name="text-5" data-text-field="size" placeholder="" />
+								</div>
+								<div class="form-group">
+									<label for="text-6">Line Height: <small>(inch)</small> </label>
+									<input type="text" name="text-6" data-text-field="line-height" placeholder="" />
+								</div>
+						</div>
+						<div class="form-col">
+							<div class="form-group">
+								<h3>Advanced Settings</h3>
+							</div>
+						</div>
+					</form>
+					
+				</div>
 			</div>
 			<div class="photo-tab-content " data-text-content="curvetext">
 				<div><img src="assets/media/curvetext.jpg" alt="" width="100%"/></div>

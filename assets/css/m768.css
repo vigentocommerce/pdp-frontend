@@ -1,9 +1,46 @@
+.main-actions{width:170px;}
+.main-actions ul {
+  max-height: 45px;
+  overflow: hidden;
+}
+.main-actions ul.expanded {
+  background: #ffffff none repeat scroll 0 0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  display: block;
+  left: 0;
+  max-height: none;
+  padding: 0 5px;
+  position: absolute;
+  right: 0;
+  width: auto;
+}
+.main-actions ul.expanded > li:last-child {
+	border-width: 0;
+}
+.main-actions ul.expanded > li {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.action-down {
+  background: rgba(0, 0, 0, 0) url("../images/squares.png") no-repeat scroll center center;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  display:block;
+}
 .main-actions ul li {
   float: left;
+  padding: 0;
+  width: 100%;
+}
+.main-actions ul > li a {
   padding: 0 15px;
 }
 .template-listing {
-  height: 600px;
+  height: 600px; 
 }
 .overlay-e {
   height: 300px;

@@ -10,16 +10,23 @@ a {
 }
 .block-plugins ul li a {
   line-height: 20px;
-  padding: 0 12px;
+  padding: 0 10px;
 }
-.block-plugins ul li a span {
+.block-plugins ul li a span { 
   font-size: 0.8rem;
 }
 .side-switcher {
-  width: 125px;
+  width: 105px;
 }
 .main-actions {
-  width: 145px;
+  width: 135px;
+}
+.main-actions ul li {
+  padding: 0;
+  width: 100%;
+}
+.main-actions ul > li a {
+  padding: 0 15px;
 }
 .toppage {
   padding: 5px 0 0;
@@ -34,10 +41,10 @@ a {
   bottom: auto;
   top: 35%;
 }
-.plugin-tab ul li a.current .tab-label {
+.plugin-tab > ul li a.current .tab-label {
   font-size: 0.8rem;
 }
-.plugin-tab ul li a {
+.plugin-tab > ul li a {
   font-size: 0.8rem;
   padding: 0 8px;
 }
@@ -55,7 +62,7 @@ a {
 	.block-sidebar-right {
 	  padding: 5px 0;
 	}
-	.block-plugins ul li a.current::after, .block-plugins ul li:hover a::after {
+	.block-plugins > ul li a.current::after, .block-plugins ul li:hover a::after {
 	  height: 55px;
 	  width: 55px;
 	  top:-15px;
@@ -64,9 +71,10 @@ a {
 	  height: 80px;
 	}
 	.plugin-tab {
-	  top: 15%;
+	  bottom: 70px;
+	  top:auto;
 	}
-	.plugin-tab ul li a {
+	.plugin-tab > ul li a {
 	  padding: 0 5px;
 	}
 }

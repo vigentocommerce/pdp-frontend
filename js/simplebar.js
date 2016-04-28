@@ -304,7 +304,7 @@
      */
     $(window).on('load', function () {
         $('[data-simplebar-direction]').each(function () {
-            $(this).simplebar();
+            $(this).simplebar({autoHide: false});
         });
     });
 

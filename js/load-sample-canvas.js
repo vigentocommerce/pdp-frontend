@@ -1,12 +1,12 @@
 jQuery(document).ready(function($) {
 var canvas = new fabric.Canvas('c', { selection: false });
 var grid = 10;
-
+if(canvas.getWidth() > canvas.getHeight()){grid_size = canvas.getWidth();}else{grid_size = canvas.getHeight();}
 // create grid
 
-for (var i = 0; i < (800 / grid); i++) {
-  canvas.add(new fabric.Line([ i * grid, 0, i * grid, 800], { stroke: '#ccc', selectable: false }));
-  canvas.add(new fabric.Line([ 0, i * grid, 800, i * grid], { stroke: '#ccc', selectable: false }))
+for (var i = 0; i < (grid_size / grid); i++) {
+  canvas.add(new fabric.Line([ i * grid, 0, i * grid, grid_size], { stroke: '#ccc', selectable: false }));
+  canvas.add(new fabric.Line([ 0, i * grid, grid_size, i * grid], { stroke: '#ccc', selectable: false }))
 }
 
 // add objects

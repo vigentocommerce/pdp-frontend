@@ -3,19 +3,22 @@
   <head>
   <title>Online Products Designer Tool</title>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <link href="assets/css/normalize.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/simplebar.css" rel="stylesheet" type="text/css" />
-  <link href="assets/css/styles.css" rel="stylesheet" type="text/css" media="all"/>
-  <link href="assets/css/m360.css" rel="stylesheet" type="text/css" media="screen and (max-width: 360px) and (orientation: portrait)" />
-  <link href="assets/css/m768.css" rel="stylesheet" type="text/css" media="screen and (max-width: 768px) and (orientation: portrait)" />
+  <link href="assets/css/input-range.css" rel="stylesheet" type="text/css" />
+  <link href="assets/css/spectrum.css" rel="stylesheet" type="text/css" />
+
+  <link href="assets/css/styles.css" rel="stylesheet" type="text/css" media="all"/>  
   <!-- Load icon font from linearicon free font. Reference Cheat Sheet: https://linearicons.com/free#cheat-sheet -->
   <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"> 
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js" ></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js" ></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js" ></script>
   <script type="text/javascript" src="js/load-sample-canvas.js" ></script>  
-  <script type="text/javascript" src="js/simplebar.js" ><!-- Simple bar for custom scrollbar --></script>  
+  <script type="text/javascript" src="js/simplebar.js" ><!-- Simple bar for custom scrollbar --></script>      
+  <script type="text/javascript" src="js/spectrum.js" ><!-- Color Picker --></script>      
   <script type="text/javascript" src="js/theme.js" ></script>  
   </head>
   <body>
@@ -25,12 +28,38 @@
 				<img src="assets/images/app-logo-m.svg" alt="Site Logo" />
 			</a>
 		</div>
+		<ul class="help">
+			<li><a href="#" class="primary-button thin" title="Start Live Chat">Start Live Chat</a></li>
+			<!-- <li><a class="left" href="#" title="Help Center">Call us: 866-660-8667</a></li> -->
+		</ul>
 		<div ng-include="'view/help.htm'" class="help-info f-right"><!-- Load help inforamtion --></div>
 	</div>
-	<div class="toolbar"><div ng-include="'view/toolbar.htm'"><!-- Load toolber designer tool --></div></div>
 	<div class="mainContent clearfix">
-		<div class="block-sidebar-left">
-			<div class="block-item-price clearfix">
+		<div class="sidebar left" data-area="sidebar">
+			<div class="sidebar-content">
+				<ul class="data-tabs">
+					<li><a href="#" title="" data-tab="items" class="active"><img src="assets/images/tab-items.svg" alt="" /> <span>Your items</span></a></li>
+					<li><a href="#" title="" data-tab="addtext"><img src="assets/images/tab-text.svg" alt="" /> <span>Add text</span></a></li>
+					<li><a href="#" title="" data-tab="addimage"><img src="assets/images/tab-images.svg" alt="" /> <span>Add art</span></a></li>
+					<li><a href="#" title="" data-tab="addnote"><img src="assets/images/tab-notes.svg" alt="" /> <span>Add notes</span></a></li>
+				</ul>
+				<div class="data-tab-content">
+					<div data-tab-content="items" class="active">
+						<div ng-include="'view/items.htm'"><!-- Items --></div>
+					</div>
+					<div data-tab-content="addtext">
+						<div ng-include="'view/addtext.htm'"><!-- Add text --></div>
+					</div>
+					<div data-tab-content="addimage">
+						<div ng-include="'view/addimage.htm'"><!-- Add image --></div>
+					</div>
+					<div data-tab-content="addnote">
+						<div ng-include="'view/addnote.htm'"><!-- Add note --></div>
+					</div>
+					
+				</div>
+			</div>
+			<!-- <div class="block-item-price clearfix">
 				<span class="item-price"><strong>$12.5</strong> per item</span>
 				<button type="button" class="primary-button medium"><span><span class="lnr lnr-arrow-right"></span> View Details</span></button>
 			</div>
@@ -49,24 +78,21 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
-		<div class="main-view">
+		<div class="mainview" data-area="mainview">
+			<div class="toolbar"><div ng-include="'view/toolbar.htm'"><!-- Load toolber designer tool --></div></div>
 			<div class="toolbox" ng-include="'view/toolbox.htm'">
 			<!-- Load Toolbox (show grid | show ruler | Preview | Duplicate | Rotate | Send to Front | Send to Back | Delete-->
 			</div>
-			<canvas id="c" width="768" height="768"></canvas>
-		</div>
-		<div class="block-sidebar-right">
-			<div class="block-plugins">
-				<ul>
-					<li><a title="Upload photo" data-plugin="upload"><img src="assets/images/lnr-camera.svg" width="24px" alt="" /><span>Upload</span></a></li>
-					<li><a title="Add image"  data-plugin="imagelibrary"><img src="assets/images/lnr-picture.svg" width="24px" alt="" /><span>Image</span></a></li>
-					<li><a title="Add text" data-plugin="text"><img src="assets/images/software_font_size.svg" width="24px" alt="" /><span>Text</span></a></li>
-					<li><a title="Add shape"  data-plugin="shapes"><img src="assets/images/lnr-heart.svg" width="24px" alt="" /><span>Shape</span></a></li>
-					<li><a title="Change Layout"  data-plugin="layout"><img src="assets/images/software_layout_header_4boxes.svg" width="24px" alt="" /><span>Layout</span></a></li>
-				</ul>
+			
+			<div class="designarea">
+				<canvas id="c" width="400" height="400"></canvas>
 			</div>
+		</div>
+		<div class="sidebar-bottom"  data-area="bottom">
+			<label>Scare/Zoom </label> <input id="scale" type="range" min="10" max="100" step="1" style="width: 200px;" />
+			<button type="button" class="primary-button small"><span><span class="lnr lnr-sync"></span> Reset zoom</span></button>
 		</div>
 		<div data-plugin-content="upload" class="plugin-content"><div ng-include="'view/upload.htm'"><!-- Upload plugin --></div></div>
 		<div data-plugin-content="imagelibrary" class="plugin-content"><div ng-include="'view/image.htm'"><!-- Photo library plugin --></div></div>

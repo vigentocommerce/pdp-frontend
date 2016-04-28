@@ -1,0 +1,225 @@
+/* FOR TABLET */
+@media screen and (max-width: 768px) and (orientation: portrait){
+	
+	.main-actions{width:170px;}
+	.main-actions ul {
+	  max-height: 45px;
+	  overflow: hidden;
+	}
+	.main-actions ul.expanded {
+	  background: #ffffff none repeat scroll 0 0;
+	  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+	  display: block;
+	  left: 0;
+	  max-height: none;
+	  padding: 0 5px;
+	  position: absolute;
+	  right: 0;
+	  width: auto;
+	}
+	.main-actions ul.expanded > li:last-child {
+		border-width: 0;
+	}
+	.main-actions ul.expanded > li {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	}
+	.toolbox-buttons li a img {
+	  width: 16px;
+	}
+	.action-down {
+	  background: rgba(0, 0, 0, 0) url("../images/squares.png") no-repeat scroll center center;
+	  cursor: pointer;
+	  height: 40px;
+	  line-height: 40px;
+	  position: absolute;
+	  right: 0;
+	  top: 0;
+	  width: 30px;
+	  display:block;
+	}
+	.main-actions ul li {
+	  float: left;
+	  padding: 0;
+	  width: 100%;
+	}
+	.main-actions ul > li a {
+	  padding: 0 15px;
+	}
+	.template-listing {
+	  height: 600px; 
+	}
+	.sidebar,.sidebar::before{ width:0px; display:none; }
+	.sidebar.expanded,.sidebar.expanded::before{ width:29.99%; display:block;   }
+	.main-view{width:100%;}
+	.overlay-e {
+	  height: 300px;
+
+	}
+	.overlay-e::after {
+	  font-size: 35px;
+	}
+	.plugin-tab {
+	  bottom: 90px;
+	  top: auto;
+	}
+	.photo-tab-content.current {
+	  height: 385px;
+	}
+}
+@media screen and (max-width:480px) and (orientation: portrait){
+	.photo-tab-content.current {
+	  height: 285px;
+	}
+	.overlay-e::after {
+	  font-size: 22px;
+	  padding: 30% 0;
+	}
+	
+	.overlay-e {
+	  height: 145px;
+	}
+	.plugin-tab {
+	  top: 30%;
+	}
+	.sidebar,.sidebar::before{ width:0px; display:none; }
+	.sidebar.expanded,.sidebar.expanded::before{ width:150px;  display:block; }
+	
+}
+/* Fix for iphone 6/6s */
+@media screen and (max-device-width: 4.7in){
+	.toolbox-buttons li a {
+		padding: 0 5px;
+	}
+	.photo-tab-content.current {
+		height: 185px;
+	}
+	.plugin-tab > ul li a {
+	  padding: 0 4px;
+	}
+	.plugin-tab > ul li a img {
+	  width: 16px;
+	}
+	.block-plugins > ul li a {
+	  padding: 0 5px;
+	}
+	.side-switcher {
+	  width: 125px;
+	}
+	.main-actions {
+	  width: 135px;
+	}
+}
+/* Fix for iphone 4/4s */
+@media screen and (max-device-width: 3.5in){
+	.toppage{display:none;}
+	.toolbox-buttons li a {
+		padding: 0 5px;
+	}
+	.photo-tab-content.current {
+		height: 150px;
+	}
+	.overlay-e::after {
+		padding: 35% 0;
+	}
+	.plugin-tab > ul li a {
+	  padding: 0 4px;
+	}
+	.plugin-tab > ul li a img {
+	  width: 16px;
+	}
+	.side-switcher {
+	  width: 105px;
+	}
+	.main-actions {
+	  width: 135px;
+	}
+}
+/* FOR SMALL MOBILE (iphone5,iphone4,galaxys3..) */
+@media screen and (max-width: 360px){
+	a {
+	  font-size: 0.8rem;
+	}
+	.block-item-price {
+	  padding: 5px 0;
+	}
+	.block-design-template h3 {
+	  font-size: 0.8rem;
+	  font-weight: bold;
+	}
+	.block-plugins ul li a {
+	  line-height: 20px;
+	  padding: 0 10px;
+	}
+	.block-plugins ul li a span { 
+	  font-size: 0.8rem;
+	}
+	.side-switcher {
+	  width: 105px;
+	}
+	.main-actions {
+	  width: 135px;
+	}
+	.main-actions ul li {
+	  padding: 0;
+	  width: 100%;
+	}
+	.main-actions ul > li a {
+	  padding: 0 15px;
+	}
+	.toppage {
+	  padding: 5px 0 0;
+	}
+	.block-plugins {
+	  padding: 0;
+	}
+	.overlay-e {
+	  height: 175px;
+	}
+	.plugin-tab {
+	  bottom: auto;
+	  top: 35%;
+	}
+	.plugin-tab > ul li a.current .tab-label {
+	  font-size: 0.8rem;
+	}
+	.plugin-tab > ul li a {
+	  font-size: 0.8rem;
+	  padding: 0 8px;
+	}
+	.photo-tab-content.current {
+	  height: 205px;
+	}
+	.overlay-e::after {
+	  font-size: 22px;
+	  padding: 40% 0;
+	}
+	.toolbox-buttons li a img {
+	  width: 15px;
+	}
+}
+@media screen and (max-width:320px) and (orientation: portrait){
+	.block-plugins ul li a {
+	  padding: 0 10px;
+	}
+	.sidebar {
+	  padding: 5px 0;
+	}
+	.block-plugins > ul li a.current::after, .block-plugins ul li:hover a::after {
+	  height: 55px;
+	  width: 55px;
+	  top:-15px;
+	}
+	.overlay-e {
+	  height: 80px;
+	}
+	.plugin-tab {
+	  bottom: 70px;
+	  top:auto;
+	}
+	.plugin-tab > ul li a {
+	  padding: 0 5px;
+	}
+	.toolbox-buttons li a {
+	  padding: 0 2px;
+	}
+}
