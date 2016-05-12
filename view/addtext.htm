@@ -1,4 +1,4 @@
-<div class="tab-content">
+<div class="tab-content text">
 	<div class="form-col">
 		<div class="form-group">
 			<ul class="action-text">
@@ -63,32 +63,34 @@
 	</div>
 	<div class="form-col">
 		<div class="form-group">
-			<h3>Curves Text</h3>
-			<div class="curves-thumbnail"><a href=""><img src="assets/media/curved.png" alt="" /></a>
-				<ul class="select-curves">
-					<li><a><img src="assets/media/curved.png" alt=""/></a></li>
-					<li><a><img src="assets/media/bulge.png" alt=""/></a></li>
-					<li><a><img src="assets/media/obulge.png" alt=""/></a></li>
-					<li><a><img src="assets/media/largeToSmallTop.png" alt=""/></a></li>
-					<li><a><img src="assets/media/smallToLarge.png" alt=""/></a></li>
-					<li><a><img src="assets/media/normaltext.png" alt=""/></a></li>
-				</ul>
-			</div>
-			<div class="curves-option">
-				<div class="">
-					<label>Small font:</label><br/>
-					<input type="range" min="0" max="10" step="1" />
-					<input type="number" placeholder="0" class="small-input" min="0" max="100">
+			<h3 data-toggle="advancedSettings">Advanced Settings <span class="lnr lnr-chevron-right f-right"></span></h3>
+			<div class="advanced-settings" data-toggle-content="advancedSettings">
+				<div class="curves-thumbnail"><a href=""><img src="assets/media/curved.png" alt="" /></a>
+					<ul class="select-curves">
+						<li><a><img src="assets/media/curved.png" alt=""/></a></li>
+						<li><a><img src="assets/media/bulge.png" alt=""/></a></li>
+						<li><a><img src="assets/media/obulge.png" alt=""/></a></li>
+						<li><a><img src="assets/media/largeToSmallTop.png" alt=""/></a></li>
+						<li><a><img src="assets/media/smallToLarge.png" alt=""/></a></li>
+						<li><a><img src="assets/media/normaltext.png" alt=""/></a></li>
+					</ul>
 				</div>
-				<div class="">
-					<label>Large font:</label><br/>
-					<input type="range" min="0" max="10" step="1" />
-					<input type="number" placeholder="0" class="small-input" min="0" max="100">
+				<div class="curves-option">
+					<div class="">
+						<label>Small font:</label><br/>
+						<input type="range" min="0" max="10" step="1" />
+						<input type="number" placeholder="0" class="small-input" min="0" max="100">
+					</div>
+					<div class="">
+						<label>Large font:</label><br/>
+						<input type="range" min="0" max="10" step="1" />
+						<input type="number" placeholder="0" class="small-input" min="0" max="100">
+					</div>
+					<div class="">
+						<label><input id="pdc_ctext_reverse" type="checkbox" name="reverse"> Reverse</label>
+					</div>
+					 
 				</div>
-				<div class="">
-					<label><input id="pdc_ctext_reverse" type="checkbox" name="reverse"> Reverse</label>
-				</div>
-				 
 			</div>
 		</div>
 	</div>

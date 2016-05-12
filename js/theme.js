@@ -1,37 +1,81 @@
 /* Javascript actions for frontend theme */
 $(window).on('load',function(){
-	/* Top help dropdown */
-	 $('.toppage').on("click", ".help", function(){ 
-        $('.tooltip-outline').toggleClass('expanded');
-    });
-	/* Side Switcher */
-	$('.toolbar').on("click",".side-down",function(){
-		$('.side-switcher ul').toggleClass('expanded');
-		$(this).toggleClass('small');
-	});
-	/* Toggle Main actions dropdown */
-	$('.toolbar').on("click",".action-down",function(){
-		$('.main-actions ul').toggleClass('expanded');
-	});
-	/* Toggle Block left */
-	$('.toolbar').on("click",".nav-toggle",function(){
-		$(".lnr-menu, .lnr-cross").toggleClass("lnr-menu lnr-cross"); 
-		$('.block-sidebar-left').toggleClass('expanded');
-		$('[data-plugin], [data-plugin-content]').removeClass('current');
-	});
-	/* Hidden all expanded class by click on main view */
-	$('canvas').on('click',function(){
-		$('body').find('.expanded').removeClass('expanded');
-		/* Return unactivated status for .nav-toggle on topbar */
-		$('.toolbar').find('.lnr-cross').removeClass('lnr-cross').addClass('lnr-menu');
-	});
 	/* Tab chinh bao gom Your Items | Add Image | Add Text | Add Notes */
 	$('[data-tab]').each(function(){
-		$(this).on('click', function(){
+		$(this).on('click touchstart', function(){
 			var tab_name = $(this).data('tab');
 			$('[data-tab], [data-tab-content]').removeClass('active');
 			$(this).addClass('active');
 			$('[data-tab-content='+tab_name+']').addClass('active');
+			switch (tab_name){
+				case 'addimage':
+					// Show upload and gallery as default. Hide all other section
+					$('[data-image-section]').hide();
+					$('[data-image-section="gallery"]').show();
+					/* Toggle image tab when click link */
+					$('[data-image-tab]').on('click touchstart', function(){
+						$('[data-image-tab]').removeClass('current');
+						$(this).toggleClass('current');
+						var $section = $(this).data('image-tab');
+						$('[data-image-section]').hide();
+						$('[data-image-section="'+$section+'"]').toggle();
+					});
+					/* Toggle inline image tab in upload section */
+					$('[data-inline-tab]').on('click touchstart', function(){
+						$('[data-inline-tab]').removeClass('current');
+						$(this).toggleClass('current');
+						var $section = $(this).data('inline-tab');
+						$('[data-inline-section]').hide();
+						$('[data-inline-section="'+$section+'"]').toggle();
+						$('[data-inline-section] .close').on('click touchstart',function(){$(this).parent().hide()});
+					});
+					/* Style for file input */
+					$('[data-file').on('change touchstart', function(e){
+						var $value = $(this).data('file');
+						var fileName = e.target.value.split( '\\' ).pop();
+						switch($value){
+							case 'upload':
+								if(fileName) {
+									$(this).parent().find('.label').text(fileName);
+									}
+							break;
+						}
+					});
+					/* Click on main artwork catalog then open sub category */
+					$('[data-gallery="catalog"] ul li').on('click touchstart',function(){
+							$('[data-gallery="catalog"]').hide();
+							$('[data-gallery="sub-catalog"').show();
+					});
+					/* Click on sub category then open artwork item */
+					$('[data-gallery="sub-catalog"] li').on('click touchstart',function(){
+						$('[data-gallery="sub-catalog"]').hide();
+						$('[data-gallery="items"').show();
+					});
+					/* Click to return main category */
+					$('[data-gallery="reset"]').on('click touchstart',function(){
+						$('[data-gallery="sub-catalog"]').hide();
+						$('[data-gallery="items"').hide();
+						$('[data-gallery="catalog"').show();
+					});
+					
+					
+				break;
+			}
+			
+		});
+	});
+	/* Data-POPUP */
+	$('[data-popup]').each(function(){
+		$(this).on('click', function(){
+			var $pop = $(this).data('popup'); 
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+				$('[data-popup-content='+$pop+']').removeClass('active');
+			}else{
+				$('[data-popup], [data-popup-content]').removeClass('active');
+				$(this).addClass('active');
+				$('[data-popup-content='+$pop+']').addClass('active');
+			}
 		});
 	});
 	$('.product').each(function(){
@@ -39,7 +83,7 @@ $(window).on('load',function(){
 			Moi selector "change" se co noi dung tuong ung trong "change-content"
 		*/
 		var $product = $(this);
-		$(this).find('[data-change]').on('click',function(){
+		$(this).find('[data-change]').on('click touchstart',function(){
 			var $selector = $(this).data('change');
 			switch($selector){
 				case 'product':	
@@ -57,81 +101,34 @@ $(window).on('load',function(){
 			}
 		});
 	});
-	$('.add-more button').on('click', function(){
+	$('.add-more button').on('click touchstart', function(){
 		$('.selected-items').hide();
 		$('[data-change-content="product"]').show();
 	});
-	$('.product-list .close').on('click', function(){
+	$('.product-list .close').on('click touchstart', function(){
 		$('.selected-items').show();
 		$('[data-change-content="product"]').hide();
 	});
-	$('.font-options .close').on('click', function(){
-		$('.tab-content-text').show();
+	$('.font-options .close').on('click touchstart', function(){
+		$('.tab-content').show();
 		$('.font-options').hide();
 	});
-	$('.curves-thumbnail').on('click',function(){
+	$('.curves-thumbnail').on('click touchstart',function(){
 		$('.select-curves > li').each(function(){
-			$(this).on('click',function(){
+			$(this).on('click touchstart',function(){
 			var imgSrc = $(this).find('img').attr('src');
 			$('.curves-thumbnail > a img').attr('src',imgSrc);
-			console.log(imgSrc);
 			});
 		});
 		$(this).find('.select-curves').toggle();
 		});
-	/* Popup plugin content when click each plugin menu */
-	$('[data-plugin]').each(function() {
-		$(this).on('click',function(){
-			var plugin_name = $(this).data("plugin");
-			if($(this).hasClass('current')){ 
-				/* Remove current status if it is */
-				$('[data-plugin], [data-plugin-content]').removeClass('current');
-				$(this).removeClass('current');
-			}else{
-				/* If not active then remove other tab, active it */
-				$('[data-plugin], [data-plugin-content]').removeClass('current');
-				$(this).addClass('current');
-				$('[data-plugin-content='+plugin_name+']').addClass('current');
-			}
-			/* Remove all activated expanded div/dropdown */
-			$('body').find('.expanded').removeClass('expanded');
-			/* Return unactivated status for .nav-toggle on topbar */
-			$('.toolbar').find('.lnr-cross').removeClass('lnr-cross').addClass('lnr-menu');
-		});
-	});
-	/* UI Tab: User Upload Photo plugin */
-	$('[data-plugin-content="upload"]').on('click','[data-upload]',function() {
-			var plugin_name = $(this).data("upload");
-			$('[data-upload], [data-upload-content]').removeClass('current');
-			$(this).addClass('current');
-			$('[data-upload-content='+plugin_name+']').addClass('current');
-	});
-	/* UI Tab: Image library  plugin*/
-	$('[data-plugin-content="imagelibrary"]').on('click','[data-image]',function() {
-			var plugin_name = $(this).data("image");
-			$('[data-image], [data-image-content]').removeClass('current');
-			$(this).addClass('current');
-			$('[data-image-content='+plugin_name+']').addClass('current');
-	});
-	/* UI Tab: Text plugin */
-	$('[data-plugin-content="text"]').on('click','[data-text]',function() {
-			var plugin_name = $(this).data("text");
-			$('[data-text], [data-text-content]').removeClass('current');
-			$(this).addClass('current');
-			$('[data-text-content='+plugin_name+']').addClass('current');
-	});
-	
-	/* Click to close preview/current tab from toolbar bottom */
-	$('[data-plugin-content]').on('click','.close',function() {
-			//console.log($(this).parent());
-			var plugin_name = $(this).data("close");
-			$('[data-plugin='+plugin_name+'], [data-plugin-content='+plugin_name+']').removeClass('current');
-	});
+ 
 	/* Action on tab text */
-	$('[data-text-field]').on('click',function(){
+	$('[data-text-field]').on('click touchstart',function(){
 		
 		var field = $(this).data('text-field');
 		var $this = $(this);
+		
 		//console.log(field);
 		switch(field){
 			case 'object':
@@ -146,24 +143,16 @@ $(window).on('load',function(){
 			break;			
 			case 'font':
 			//Show font family list
-			$('.tab-content-text').hide();
+			$('.tab-content.text').hide();
 			$('.font-options').show();
 			//$('.font-options').toggleClass('expanded');
 			//Get font family
 			$('.font-list li a').click(function(){
 				$this.attr("style", $(this).attr("style"));
 				$this.val($(this).text());
-				$('.tab-content-text').show();
+				$('.tab-content.text').show();
 				$('.font-options').hide();
 			});
-			break;
-			case 'curves':
-			//Show curves text type list
-			$('.tab-content-text').hide();
-			$('.font-options').show();
-			break;
-			case 'size':
-			//Valid size
 			break;
 		}
 		
@@ -195,5 +184,11 @@ $(window).on('load',function(){
 		$('[data-text-field="color"]').val(hexColor);
 		$('[data-text-field="outlinecolor"]').val(hexColor);
 	}
+	/* Toggle advanced text settings */
+	$('[data-toggle]').on('click touchstart', function(){
+		var $toggle = $(this).data('toggle');
+		$('[data-toggle-content="'+$toggle+'"]').toggle();
+		$(this).find('.lnr-chevron-down , .lnr-chevron-right').toggleClass('lnr-chevron-down lnr-chevron-right');
+	});
 	
 });

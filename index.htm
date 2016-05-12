@@ -4,7 +4,7 @@
   <title>Online Products Designer Tool</title>
   <meta charset="UTF-8"/>
   <!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
   <link href="assets/css/normalize.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/simplebar.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/input-range.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,8 @@
 			<li><a href="#" class="primary-button thin" title="Start Live Chat">Start Live Chat</a></li>
 			<!-- <li><a class="left" href="#" title="Help Center">Call us: 866-660-8667</a></li> -->
 		</ul>
-		<div ng-include="'view/help.htm'" class="help-info f-right"><!-- Load help inforamtion --></div>
+		<div ng-include="'view/user-navigation.htm'" class="f-right"><!-- Load user navigation(Buy, Save, Download, Share) --></div>
+		<div class="sub-price f-right"><p><strong>$12.05</strong> per item.</p></div>
 	</div>
 	<div class="mainContent clearfix">
 		<div class="sidebar left" data-area="sidebar">
@@ -59,26 +60,6 @@
 					
 				</div>
 			</div>
-			<!-- <div class="block-item-price clearfix">
-				<span class="item-price"><strong>$12.5</strong> per item</span>
-				<button type="button" class="primary-button medium"><span><span class="lnr lnr-arrow-right"></span> View Details</span></button>
-			</div>
-			<div class="block-design-template clearfix">
-				<h3><span class="lnr lnr-store"></span> Design template</h3>
-				<div class="block-content">
-					<input type="text" class="instant-search" placeholder="Search design name" />
-					<div class="template-listing simplebar" data-simplebar-direction="vertical">
-						<ul>
-							<li><a><img src="assets/media/design-template.png" alt="" /><span class="item-price">Free</span>
-							</a></li>
-							<li><a><img src="assets/media/design-template.png" alt="" /><span class="item-price">Free</span>
-							</a></li>
-							<li><a><img src="assets/media/design-template.png" alt="" /><span class="item-price">Free</span>
-							</a></li>				
-						</ul>
-					</div>
-				</div>
-			</div> -->
 		</div>
 		<div class="mainview" data-area="mainview">
 			<div class="toolbar"><div ng-include="'view/toolbar.htm'"><!-- Load toolber designer tool --></div></div>
@@ -89,16 +70,21 @@
 			<div class="designarea">
 				<canvas id="c" width="400" height="400"></canvas>
 			</div>
+			<div class="hidden-popup">
+				<div ng-include="'view/hidden-popup.htm'"></div>
+			</div>
 		</div>
-		<div class="sidebar-bottom"  data-area="bottom">
-			<label>Scare/Zoom </label> <input id="scale" type="range" min="10" max="100" step="1" style="width: 200px;" />
-			<button type="button" class="primary-button small"><span><span class="lnr lnr-sync"></span> Reset zoom</span></button>
+		<div class="sidebar-bottom" data-area="bottom">
+			<label>Zoom/Scale: </label>
+			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-circle-minus"></span> 2X</span></button>
+			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-plus-circle"></span> 2X</span></button>
+			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-plus-circle"></span> 3X</span></button>
+			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-plus-circle"></span> 4X</span></button>
+			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-plus-circle"></span> 5X</span></button>
+			<button class="primary-button small greyplus" type="button"><span><span class="lnr lnr-sync"></span> Reset zoom</span></button>
+			
+			
 		</div>
-		<div data-plugin-content="upload" class="plugin-content"><div ng-include="'view/upload.htm'"><!-- Upload plugin --></div></div>
-		<div data-plugin-content="imagelibrary" class="plugin-content"><div ng-include="'view/image.htm'"><!-- Photo library plugin --></div></div>
-		<div data-plugin-content="text" class="plugin-content"><div ng-include="'view/text.htm'"><!-- Text plugin --></div></div>
-		<div data-plugin-content="shapes" class="plugin-content"><div ng-include="'view/shapes.htm'"><!-- Shape plugin --></div></div>
-		<div data-plugin-content="layout" class="plugin-content"><div ng-include="'view/layout.htm'"><!-- Layout plugin --></div></div>
 	</div>
   </body>
 </html>
