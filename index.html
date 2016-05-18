@@ -1,90 +1,149 @@
 <!DOCTYPE HTML>
-<html language="en" ng-app>
-  <head>
-  <title>Online Products Designer Tool</title>
-  <meta charset="UTF-8"/>
-  <!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
-  <link href="assets/css/normalize.css" rel="stylesheet" type="text/css" />
-  <link href="assets/css/simplebar.css" rel="stylesheet" type="text/css" />
-  <link href="assets/css/input-range.css" rel="stylesheet" type="text/css" />
-  <link href="assets/css/spectrum.css" rel="stylesheet" type="text/css" />
-
-  <link href="assets/css/styles.css" rel="stylesheet" type="text/css" media="all"/>  
-  <!-- Load icon font from linearicon free font. Reference Cheat Sheet: https://linearicons.com/free#cheat-sheet -->
-  <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"> 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js" ></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js" ></script>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js" ></script>
-  <script type="text/javascript" src="js/load-sample-canvas.js" ></script>  
-  <script type="text/javascript" src="js/simplebar.js" ><!-- Simple bar for custom scrollbar --></script>      
-  <script type="text/javascript" src="js/spectrum.js" ><!-- Color Picker --></script>      
-  <script type="text/javascript" src="js/theme.js" ></script>  
-  </head>
-  <body>
-	<div class="toppage">
-		<div class="sitelogo f-left">
-			<a href="#" class="logo">
-				<img src="assets/images/app-logo-m.svg" alt="Site Logo" />
-			</a>
-		</div>
-		<ul class="help">
-			<li><a href="#" class="primary-button thin" title="Start Live Chat">Start Live Chat</a></li>
-			<!-- <li><a class="left" href="#" title="Help Center">Call us: 866-660-8667</a></li> -->
-		</ul>
-		<div ng-include="'view/user-navigation.htm'" class="f-right"><!-- Load user navigation(Buy, Save, Download, Share) --></div>
-		<div class="sub-price f-right"><p><strong>$12.05</strong> per item.</p></div>
-	</div>
-	<div class="mainContent clearfix">
-		<div class="sidebar left" data-area="sidebar">
-			<div class="sidebar-content">
-				<ul class="data-tabs">
-					<li><a href="#" title="" data-tab="items" class="active"><img src="assets/images/tab-items.svg" alt="" /> <span>Your items</span></a></li>
-					<li><a href="#" title="" data-tab="addtext"><img src="assets/images/tab-text.svg" alt="" /> <span>Add text</span></a></li>
-					<li><a href="#" title="" data-tab="addimage"><img src="assets/images/tab-images.svg" alt="" /> <span>Add art</span></a></li>
-					<li><a href="#" title="" data-tab="addnote"><img src="assets/images/tab-notes.svg" alt="" /> <span>Add notes</span></a></li>
-				</ul>
-				<div class="data-tab-content">
-					<div data-tab-content="items" class="active">
-						<div ng-include="'view/items.htm'"><!-- Items --></div>
-					</div>
-					<div data-tab-content="addtext">
-						<div ng-include="'view/addtext.htm'"><!-- Add text --></div>
-					</div>
-					<div data-tab-content="addimage">
-						<div ng-include="'view/addimage.htm'"><!-- Add image --></div>
-					</div>
-					<div data-tab-content="addnote">
-						<div ng-include="'view/addnote.htm'"><!-- Add note --></div>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-		<div class="mainview" data-area="mainview">
-			<div class="toolbar"><div ng-include="'view/toolbar.htm'"><!-- Load toolber designer tool --></div></div>
-			<div class="toolbox" ng-include="'view/toolbox.htm'">
-			<!-- Load Toolbox (show grid | show ruler | Preview | Duplicate | Rotate | Send to Front | Send to Back | Delete-->
-			</div>
-			
-			<div class="designarea">
-				<canvas id="c" width="400" height="400"></canvas>
-			</div>
-			<div class="hidden-popup">
-				<div ng-include="'view/hidden-popup.htm'"></div>
-			</div>
-		</div>
-		<div class="sidebar-bottom" data-area="bottom">
-			<label>Zoom/Scale: </label>
-			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-circle-minus"></span> 2X</span></button>
-			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-plus-circle"></span> 2X</span></button>
-			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-plus-circle"></span> 3X</span></button>
-			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-plus-circle"></span> 4X</span></button>
-			<button class="primary-button small grey" type="button"><span><span class="lnr lnr-plus-circle"></span> 5X</span></button>
-			<button class="primary-button small greyplus" type="button"><span><span class="lnr lnr-sync"></span> Reset zoom</span></button>
-			
-			
-		</div>
-	</div>
-  </body>
+<html language="en">
+    <head>
+        <title>Online Products Designer Tool</title>
+        <meta charset="UTF-8"/>
+        <!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
+        <link href="assets/css/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/simplebar.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/input-range.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/spectrum.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/styles.css" rel="stylesheet" type="text/css" media="all"/>
+        <!-- Load icon font from linearicon free font. Reference Cheat Sheet: https://linearicons.com/free#cheat-sheet -->
+        <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"/>
+    </head>
+    <body ng-controller="DesignController">
+		<h1>{{title}}</h1>
+        <div class="toppage">
+            <div class="sitelogo f-left">
+                <a href="#" class="logo">
+                <img src="assets/images/app-logo-m.svg" alt="Site Logo" />
+                </a>
+            </div>
+            <ul class="help">
+                <li>
+                    <a href="#" class="primary-button thin" title="Start Live Chat">Start Live Chat</a>
+                </li>
+                <!-- <li><a class="left" href="#" title="Help Center">Call us: 866-660-8667</a></li> -->
+            </ul>
+            <pdp-user-navigation></pdp-user-navigation>
+            <div class="sub-price f-right">
+                <p>
+                    <strong>$12.05</strong> per item.
+                </p>
+            </div>
+        </div>
+        <div class="mainContent clearfix">
+            <div class="sidebar left" data-area="sidebar">
+                <div class="sidebar-content">
+                    <ul class="data-tabs">
+                        <li>
+                            <a href="#" title="" data-tab="items" class="active">
+                            <img src="assets/images/tab-items.svg" alt="" />
+                            <span>Your items</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="" data-tab="addtext">
+                            <img src="assets/images/tab-text.svg" alt="" />
+                            <span>Add text</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="" data-tab="addimage">
+                            <img src="assets/images/tab-images.svg" alt="" />
+                            <span>Add art</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="" data-tab="addnote">
+                            <img src="assets/images/tab-notes.svg" alt="" />
+                            <span>Add notes</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="data-tab-content">
+                        <div data-tab-content="items" class="active">
+                            <pdp-items></pdp-items>
+                        </div>
+                        <div data-tab-content="addtext">
+                            <pdp-add-text></pdp-add-text>
+                        </div>
+                        <div data-tab-content="addimage">
+                            <pdp-add-image></pdp-add-image>
+                        </div>
+                        <div data-tab-content="addnote">
+                            <pdp-add-note></pdp-add-note>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mainview" data-area="mainview">
+                <div class="toolbar">
+                    <pdp-toolbar></pdp-toolbar>
+                </div>
+                <div class="toolbox">
+					<pdp-toolbox></pdp-toolbox>
+                    <!-- Load Toolbox (show grid | show ruler | Preview | Duplicate | Rotate | Send to Front | Send to Back | Delete-->
+                </div>
+                <div class="designarea">
+                    <canvas id="c" width="400" height="400"></canvas>
+                </div>
+                <div class="hidden-popup">
+					<pdp-hidden-popup></pdp-hidden-popup>
+                </div>
+            </div>
+            <div class="sidebar-bottom" data-area="bottom">
+                <label>Zoom/Scale: </label>
+                <button class="primary-button small grey" type="button">
+                <span>
+                <span class="lnr lnr-circle-minus"></span> 2X
+                </span>
+                </button>
+                <button class="primary-button small grey" type="button">
+                <span>
+                <span class="lnr lnr-plus-circle"></span> 2X
+                </span>
+                </button>
+                <button class="primary-button small grey" type="button">
+                <span>
+                <span class="lnr lnr-plus-circle"></span> 3X
+                </span>
+                </button>
+                <button class="primary-button small grey" type="button">
+                <span>
+                <span class="lnr lnr-plus-circle"></span> 4X
+                </span>
+                </button>
+                <button class="primary-button small grey" type="button">
+                <span>
+                <span class="lnr lnr-plus-circle"></span> 5X
+                </span>
+                </button>
+                <button class="primary-button small greyplus" type="button">
+                <span>
+                <span class="lnr lnr-sync"></span> Reset zoom
+                </span>
+                </button>
+            </div>
+        </div>
+        <!-- PDP 2016 JS -->
+		<script data-main="js/main" src="js/require.js"></script>
+		<!--
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js" ></script>
+		<script type="text/javascript" src="js/angular/lib/angular.js" ></script>
+        <script type="text/javascript" src="js/angular/lib/angular-route.min.js" ></script>
+        <script type="text/javascript" src="js/angular/pdp/app.js"></script>
+        <script type="text/javascript" src="js/angular/pdp/services.js"></script>
+        <script type="text/javascript" src="js/angular/pdp/controllers/DesignController.js"></script>
+		<script type="text/javascript" src="js/angular/pdp/directives/pdp-directives.js"></script>
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js" ></script>
+        <script type="text/javascript" src="js/load-sample-canvas.js" ></script>
+        <script type="text/javascript" src="js/simplebar.js" ></script>
+        <script type="text/javascript" src="js/spectrum.js" ></script>
+        <script type="text/javascript" src="js/theme.js" ></script>
+		<script type="text/javascript" src="js/pdp/productdesignerpro-2.0.js" ></script>-->
+		<!-- End PDP 2016 JS -->
+    </body>
 </html>
