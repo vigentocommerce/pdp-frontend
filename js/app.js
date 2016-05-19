@@ -3,9 +3,9 @@ require([
 	'angular'
 ], function (angular) {
 	require([
-		'app/controllers/DesignController',
-		'app/PdpServices',
-		'app/directives/PdpDirectives',
+		'js/app/controllers/DesignController',
+		'js/app/PdpServices',
+		'js/app/directives/PdpDirectives',
 	], function (DesignController, PdpServices, PdpDirectives) {
 		angular
 			.module('pdpAngularApp', [PdpServices, PdpDirectives])

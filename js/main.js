@@ -1,24 +1,24 @@
 requirejs.config({
-    baseUrl: 'js',
+    baseUrl: './',
     paths: {
         'angular': [
             'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min',
-            'lib/angular'
+            'js/lib/angular'
         ],
-        'angularRoute': 'lib/angular-route.min',
+        'angularRoute': 'js/lib/angular-route.min',
         'jquery': [
             'https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min',
-            'lib/jquery-1.10.2.min'
+            'js/lib/jquery-1.10.2.min'
         ],
         'fabricjs': [
             'https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.2/fabric.min',
-            'lib/fabric' 
+            'js/lib/fabric' 
         ],
-        'simplebar': 'lib/simplebar',
-        'spectrum': 'lib/spectrum',
-        'pdp' : 'app/pdp',
-        'customjQueryScript': 'app/customjQueryScript',
-        'app': 'app',
+        'simplebar': 'js/lib/simplebar',
+        'spectrum': 'js/lib/spectrum',
+        'pdp' : 'js/app/pdp',
+        'customjQueryScript': 'js/app/customjQueryScript',
+        'app': 'js/app',
     },
     shim: {
         'angular': {

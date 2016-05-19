@@ -10,10 +10,10 @@ module.exports = function(grunt) {
             all: ['Gruntfile.js','js/app/**/*.js']
         },
         concat: {
-            js: {
-                src: ['js/test1.js', 'js/test2.js'],
-                dest: 'dist/js/<%= pkg.name %>-<%= pkg.version %>.js',
-            },
+            // js: {
+            //     src: ['js/test1.js', 'js/test2.js'],
+            //     dest: 'dist/js/<%= pkg.name %>-<%= pkg.version %>.js',
+            // },
             css: {
                 src: [  
                     'assets/css/normalize.css',
@@ -41,14 +41,20 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/js/<%= pkg.name %>-<%= pkg.version %>.min.js': ['dist/js/<%= pkg.name %>-<%= pkg.version %>.js']
+                    //'dist/js/<%= pkg.name %>-<%= pkg.version %>.min.js': ['dist/js/<%= pkg.name %>-<%= pkg.version %>.js'],
+                    //'dist/js/app/controllers/DesignController.min.js': ['js/app/controllers/DesignController.js'],
+                    //'dist/js/app/directives/PdpDirectives.min.js': ['js/app/directives/PdpDirectives.js'],
+                    //'dist/js/app/customjQueryScript.min.js': ['js/app/customjQueryScript.js'],
+                    //'dist/js/app/PdpServices.min.js': ['js/app/PdpServices.js'],
+                    //'dist/js/app/pdp.min.js': ['js/app/pdp.js'],
+                    //'dist/js/app/load-sample-canvas.min.js': ['js/app/load-sample-canvas.js'],
                 }
             }  
         },
         watch: {
             js: {
                 files: 'js/app/**/*.js',
-                tasks: ['concat:js', 'uglify', 'jshint'],
+                tasks: ['uglify', 'jshint'],
             },
             css: {
                 files: 'assets/css/*.css',
