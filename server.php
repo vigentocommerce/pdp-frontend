@@ -13,6 +13,9 @@ class PDPServer {
         );
         return $config;
     }
+    public function getConfig() {
+        
+    }
 }
 $request = $_REQUEST;
 if (isset($request['action'])) {
