@@ -3,7 +3,7 @@ define(['jquery'], function(jQuery) {
         // 'new' an object
         var PDC = function() {
             return new PDC.init();
-        }
+        };
         // hidden within the scope of the IIFE and never directly accessible
         var config = {
             base_url: $("#base_url").val(),
@@ -22,7 +22,7 @@ define(['jquery'], function(jQuery) {
             preview_thumbnail: 'jpg',
             productConfig: ($("#pdc_product_config").length) ? JSON.parse($("#pdc_product_config").val()) : '',
             isServerNginx : ($("#server-nginx").length) ? $("#server-nginx").val() : 0,
-        }
+        };
         var _sidesConfig = ($("#sides_config").length && $("#sides_config").val()) ? JSON.parse($("#sides_config").val()) : '';
         // prototype holds methods (to save memory space)
         // All core functions place here
@@ -98,7 +98,7 @@ define(['jquery'], function(jQuery) {
                     var _jsonInfoForSave = {
                         options: options || '',
                         side_config: _sidesConfig
-                    }
+                    };
                     $.ajax({
                         type: "POST",
                         url: config.save_json_url,
@@ -139,7 +139,7 @@ define(['jquery'], function(jQuery) {
                             callback(xhr.responseText);
                         }
                     }
-                }
+                };
                 // 2. Define what to do when XHR feed you the response from the server - End
 
                 // 3. Specify your action, location and Send to the server - Start
@@ -160,7 +160,7 @@ define(['jquery'], function(jQuery) {
                         product_id: self.getCurrentProductId(),
                         design_title: "",
                         design_note: ""
-                    }
+                    };
                     self.saveJsonFile(_saveSampleOptions, function(response) {
                         var responseJSON = JSON.parse(response);
                         if(responseJSON.status == "error") {
@@ -193,7 +193,7 @@ define(['jquery'], function(jQuery) {
                         product_id: self.getCurrentProductId(),
                         design_title: $("#design_title").val() || "",
                         design_note: $("#design_note").val() || ""
-                    }
+                    };
                     self.saveJsonFile(_saveSampleOptions, function(response) {
                         var responseJSON = JSON.parse(response);
                         if(responseJSON.status == "error") {
@@ -323,6 +323,7 @@ define(['jquery'], function(jQuery) {
             },
             getSampleJson: function() {
                 var self = this,
+                    _designInJson,
                     mainWindow = top.document,
                     currentAction = $("#pdp_design_action", mainWindow).val();
                 self.showLog("Get Sample JSON if exists!", "info");
@@ -335,7 +336,7 @@ define(['jquery'], function(jQuery) {
                         //Edit cart function, the extra_options will show on main window only
                         if($("#extra_options_value", mainWindow).length && $("#extra_options_value", mainWindow).val() !== "") { 
                             try {
-                                var _designInJson = JSON.parse($("#extra_options_value", mainWindow).val());
+                                _designInJson = JSON.parse($("#extra_options_value", mainWindow).val());
                                 if(_designInJson) return _designInJson;
                             } catch(e) {
                                 this.showLog(e, "error");
@@ -345,7 +346,7 @@ define(['jquery'], function(jQuery) {
                     default:
                         if($("#extra_options_value").length && $("#extra_options_value").val() !== "") {
                             try {
-                                var _designInJson = JSON.parse($("#extra_options_value").val());
+                                _designInJson = JSON.parse($("#extra_options_value").val());
                                 if(_designInJson) return _designInJson;
                             } catch(e) {
                                 this.showLog(e, "error");
@@ -474,7 +475,7 @@ define(['jquery'], function(jQuery) {
                                         action: 'save_for_share',
                                         product_id: self.getCurrentProductId(),
                                         note: jsonResponse.thumbnail_path
-                                    }
+                                    };
                                     self.saveJsonFile(_saveSampleOptions, function(response) {
                                         self.checkJSONReady.resetChecking();
                                         //console.info("Json ready object", self.checkJSONReady);
@@ -671,7 +672,7 @@ define(['jquery'], function(jQuery) {
                         side_color_id: $(".pdc_design_color li.active").attr("pdc-color") || "",
                         side_color: _activeSide.attr("side_color") || $(".pdc_design_color li.active").attr("color") || "",
                         color_code: _activeSide.attr("side_color") || _activeSide.attr("color_code"),
-                    }
+                    };
                     //Modified json in _oldData before re-render
                     var jsonObj = JSON.parse(_oldData.json);
                     //Skip object and change the background image and overlay image
@@ -731,7 +732,7 @@ define(['jquery'], function(jQuery) {
                 var fonts = [],
                     fontListEl = $("#pdc_font_list");
                 if(fontListEl.length && fontListEl.val()) {
-                    var fonts = JSON.parse(fontListEl.val());
+                    fonts = JSON.parse(fontListEl.val());
                 }
                 return fonts;
             },
@@ -790,8 +791,8 @@ define(['jquery'], function(jQuery) {
                     });
                     //Sort side list follow position attribute
                     sortedSideListArr = unsortSideListArr.sort(function(a, b){
-                        return a.pos - b.pos
-                    })
+                        return a.pos - b.pos;
+                    });
                     $.each(sortedSideListArr, function() {
                         sortedSideListHtml += this.html;                                              
                     });
@@ -847,9 +848,9 @@ define(['jquery'], function(jQuery) {
             },
             //Pattern layer or background layer, not canvas background
             addBackgroundLayer: function(src, options, _canvas) {
-                var self = this,
-                    _canvas = _canvas || this.getCurrentCanvas(),
-                    options = options || {};
+                var self = this;
+                _canvas = _canvas || this.getCurrentCanvas();
+                options = options || {};
                 //Remove background layer before add
                 _canvas.forEachObject(function(obj) {
                     if(obj.object_type && obj.object_type == "background") {
@@ -914,10 +915,10 @@ define(['jquery'], function(jQuery) {
                 }
             },
             addBackgroundColorLayer: function(color, options, _canvas) {
-                var self = this,
-                    _canvas = _canvas || this.getCurrentCanvas(),
-                    color = color || '#ffffff'
-                    options = options || {};
+                var self = this;
+                _canvas = _canvas || this.getCurrentCanvas();
+                color = color || '#ffffff';
+                options = options || {};
                 //Remove background color layer before add
                 _canvas.forEachObject(function(obj) {
                     if(obj.object_type && obj.object_type == "background_color") {
@@ -947,18 +948,18 @@ define(['jquery'], function(jQuery) {
                 var nImg = document.createElement('img');
                 nImg.onload = function() {
                     $('#side-' + sideId).find('img').attr('src', this.src);
-                }
+                };
                 nImg.onerror = function() {
                     console.warn("No Thumbnail Found");
                     sideElement.find('img').attr("src", src);
-                }
+                };
                 nImg.src = _thumbnailSrc;
                 this.getSidesConfig()[sideId].background_path = src;
             },
             addOverlayLayer: function(src, options, _canvas) {
-                var _canvas = _canvas || this.getCurrentCanvas(),
-                    options = options || {},
-                    self = this;
+                var self = this;
+                _canvas = _canvas || this.getCurrentCanvas();
+                options = options || {};
                 /*_canvas.setOverlayImage(src, _canvas.renderAll.bind(_canvas), {
                     left: 0,
                     top: 0,
@@ -1058,7 +1059,7 @@ define(['jquery'], function(jQuery) {
                             _canvas.centerObject(image);
                             _canvas.add(image).setActiveObject(image);
                             self.hideLoadingBar();
-                            callback && callback();
+                            if(callback) callback();
                             
                         });   
                     } else {
@@ -1102,7 +1103,7 @@ define(['jquery'], function(jQuery) {
                     loadedObject.hasRotatingPoint = true;
                     _canvas.add(loadedObject).setActiveObject(loadedObject);
                     _canvas.renderAll();
-                    callback && callback();
+                    if(callback) callback();
                 });
             },
             //Add frame to top position of object stack
@@ -1283,7 +1284,7 @@ define(['jquery'], function(jQuery) {
                                             console.warn("There is image that be used on sample design but not exists on the server! Please remove the sample design and create new sample design.");
                                             _canvas.remove(object);
                                             //canvas.renderAll();
-                                        }
+                                        };
                                         nImg.src = o.isrc || o.src;
                                     }
                                 });
@@ -1609,7 +1610,7 @@ define(['jquery'], function(jQuery) {
                 }
                 return hasDesignItem;
             }
-        }
+        };
         // the actual object is create here, allowing us to 'new' an object without calling new
         PDC.init = function() {
             var self = this;
@@ -1618,7 +1619,7 @@ define(['jquery'], function(jQuery) {
             //init sides data, assign json to sides properties
             self.initSidesData();
             self.restoreDesignFromJson();
-        }
+        };
         PDC.init.prototype = PDC.prototype;
         //global.PDC = PDC;
         return PDC;

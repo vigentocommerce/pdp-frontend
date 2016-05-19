@@ -27,7 +27,7 @@ define(['jquery', 'spectrum'], function($, spectrum) {
 					var $section = $(this).data('inline-tab');
 					$('[data-inline-section]').hide();
 					$('[data-inline-section="'+$section+'"]').toggle();
-					$('[data-inline-section] .close').on('click touchstart',function(){$(this).parent().hide()});
+					$('[data-inline-section] .close').on('click touchstart',function(){$(this).parent().hide();});
 				});
 				/* Style for file input */
 				$('[data-file').on('change touchstart', function(e){

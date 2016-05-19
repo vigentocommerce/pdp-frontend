@@ -1,0 +1,23 @@
+{
+  "name": "productdesignerpro",
+  "title": "Product Designer Pro",
+  "version": "1.0.0",
+  "description": "PDP 2016 App",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vigentocommerce/pdp-frontend.git"
+  },
+  "author": "Magebay Developers Team",
+  "home": "http://productsdesignerpro.com/",
+  "magebay_team": "http://magebay.com/",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}

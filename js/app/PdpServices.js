@@ -1,8 +1,7 @@
-/*global define*/
-'use strict';
 define([
 	'angular'
 ], function (angular) {
+    'use strict';
 	var moduleName = 'PdpServices';
 	angular
 		.module(moduleName, [])
