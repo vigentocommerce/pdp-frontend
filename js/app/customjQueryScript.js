@@ -30,7 +30,7 @@ define(['jquery', 'spectrum'], function($, spectrum) {
 					$('[data-inline-section] .close').on('click touchstart',function(){$(this).parent().hide();});
 				});
 				/* Style for file input */
-				$('[data-file').on('change touchstart', function(e){
+				$('[data-file]').on('change touchstart', function(e){
 					var $value = $(this).data('file');
 					var fileName = e.target.value.split( '\\' ).pop();
 					switch($value){
@@ -44,18 +44,18 @@ define(['jquery', 'spectrum'], function($, spectrum) {
 				/* Click on main artwork catalog then open sub category */
 				$('[data-gallery="catalog"] ul li').on('click touchstart',function(){
 						$('[data-gallery="catalog"]').hide();
-						$('[data-gallery="sub-catalog"').show();
+						$('[data-gallery="sub-catalog"]').show();
 				});
 				/* Click on sub category then open artwork item */
 				$('[data-gallery="sub-catalog"] li').on('click touchstart',function(){
 					$('[data-gallery="sub-catalog"]').hide();
-					$('[data-gallery="items"').show();
+					$('[data-gallery="items"]').show();
 				});
 				/* Click to return main category */
 				$('[data-gallery="reset"]').on('click touchstart',function(){
 					$('[data-gallery="sub-catalog"]').hide();
-					$('[data-gallery="items"').hide();
-					$('[data-gallery="catalog"').show();
+					$('[data-gallery="items"]').hide();
+					$('[data-gallery="catalog"]').show();
 				});
 				
 				
