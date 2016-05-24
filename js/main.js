@@ -18,6 +18,7 @@ requirejs.config({
         'spectrum': 'js/lib/spectrum',
         'pdp' : 'js/app/pdp',
         'customjQueryScript': 'js/app/customjQueryScript',
+        'action': 'js/app/action',
         'app': 'js/app',
     },
     shim: {
@@ -36,6 +37,9 @@ requirejs.config({
         },
         'spectrum': {
             deps: ['jquery']
+        },
+        'action' : {
+            deps: ['jquery', 'fabricjs', 'pdp']
         }
     },
     // kick start angular application

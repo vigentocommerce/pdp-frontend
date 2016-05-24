@@ -277,7 +277,7 @@ define(['jquery'], function(jQuery) {
                 var activeSide;
                 if($('[data-popup-content="sideswap"] .side-list li.current').length) {
                     var activeSideId = $('[data-popup-content="sideswap"] .side-list li.current').find('.side-item').attr("id").replace("side-", "");
-                    //console.info(activeSideId, "Get Active Side", _sidesConfig[activeSideId]);
+                    console.info(activeSideId, "Get Active Side", _sidesConfig[activeSideId]);
                     $.each(_sidesConfig, function(index, side) {
                         if(side.side_id == activeSideId) {
                             activeSide = side;

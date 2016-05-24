@@ -1,6 +1,7 @@
 define([
-	'angular'
-], function (angular) {
+	'angular',
+	'pdp'
+], function (angular, pdp) {
     'use strict';
 	return ['$scope', '$location', 'PdpServices',
 		function ($scope, $location, PdpServices) {
@@ -19,11 +20,9 @@ define([
 							if(response.data.colors) {
 								for(var i in response.data.colors) {
 									if(response.data.colors.hasOwnProperty(i)) {
-										require(['pdp'], function(pdp) {
-											var pdpObj = pdp();
-											pdpObj.setSidesConfig(response.data.colors[i]);
-											pdpObj.prepareCanvas(response.data.colors[i]);
-										});		
+										var pdpObj = pdp();
+										pdpObj.setSidesConfig(response.data.colors[i]);
+										pdpObj.prepareCanvas(response.data.colors[i]);		
 										break;
 									}
 								}

@@ -206,22 +206,4 @@ define(['jquery', 'spectrum'], function($, spectrum) {
 		$('[data-toggle-content="'+$toggle+'"]').toggle();
 		$(this).find('.lnr-chevron-down , .lnr-chevron-right').toggleClass('lnr-chevron-down lnr-chevron-right');
 	});
-	/******************** Most of PDP events here ***********************/
-	/** Switch Side */
-	$(mainContent).on('click', '[pdc-action="SWITCH_SIDE"]', function() {
-		$('[pdc-action="SWITCH_SIDE"]').removeClass('current');
-		//Do switch side here
-		var sideId = $(this).find('.side-item').attr('id').replace('side-', '');
-		require(['pdp'], function(pdp) {
-			var pdpObject = pdp();
-			$.each(pdpObject.allCanvas, function(i, _canvas) {
-                _canvas.deactivateAll();
-                _canvas.renderAll();
-            });
-			pdpObject.initCanvas();
-			$('[data-popup-content="sideswap"]').removeClass('active');
-			$('[data-popup="sideswap"]').removeClass('active');
-		});
-		$(this).addClass('current');
-	});
 });
