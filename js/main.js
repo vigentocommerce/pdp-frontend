@@ -20,10 +20,12 @@ requirejs.config({
         'customjQueryScript': 'js/app/customjQueryScript',
         'action': 'js/app/action',
         'app': 'js/app',
+        'undomanager': 'js/lib/undomanager',
+        'PdpHistory': 'js/app/PdpHistory'
     },
     shim: {
         'angular': {
-            deps: ['fabricjs'],
+            deps: ['fabricjs','pdp'],
 			exports: 'angular'
 		},
         'jquery': {
