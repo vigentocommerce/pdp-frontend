@@ -7,6 +7,15 @@ module.exports = function(grunt) {
         '* Magebay Team: <%= pkg.magebay_team %> \n' +
         '*/\n',
         jshint: {
+            options: {
+                //curly: true,
+                //eqeqeq: true,
+                //eqnull: true,
+                //browser: true,
+                //globals: {
+                    //jQuery: true
+                //},
+            },
             all: ['Gruntfile.js','js/app/**/*.js']
         },
         concat: {

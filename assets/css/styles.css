@@ -438,7 +438,7 @@ p {
 .designarea {
   margin: 0 auto;
   text-align: center;
-  display: table;
+  display: block;
 }
 .toolbox {
   background: #ffffff none repeat scroll 0 0;
@@ -1433,4 +1433,15 @@ ul.txt-list-btn li a:hover {
   display: block;
   vertical-align: middle;
   width: 90px;
+}
+.mainview .design-side-item {
+  position: relative;
+}
+.mainview .design-side-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.mainview .design-side-item .wrap-canvas {
+  position: absolute;
 }

@@ -13,13 +13,12 @@ require([
 		//Start angular app
 		angular.bootstrap(document, ['pdpAngularApp']);		
 		//Start pdp app
-		require(['pdp','customjQueryScript'], function(pdp, customScript) {
-		    var pdpObj = pdp();
-		    console.info(pdpObj);
+		require(['customjQueryScript'], function(customScript) {
+		    //Call theme action
 		});	
 		//Test fabric render
-		require(['app/load-sample-canvas'], function() {
+		// require(['app/load-sample-canvas'], function() {
 			
-		})
+		// })
 	});	
 });

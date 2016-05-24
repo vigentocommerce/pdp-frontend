@@ -6,8 +6,8 @@ define(['jquery'], function(jQuery) {
         };
         // hidden within the scope of the IIFE and never directly accessible
         var config = {
-            base_url: $("#base_url").val(),
-            media_url: $("#pdp_media_url").val(),
+            base_url: 'http://pdp2016.frontend.dev/',
+            media_url: 'http://pdp2016.frontend.dev/',
             save_thumbnail_url: $("#base_url").val() + "pdp/index/saveBase64Image/",
             save_json_url: $("#base_url").val() + "pdp/index/saveJsonfile/",
             save_admin_template: $("#base_url").val() + "pdp/index/saveAdminTemplate/",
@@ -23,7 +23,7 @@ define(['jquery'], function(jQuery) {
             productConfig: ($("#pdc_product_config").length) ? JSON.parse($("#pdc_product_config").val()) : '',
             isServerNginx : ($("#server-nginx").length) ? $("#server-nginx").val() : 0,
         };
-        var _sidesConfig = ($("#sides_config").length && $("#sides_config").val()) ? JSON.parse($("#sides_config").val()) : '';
+        var _sidesConfig = {};
         // prototype holds methods (to save memory space)
         // All core functions place here
         PDC.prototype = {
@@ -56,7 +56,7 @@ define(['jquery'], function(jQuery) {
             sideLength: 0,
             getCurrentCanvas: function() {
                 var activeSide = this.getActiveSide();
-                if(activeSide && activeSide.id) {
+                if(activeSide && activeSide.side_id) {
                     return this.allCanvas[activeSide.id];
                 }
             },
@@ -274,11 +274,18 @@ define(['jquery'], function(jQuery) {
                 return _isEnable;
             },
             getActiveSide: function() {
-                if($(".side-item.active").length) {
-                    var activeSideId = $(".side-item.active").attr("id").replace("side-", "");
-                    //console.info(activeSideId, "Get Active Side");
-                    return _sidesConfig[activeSideId];
+                var activeSide;
+                if($('[data-popup-content="sideswap"] .side-list li.current').length) {
+                    var activeSideId = $('[data-popup-content="sideswap"] .side-list li.current').find('.side-item').attr("id").replace("side-", "");
+                    //console.info(activeSideId, "Get Active Side", _sidesConfig[activeSideId]);
+                    $.each(_sidesConfig, function(index, side) {
+                        if(side.side_id == activeSideId) {
+                            activeSide = side;
+                            return false;
+                        }
+                    });
                 }
+                return activeSide;
             },
             getCurrentProductId: function() {
                 return $("#current_product_id").val();
@@ -755,35 +762,43 @@ define(['jquery'], function(jQuery) {
             getSidesConfig: function() {
                 return _sidesConfig;
             },
-            prepareCanvas: function() {
-                if(_sidesConfig) {
+            setSidesConfig: function(config) {
+                //console.info(config, 'set side config');
+                _sidesConfig = config || {};
+            },
+            prepareCanvas: function(productConfig) {
+                if(productConfig) {
                     var sideListHtml,
                         sortedSideListHtml = '',
                         unsortSideListArr = [],
                         sortedSideListArr = [],
                         counter = 0,
+                        designAreaHtml = '',
                         self = this;
-                    $.each(_sidesConfig, function(sideId, side) {
+                        self.sideLength = 0;
+                    $.each(productConfig, function(sideId, side) {
                         self.sideLength++;
                         //Create new canvas
-                        if(!$('[pdc-data="main-canvas"] #canvas_side_' + side.id).length) {
-                            $('[pdc-data="main-canvas"]').append('<canvas id="canvas_side_'+ side.id +'"></canvas>');   
-                            self.allCanvas[side.id] = new fabric.Canvas('canvas_side_' + side.id);
-                            self.allCanvas[side.id].setWidth(side.canvaswidth);
-                            self.allCanvas[side.id].setHeight(side.canvasheight);
-                            self.allCanvas[side.id].allowTouchScrolling = true;
+                        if(!$('[data-area="mainview"] .designarea #canvas_side_' + side.side_id).length) {
+                            designAreaHtml = '<div id="side-'+ side.side_id +'" class="design-side-item" style="display:none;">';
+                            designAreaHtml += '<img src="'+ config.media_url + side.background_image+'"/>';
+                            designAreaHtml += '<div class="wrap-canvas" style="top: '+ side.canvas_top +'px; left: '+ side.canvas_left +'px;"><canvas id="canvas_side_'+ side.side_id +'"></canvas></div>';
+                            designAreaHtml += '</div>';
+                            $('[data-area="mainview"] .designarea').append(designAreaHtml);  
+                            self.allCanvas[side.side_id] = new fabric.Canvas('canvas_side_' + side.side_id);
+                            self.allCanvas[side.side_id].setWidth(side.canvas_width);
+                            self.allCanvas[side.side_id].setHeight(side.canvas_height);
+                            self.allCanvas[side.side_id].allowTouchScrolling = true;
                         }
                         sideListHtml = '<li>';
-                        sideListHtml += '<a id="side-'+ side.id +'" pdc-action="SWITCH_SIDE" class="side-item">';
-                        if(side.background_type == "image" && side.filename) {
-                            sideListHtml += '<img width="70px" src="'+ config.media_url + (side.thumbnail || side.filename) +'"/>';
-                        }        
-                        sideListHtml += '<span>'+ side.label +'</span>';
+                        sideListHtml += '<a id="side-'+ side.side_id +'" pdc-action="SWITCH_SIDE" class="side-item">';
+                        sideListHtml += '<img width="70px" src="'+ config.media_url + (side.thumbnail || side.background_image) +'"/>';        
+                        sideListHtml += '<span>'+ side.side_name +'</span>';
                         sideListHtml += '</a>';
                         sideListHtml += '</li>';
                         //console.info(sideId, side);
                         unsortSideListArr.push({
-                            id: side.id,
+                            id: side.side_id,
                             pos: parseInt(side.position || 0),
                             html: sideListHtml
                         });
@@ -796,12 +811,13 @@ define(['jquery'], function(jQuery) {
                     $.each(sortedSideListArr, function() {
                         sortedSideListHtml += this.html;                                              
                     });
-                    $('[pdc-data="side-list"]').html(sortedSideListHtml);
+                    $('[data-popup-content="sideswap"] ul.side-list').html(sortedSideListHtml);
                     //Active first side
-                    $('[pdc-data="side-list"] li:first .side-item').addClass("active");
+                    $('[data-popup-content="sideswap"] ul.side-list li:first').addClass("current");
                     if(counter == 1) {
-                        $("#pdc_sides").hide();
+                        $('[data-popup-content="sideswap"]').hide();
                     }
+                    self.initCanvas();
                 }
             },
             initCanvas: function() {
@@ -810,39 +826,9 @@ define(['jquery'], function(jQuery) {
                     var sideConfig = activeSide;
                     if(sideConfig) {
                         var _currentCanvas = this.getCurrentCanvas();
-                        $('[pdc-data="main-canvas"]').css({
-                            width: _currentCanvas.getWidth(),
-                            height: _currentCanvas.getHeight(),
-                            margin: 'auto',
-                            //border: '1px solid #ccc'
-                        });
                         //Hide all canvas and show active side only
-                        $("#product-image-wrap .canvas-container").hide();
-                        $("#canvas_side_" + activeSide.id).parent().show();
-                        //Add background
-                        if(sideConfig.background_type == "image" && (sideConfig.filename || sideConfig.background_path)) {
-                            var backgroundSrc = sideConfig.background_path || (config.media_url + sideConfig.filename);
-                            this.addBackgroundLayer(backgroundSrc);
-                        }
-                        //Add overlay
-                        if(sideConfig.use_mask == "1" && sideConfig.overlay) {
-                            this.addOverlayLayer(config.media_url + sideConfig.overlay);
-                        }
-                        //Add default background color layer
-                        var _bgColor = '';
-                        if(_currentCanvas.getObjects().length) {
-                            if(_currentCanvas._objects[0].object_type && _currentCanvas._objects[0].object_type == "background_color") {
-                                _bgColor = _currentCanvas._objects[0].fill;
-                            }
-                        }
-                        this.addBackgroundColorLayer(_bgColor, {object_type: "background_color"}, _currentCanvas);
-                        //Show canvas size
-                        if(!$(".topbar-content .item-title .canvas-size").length) {
-                            $(".topbar-content .item-title").append('<span class="canvas-size"></span>');
-                        }
-                        if($(".topbar-content .item-title .canvas-size")) {
-                            $(".topbar-content .item-title .canvas-size").html(' - ' + parseInt(sideConfig.canvaswidth) + 'x' + parseInt(sideConfig.canvasheight) + 'px');
-                        }
+                        $('[data-area="mainview"] .design-side-item').hide();
+                        var _activeCanvasSide = $("#canvas_side_" + activeSide.side_id).closest('.design-side-item').addClass("active").show();
                     }
                 }
             },
@@ -1609,16 +1595,19 @@ define(['jquery'], function(jQuery) {
                     });   
                 }
                 return hasDesignItem;
+            },
+            isEmptyObject: function(obj) {
+                return $.isEmptyObject(obj);
             }
         };
         // the actual object is create here, allowing us to 'new' an object without calling new
         PDC.init = function() {
             var self = this;
-            self.prepareCanvas();
-            self.initCanvas();
+            //self.prepareCanvas();
+            //self.initCanvas();
             //init sides data, assign json to sides properties
-            self.initSidesData();
-            self.restoreDesignFromJson();
+            //self.initSidesData();
+            //self.restoreDesignFromJson();
         };
         PDC.init.prototype = PDC.prototype;
         //global.PDC = PDC;
