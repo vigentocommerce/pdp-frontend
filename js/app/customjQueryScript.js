@@ -219,6 +219,8 @@ define(['jquery', 'spectrum'], function($, spectrum) {
                 _canvas.renderAll();
             });
 			pdpObject.initCanvas();
+			$('[data-popup-content="sideswap"]').removeClass('active');
+			$('[data-popup="sideswap"]').removeClass('active');
 		});
 		$(this).addClass('current');
 	});
