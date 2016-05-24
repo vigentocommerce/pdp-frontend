@@ -790,8 +790,8 @@ define(['jquery'], function(jQuery) {
                             self.allCanvas[side.side_id].setHeight(side.canvas_height);
                             self.allCanvas[side.side_id].allowTouchScrolling = true;
                         }
-                        sideListHtml = '<li>';
-                        sideListHtml += '<a id="side-'+ side.side_id +'" pdc-action="SWITCH_SIDE" class="side-item">';
+                        sideListHtml = '<li pdc-action="SWITCH_SIDE">';
+                        sideListHtml += '<a id="side-'+ side.side_id +'" class="side-item">';
                         sideListHtml += '<img width="70px" src="'+ config.media_url + (side.thumbnail || side.background_image) +'"/>';        
                         sideListHtml += '<span>'+ side.side_name +'</span>';
                         sideListHtml += '</a>';
@@ -1603,6 +1603,7 @@ define(['jquery'], function(jQuery) {
         // the actual object is create here, allowing us to 'new' an object without calling new
         PDC.init = function() {
             var self = this;
+            console.info('init pdp object');
             //self.prepareCanvas();
             //self.initCanvas();
             //init sides data, assign json to sides properties

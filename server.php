@@ -10,10 +10,10 @@ class PDPServer {
     public function getProductConfig($productId) {
         $pdpItemId = 1;
         $pdp_product_type_colors_sides = array(
-            array('id' => '1','canvas_width' => '500','canvas_height' => '500','canvas_top' => '150','canvas_left' => '150','side_id' => '1','color_id' => '1','background_image' => 'data/pdp/image/colorSides/background/1463974755_colorimage71452755103.png','side_name' => 'Front Side','color_name' => 'Green','color_code' => '3ca647'),
-            array('id' => '2','canvas_width' => '500','canvas_height' => '500','canvas_top' => '150','canvas_left' => '150','side_id' => '2','color_id' => '1','background_image' => 'data/pdp/image/colorSides/background/1463974755_colorimage81452755103.png','side_name' => 'Back Side','color_name' => 'Green','color_code' => '3ca647'),
-            array('id' => '3','canvas_width' => '600','canvas_height' => '600','canvas_top' => '100','canvas_left' => '200','side_id' => '1','color_id' => '2','background_image' => 'data/pdp/image/colorSides/background/1463977998_colorimage71452678632.png','side_name' => 'Front Side','color_name' => 'Black','color_code' => '141014'),
-            array('id' => '4','canvas_width' => '600','canvas_height' => '600','canvas_top' => '100','canvas_left' => '200','side_id' => '2','color_id' => '2','background_image' => 'data/pdp/image/colorSides/background/1463977998_colorimage81452678632.png','side_name' => 'Back Side','color_name' => 'Black','color_code' => '141014')
+            array('id' => '1','canvas_width' => '400','canvas_height' => '400','canvas_top' => '150','canvas_left' => '150','side_id' => '1','color_id' => '1','background_image' => 'data/pdp/image/colorSides/background/1463974755_colorimage71452755103.png','side_name' => 'Front Side','color_name' => 'Green','color_code' => '3ca647'),
+            array('id' => '2','canvas_width' => '400','canvas_height' => '400','canvas_top' => '150','canvas_left' => '150','side_id' => '2','color_id' => '1','background_image' => 'data/pdp/image/colorSides/background/1463974755_colorimage81452755103.png','side_name' => 'Back Side','color_name' => 'Green','color_code' => '3ca647'),
+            array('id' => '3','canvas_width' => '400','canvas_height' => '400','canvas_top' => '100','canvas_left' => '200','side_id' => '1','color_id' => '2','background_image' => 'data/pdp/image/colorSides/background/1463977998_colorimage71452678632.png','side_name' => 'Front Side','color_name' => 'Black','color_code' => '141014'),
+            array('id' => '4','canvas_width' => '400','canvas_height' => '400','canvas_top' => '100','canvas_left' => '200','side_id' => '2','color_id' => '2','background_image' => 'data/pdp/image/colorSides/background/1463977998_colorimage81452678632.png','side_name' => 'Back Side','color_name' => 'Black','color_code' => '141014')
         );
         //echo "<pre>";
         //print_r($pdp_product_type_colors_sides);
