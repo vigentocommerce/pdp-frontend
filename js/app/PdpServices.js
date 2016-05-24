@@ -7,7 +7,7 @@ define([
 		.module(moduleName, [])
 		.service(moduleName, ["$http", "$q", "$rootScope", function($http, $q, $rootScope) {
             var self = this,
-                baseUrl = 'http://pdp2016.frontend.dev/server.php?action=';
+                baseUrl = 'server.php?action=';
             // Return public API.
             return({
                 getVersion: getVersion,

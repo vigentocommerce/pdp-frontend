@@ -6,8 +6,8 @@ define(['jquery'], function(jQuery) {
         };
         // hidden within the scope of the IIFE and never directly accessible
         var config = {
-            base_url: 'http://pdp2016.frontend.dev/',
-            media_url: 'http://pdp2016.frontend.dev/',
+            base_url: '',
+            media_url: '',
             save_thumbnail_url: $("#base_url").val() + "pdp/index/saveBase64Image/",
             save_json_url: $("#base_url").val() + "pdp/index/saveJsonfile/",
             save_admin_template: $("#base_url").val() + "pdp/index/saveAdminTemplate/",
