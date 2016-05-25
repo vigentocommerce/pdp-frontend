@@ -25,9 +25,12 @@ requirejs.config({
     },
     shim: {
         'angular': {
-            deps: ['fabricjs','pdp'],
+            //deps: ['fabricjs','pdp'],
 			exports: 'angular'
 		},
+        'pdp': {
+            deps: ['angular', 'fabricjs','jquery']  
+        },
         'jquery': {
             deps: ['fabricjs'],
 		},
