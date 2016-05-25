@@ -1,127 +1,121 @@
 define([
     'undomanager',
-], function(UndoManager) {
+    'pdp'
+], function(UndoManager, pdp) {
     'use strict';
-    var hisId = 0;
     return {
+        hisId: 1,
+        pdpObject: {},
         allSides: {},
-        init: function(sideIds) {
-            if(!sideIds) return false;
+        init: function(pdpObject) {
             var self = this;
-            for(var i = 0; i < sideIds.length; i++) {
-                self.allSides[sideIds[i]] = {};
-                self.allSides[sideIds[i]]['undoManager'] = new UndoManager();
+            self.pdpObject = pdpObject || pdp();
+            if(self.pdpObject && self.pdpObject.allCanvas) {
+                for(var sideId in self.pdpObject.allCanvas) {
+                    if(self.pdpObject.allCanvas.hasOwnProperty(sideId)) {
+                        self.allSides[sideId] = {};
+                        self.history[sideId] = {};
+                        self.allSides[sideId]['undoManager'] = new UndoManager();
+                        self.allSides[sideId]['undoManager'].setLimit(10);
+                        (function(_sideId) {
+                            self.pdpObject.allCanvas[_sideId].observe('object:modified', function() {
+                                self.createHistory(_sideId, self.pdpObject.allCanvas[_sideId]);
+                                self.showAndHideUndoRedoBtn(_sideId);
+                            });
+                            self.pdpObject.allCanvas[_sideId].observe('object:removed', function() {
+                                self.createHistory(_sideId, self.pdpObject.allCanvas[_sideId]);
+                                self.showAndHideUndoRedoBtn(_sideId);
+                            });
+                        })(sideId);
+                    }
+                }
+                this.undoClick();
+                this.redoClick();   
             }
         },
         history: {},
-        createHistory: function(sideId, hisId, name, canvas) {
+        createHistory: function(sideId, canvas) {
+            if(!sideId || !canvas) return false;
             var self = this;
+            var hisId = self.hisId++,
+                name = canvas.toJSON();
+                console.info(hisId, name);
             this.addHistory(sideId, hisId, name);
             if(this.allSides[sideId]['undoManager']) {
                 this.allSides[sideId]['undoManager'].add({
                     undo: function() {
-                        self.drawDesign(canvas, history[sideId][hisId], function() {
+                        //self.removeHistory(sideId, hisId);
+                        self.drawDesign(canvas, self.history[sideId][hisId], function() {
                             self.removeHistory(sideId, hisId);
                         });
                     },
                     redo: function() {
                         self.addHistory(sideId, hisId, name);
-                        self.drawDesign(canvas, history[sideId][hisId]);
+                        self.drawDesign(canvas, self.history[sideId][hisId]);
                     }
                 });
             }
+            self.showAndHideUndoRedoBtn(sideId);
         },
         addHistory: function(sideId, hisId, name) {
             var self = this;
             self.history[sideId][hisId] = name;
+            //console.info('add history', hisId, name);
+            //console.info('history after add', self.history[sideId]);
         },
         removeHistory: function(sideId, hisId) {
-            delete history[sideId][hisId];
+            //console.info('remove',sideId, hisId);
+            delete this.history[sideId][hisId];
+            //console.info('history after remove', this.history[sideId]);
         },
         drawDesign: function(canvas, json, callback) {
-            canvas.loadFromJSON(json, function() {
-                canvas.renderAll();
-                callback && callback();
+            //console.log('draw design', canvas, json);
+            if(canvas && json) {
+                canvas.loadFromJSON(json, function() {
+                    canvas.renderAll();
+                    callback && callback();
+                });   
+            }
+        },
+        undoClick: function() {
+            var self = this;
+            $('[data-toolbox="undo"]').click(function() {
+                if(self.pdpObject && self.pdpObject.getActiveSideIndex()) {
+                    var sideId = self.pdpObject.getActiveSideIndex(); 
+                    if($(this).find('.disabled').length) {
+                        return false;
+                    }   
+                    self.allSides[sideId]['undoManager'].undo();
+                    self.showAndHideUndoRedoBtn(sideId);
+                }
             });
+        },
+        redoClick: function() {
+            var self = this;
+            $('[data-toolbox="redo"]').click(function() {
+                if(self.pdpObject && self.pdpObject.getActiveSideIndex()) {
+                    var sideId = self.pdpObject.getActiveSideIndex(); 
+                    if($(this).find('.disabled').length) {
+                        return false;
+                    }   
+                    self.allSides[sideId]['undoManager'].redo();
+                    self.showAndHideUndoRedoBtn(sideId);
+                }
+            });
+        },
+        showAndHideUndoRedoBtn: function(sideId) {
+            var self = this; 
+            //If has undo, then show the undo button
+            if(self.allSides[sideId]['undoManager'].hasUndo()) {
+                $('[data-toolbox="undo"]').find('a').removeClass('disabled');
+            } else {
+                $('[data-toolbox="undo"]').find('a').addClass('disabled');
+            }
+            if(self.allSides[sideId]['undoManager'].hasRedo()) {
+                $('[data-toolbox="redo"]').find('a').removeClass('disabled');
+            } else {
+                $('[data-toolbox="redo"]').find('a').addClass('disabled');
+            }
         }
-    };
-    //var undoManager = new UndoManager();
-    //console.info(undoManager);
-    
-// var undoManager = new UndoManager(),
-//     history = {},
-//     addHistory,
-//     removeHistory,
-//     id = 0,
-//     createHistory,
-//     drawDesign;      
-
-// addHistory = function(id, name) {
-//     history[id] = name;
-// };
-// undoManager.setLimit(10);
-// removeHistory = function(id) {
-//     delete history[id];
-// };
-// createHistory = function (id, name) {
-//     // first creation
-//     addHistory(id, name);
-//     // make undo-able
-//     undoManager.add({
-//         undo: function() {
-//             drawDesign(history[id], function() {
-//                 removeHistory(id);
-//             });
-//             //removeHistory(id)
-//         },
-//         redo: function() {
-//             addHistory(id, name);
-//             drawDesign(history[id]);
-//         }
-//     });
-// }
-// drawDesign = function(json, callback) {
-//     canvas.loadFromJSON(json, function() {
-//         canvas.renderAll();
-//         callback && callback();
-//     });
-// }
-
-// var canvas = new fabric.Canvas('myCanvas');
-// canvas.add(new fabric.Text('Hello', {
-//     top: 10,
-//     left: 10
-// }));
-// // create a rectangle object
-// var rect = new fabric.Rect({
-//   left: 100,
-//   top: 100,
-//   fill: 'red',
-//   width: 200,
-//   height: 200
-// });
-
-// // "add" rectangle onto canvas
-// canvas.add(rect);
-// canvas.renderAll();
-// //Start adding design
-// createHistory(id++, canvas.toJSON());
-// canvas.observe('object:modified', function() {
-//     createHistory(id++, canvas.toJSON());
-//     console.info(history);
-// });
-// //================ Events ================///
-// var undoBtn = document.getElementById("undo"),
-//     redoBtn = document.getElementById("redo");
-    
-// undoBtn.addEventListener('click', function() {
-//     undoManager.undo();
-// });
-// redoBtn.addEventListener('click', function() {
-//     undoManager.redo();
-// });
-// //================= Shortcut ================//
-    
-    
-    
+    };  
 });
