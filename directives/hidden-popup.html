@@ -1,11 +1,9 @@
 <div class="pdp-hidden-popup-directive" ng-controller="HiddenPopupController">
-	<!--
 	<ul class="color-list">
-		<li ng-repeat="color in colorList">
+		<li ng-repeat="color in colorList" ng-click="changeProductColor(color.color_id)">
 			<span style="background-color: #{{color.color_code}}; padding: 6px; margin: 2px;"><a>{{color.color_name}}</a></span>
 		</li>
 	</ul>
-	-->
 	<!--<pre>
 	{{sideList | json}}
 	</pre>-->

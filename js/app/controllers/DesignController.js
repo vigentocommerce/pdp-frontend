@@ -2,12 +2,13 @@ define([
 	'angular'
 ], function (angular) {
     'use strict';
-	return ['$scope', '$location', 'PdpServices','$timeout',
-		function ($scope, $location, PdpServices, $timeout) {
+	return ['$scope', '$location', 'PdpServices','$timeout', '$compile',
+		function ($scope, $location, PdpServices, $timeout, $compile) {
 			$scope.currentProductId = 1;
 			$scope.colorList = [];
 			$scope.sideList = {};
 			$scope.activeSideId = 0;
+			$scope.activeColorId = 0;
 			if(!$scope.productConfig) {
 				//$scope.productConfig = {};
 				PdpServices.getProductConfig($scope.currentProductId)
@@ -21,14 +22,15 @@ define([
 							if(response.data.colors) {
 								$scope.productConfig = response.data.colors;
 								//Setup color list
-								angular.forEach($scope.productConfig, function(colorSides, index) {
+								angular.forEach($scope.productConfig, function(colorSides, colorId) {
 									//Get color of first side only
 									for(var sideId in colorSides) {
 										if(colorSides.hasOwnProperty(sideId)) {
 											//console.info(colorSides[sideId]);
 											$scope.colorList.push({
 												color_code: colorSides[sideId].color_code,
-												color_name: colorSides[sideId].color_name
+												color_name: colorSides[sideId].color_name,
+												color_id: colorId
 											});
 											return false;
 										}
@@ -53,6 +55,7 @@ define([
 					for(var colorId in $scope.productConfig) {
 						if($scope.productConfig.hasOwnProperty(colorId)) {
 							$scope.sideList = $scope.productConfig[colorId];
+							$scope.activeColorId = colorId;
 							$scope.initCanvas();
 							return false;
 						}
@@ -60,6 +63,7 @@ define([
 				} else {
 					if($scope.productConfig[colorId]) {
 						$scope.sideList = $scope.productConfig[colorId];
+						$scope.activeColorId = colorId;
 						$scope.initCanvas();
 					}
 				}
@@ -71,11 +75,15 @@ define([
 						var counter = 1;
 						angular.forEach($scope.sideList, function(side, sideId) {
 							if(angular.element(document.querySelector("#canvas_side_" + sideId)).length) {
-								PdpServices.allCanvas[sideId] = new fabric.Canvas('canvas_side_' + sideId);
-								PdpServices.allCanvas[sideId].allowTouchScrolling = true;
+								if(!PdpServices.allCanvas[sideId]) {
+									PdpServices.allCanvas[sideId] = new fabric.Canvas('canvas_side_' + sideId);
+									PdpServices.allCanvas[sideId].allowTouchScrolling = true;	
+								}
 								//Active first side of first color
 								if(counter == 1) {
-									$scope.activeSideId = sideId;
+									if(!$scope.activeSideId) {
+										$scope.activeSideId = sideId;	
+									}
 								}
 								counter++;
 							}
@@ -83,11 +91,30 @@ define([
 					}, 1000);
 				}
 			}
+			$scope.getCurrentCanvas = function() {
+				if($scope.activeSideId) {
+					if(PdpServices.allCanvas[$scope.activeSideId]) {
+						return PdpServices.allCanvas[$scope.activeSideId];
+					}
+				}
+			}
 			$scope.switchSide = function(sideId) {
 				$scope.activeSideId = sideId;	
 			}
 			$scope.addText = function() {
-				PdpServices.addText('Angular', '70', PdpServices.allCanvas[$scope.activeSideId]);
+				console.info(PdpServices.pdpHelper);
+				PdpServices.pdpHelper.addText('Angular', '70', $scope.getCurrentCanvas());
+			}
+			$scope.addImage = function() {
+				PdpServices.pdpHelper.addImage('images/demo1.svg', {}, null, $scope.getCurrentCanvas());
+				PdpServices.pdpHelper.addImage('images/demo.svg', {}, null, $scope.getCurrentCanvas());
+				PdpServices.pdpHelper.addImage('images/img1.png', {}, null, $scope.getCurrentCanvas());
+				PdpServices.pdpHelper.addImage('images/img2.jpg', {}, null, $scope.getCurrentCanvas());
+			}
+			$scope.changeProductColor = function(colorId) {
+				if(colorId == $scope.activeColorId) return false;
+				console.info('change color ' + colorId);
+				$scope.setSideListByColorId(colorId);
 			}
 		}
 	];
