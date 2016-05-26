@@ -65,5 +65,12 @@ define([
             replace: true
         };
     }]);
+    _pdpDirectiveModule.directive("pdpDesignArea", [function() {
+        return {
+            restrict: 'AE',
+            templateUrl: 'directives/designarea.html',
+            replace: true
+        };
+    }]);
 	return moduleName;
 });

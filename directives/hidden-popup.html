@@ -1,7 +1,22 @@
-<div class="pdp-hidden-popup-directive">
+<div class="pdp-hidden-popup-directive" ng-controller="HiddenPopupController">
+	<!--
+	<ul class="color-list">
+		<li ng-repeat="color in colorList">
+			<span style="background-color: #{{color.color_code}}; padding: 6px; margin: 2px;"><a>{{color.color_name}}</a></span>
+		</li>
+	</ul>
+	-->
+	<!--<pre>
+	{{sideList | json}}
+	</pre>-->
 	<div data-popup-content="sideswap">
 		<ul class="side-list">
-			
+			<li pdc-action="SWITCH_SIDE" ng-click="switchSide(side.side_id)" ng-repeat="side in sideList" ng-class="{current: side.side_id == activeSideId}">
+				<a id="side-{{side.side_id}}" class="side-item">
+					<img width="70px" ng-src="{{ side.background_image }}"/>
+					<span>{{side.side_name}}</span>
+				</a>
+			</li>
 		</ul>
 	</div>
 	<div data-popup-content="templatelib" class="form-group">

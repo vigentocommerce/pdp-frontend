@@ -7,15 +7,16 @@ define([
 		.module(moduleName, [])
 		.service(moduleName, ["$http", "$q", "$rootScope", function($http, $q, $rootScope) {
             var self = this,
-                baseUrl = 'server.php?action=';
+                baseUrl = 'server.php?action=',
+                config = {
+                    
+                };
             // Return public API.
             return({
-                getVersion: getVersion,
-                getProductConfig: getProductConfig
+                allCanvas: {},
+                getProductConfig: getProductConfig,
+                addText: addText
             });
-            function getVersion() {
-                return 'PDP 2016 - 2.0';
-            }
             function getProductConfig($productId) {
                 var configUrl = baseUrl + 'getProductConfig&id=' + $productId;
                 var request = $http({
@@ -23,6 +24,31 @@ define([
                     url: configUrl,
                 });
                 return( request.then( handleSuccess, handleError ) );
+            }
+            function addText(text, fontSize, _canvas) {
+                var textObj = new fabric.Text(text, {
+                    fontFamily: 'Arial',
+                    //left: center.left,
+                    //top: center.top,
+                    fontSize: 25,
+                    textAlign: "left",
+                    //perPixelTargetFind : true,
+                    fill: "#000",
+                    price: 0,
+                    lineHeight:  1.3,
+                    borderColor: '#808080',
+                    cornerColor: 'rgba(68,180,170,0.7)',
+                    cornerSize: 16,
+                    cornerRadius: 12,
+                    transparentCorners: false,
+                    centeredScaling:true,
+                    rotatingPointOffset: 40,
+                    padding: 5
+                });
+                textObj.setControlVisible('mt', false);
+                _canvas.centerObject(textObj);
+                _canvas.add(textObj).setActiveObject(textObj);
+                _canvas.calcOffset().renderAll();
             }
             // ---
             // PRIVATE METHODS.
