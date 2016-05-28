@@ -88,6 +88,7 @@ define([
 								counter++;
 							}
 						});
+						PdpServices.history.init($scope.getCurrentCanvas());
 					}, 1000);
 				}
 			}
@@ -99,10 +100,10 @@ define([
 				}
 			}
 			$scope.switchSide = function(sideId) {
-				$scope.activeSideId = sideId;	
+				$scope.activeSideId = sideId;
+				PdpServices.history.init($scope.getCurrentCanvas());	
 			}
 			$scope.addText = function() {
-				console.info(PdpServices.pdpHelper);
 				PdpServices.pdpHelper.addText('Angular', '70', $scope.getCurrentCanvas());
 			}
 			$scope.addImage = function() {
@@ -110,10 +111,10 @@ define([
 				PdpServices.pdpHelper.addImage('images/demo.svg', {}, null, $scope.getCurrentCanvas());
 				PdpServices.pdpHelper.addImage('images/img1.png', {}, null, $scope.getCurrentCanvas());
 				PdpServices.pdpHelper.addImage('images/img2.jpg', {}, null, $scope.getCurrentCanvas());
+				
 			}
 			$scope.changeProductColor = function(colorId) {
 				if(colorId == $scope.activeColorId) return false;
-				console.info('change color ' + colorId);
 				$scope.setSideListByColorId(colorId);
 			}
 		}

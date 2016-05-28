@@ -1,10 +1,10 @@
-<div class="pdp-toolbox-directive">
+<div class="pdp-toolbox-directive" ng-controller="ToolboxController">
 	<ul class="canvas-btn toolbox-buttons">
 		<li data-toolbox="grid"><a title="Gridview"><img src="assets/images/gridview.svg" alt="On/Off grid view"/> <span>Gridview</span></a></li>
 		<li data-toolbox="ruler"><a title="Ruler"><img src="assets/images/basic_pencil_ruler.svg" alt="On/Off Ruler"/> <span>Ruler</span></a></li>
 		<li data-toolbox="preview"><a title="Preview"><img src="assets/images/preview.svg" alt="Preview"/> <span>Preview</span></a></li>
-		<li data-toolbox="undo"><a class="disabled" title="Undo"><img src="assets/images/undo.svg" alt="Undo"/> <span>Undo</span></a></li>
-		<li data-toolbox="redo"><a class="disabled" title="Redo"><img src="assets/images/redo.svg" alt="Redo"/> <span>Redo</span></a></li>	
+		<li data-toolbox="undo"><a ng-click="undo()" ng-class="{disabled: !hasUndo }" title="Undo"><img src="assets/images/undo.svg" alt="Undo"/> <span>Undo</span></a></li>
+		<li data-toolbox="redo"><a ng-click="redo()" ng-class="{disabled: !hasRedo }" title="Redo"><img src="assets/images/redo.svg" alt="Redo"/> <span>Redo</span></a></li>	
 	</ul>
 	<ul class="object-btn toolbox-buttons">
 		<li data-toolbox="duplicate"><a title="Duplicate" class="disabled"><img src="assets/images/duplicate_copy.svg" alt="Duplicate"  /> <span>Duplicate</span></a></li>

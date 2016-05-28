@@ -1,6 +1,7 @@
 define([
-	'angular'
-], function (angular) {
+	'angular',
+    'undomanager'
+], function (angular, UndoManager) {
     'use strict';
 	var moduleName = 'PdpServices';
 	angular
@@ -11,6 +12,90 @@ define([
                 config = {
                     
                 };
+            var history = {
+                hisId: 1,
+                canvas: null,
+                undoManager: null,
+                showUndo: false,
+                showRedo: false,
+                init: function(canvas) {
+                    var self = this;
+                    self.canvas = canvas;
+                    if(self.canvas) {
+                        self.resetHistory();
+                        self.hisId = 1;
+                        //Init undoManager
+                        self.undoManager = new UndoManager();
+                        self.undoManager.clear();
+                        self.undoManager.setLimit(10);
+                        self.canvas.observe('object:modified', function() {
+                            self.createHistory();
+                        });
+                        self.canvas.observe('object:removed', function() {
+                            self.createHistory();
+                        });  
+                    }
+                },
+                resetHistory: function() {
+                    this.historyItems = {};  
+                },
+                historyItems: {},
+                createHistory: function() {
+                    var self = this;
+                    if(!self.canvas) return false;
+                    var hisId = self.hisId++,
+                        jsonContent = self.canvas.toJSON();
+                    this.addHistory(hisId, jsonContent);
+                    if(self.undoManager) {
+                        self.undoManager.add({
+                            undo: function() {
+                                self.drawDesign(self.canvas, self.historyItems[hisId], function() {
+                                    self.removeHistory(hisId);
+                                });
+                            },
+                            redo: function() {
+                                self.addHistory(hisId, jsonContent);
+                                self.drawDesign(self.canvas, self.historyItems[hisId]);
+                                
+                            }
+                        });
+                    }
+                    self.showAndHideUndoRedoBtn();
+                },
+                addHistory: function(hisId, content) {
+                    var self = this;
+                    content = JSON.stringify(content);
+                    self.historyItems[hisId] = content;
+                },
+                removeHistory: function(hisId) {
+                    delete this.historyItems[hisId];
+                },
+                drawDesign: function(canvas, json, callback) {
+                    var self = this;
+                    if(canvas && json) {
+                        canvas.loadFromJSON(json, function() {
+                            canvas.renderAll();
+                            callback && callback();
+                        });
+                    }
+                },
+                showAndHideUndoRedoBtn: function() {
+                    if(!this.undoManager.hasUndo()) {
+                        this.showUndo = false;
+                    } else {
+                        this.showUndo = true;
+                    }
+                    if(!this.undoManager.hasRedo()) {
+                        this.showRedo = false;
+                    } else {
+                        this.showRedo = true;
+                    }
+                    this.broadcastHistoryChange();
+                },
+                broadcastHistoryChange: function() {
+                    $rootScope.$broadcast('handleUpdateHistory');
+                }
+            };
             var pdpHelper = {
                 addText: function(text, fontSize, _canvas) {
                     var textObj = new fabric.Text(text, {
@@ -36,6 +121,7 @@ define([
                     _canvas.centerObject(textObj);
                     _canvas.add(textObj).setActiveObject(textObj);
                     _canvas.calcOffset().renderAll();
+                    history.createHistory();
                 },
                 addImage: function(src, options, callback, _canvas) {
                     options = options || {};
@@ -67,8 +153,12 @@ define([
                                 image.setCoords();
                                 _canvas.centerObject(image);
                                 _canvas.add(image).setActiveObject(image);
-                                if(callback) callback();
-                                
+                                $rootScope.$apply(function() {
+                                    if(callback) {
+                                        callback();
+                                    }
+                                    history.createHistory();
+                                });
                             });   
                         } else {
                             this.addSvg(src, options, callback, _canvas);
@@ -109,15 +199,21 @@ define([
                         loadedObject.hasRotatingPoint = true;
                         _canvas.add(loadedObject).setActiveObject(loadedObject);
                         _canvas.renderAll();
-                        if(callback) callback();
+                        $rootScope.$apply(function() {
+                            if(callback) {
+                                callback();
+                            }
+                            history.createHistory();
+                        });
                     });
                 }
-            }    
+            }  
             // Return public API.
             return({
                 allCanvas: {},
                 getProductConfig: getProductConfig,
-                pdpHelper: pdpHelper
+                pdpHelper: pdpHelper,
+                history: history
             });
             function getProductConfig($productId) {
                 var configUrl = baseUrl + 'getProductConfig&id=' + $productId;

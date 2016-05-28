@@ -1,4 +1,4 @@
-define(['jquery', 'fabricjs', 'pdp'], function($, fabricjs, pdp) {
+define(['jquery', 'fabricjs', 'pdp', 'PdpHistory'], function($, fabricjs, pdp, PdpHistory) {
     var mainContent = '.mainContent',
         pdpObject = pdp();
     /** Current Canvas=> canvas = pdpObject.getCurrentCanvas(); */
