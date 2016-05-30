@@ -97,36 +97,22 @@
             </div>
             <div class="sidebar-bottom" data-area="bottom">
                 <label>Zoom/Scale: </label>
-                <button class="primary-button small grey" type="button">
+                <button class="primary-button small grey" ng-click="zoomOut()" type="button">
                 <span>
-                <span class="lnr lnr-circle-minus"></span> 2X
+                <span class="lnr lnr-circle-minus"></span> ZoomOut
                 </span>
                 </button>
-                <button class="primary-button small grey" type="button">
+                <button class="primary-button small grey" ng-click="zoomIn()" type="button">
                 <span>
-                <span class="lnr lnr-plus-circle"></span> 2X
+                <span class="lnr lnr-plus-circle"></span> ZoomIn
                 </span>
                 </button>
-                <button class="primary-button small grey" type="button">
-                <span>
-                <span class="lnr lnr-plus-circle"></span> 3X
-                </span>
-                </button>
-                <button class="primary-button small grey" type="button">
-                <span>
-                <span class="lnr lnr-plus-circle"></span> 4X
-                </span>
-                </button>
-                <button class="primary-button small grey" type="button">
-                <span>
-                <span class="lnr lnr-plus-circle"></span> 5X
-                </span>
-                </button>
-                <button class="primary-button small greyplus" type="button">
+                <button class="primary-button small greyplus" ng-click="resetZoom()" type="button">
                 <span>
                 <span class="lnr lnr-sync"></span> Reset zoom
                 </span>
                 </button>
+                <span id="zoom_percent"></span>
             </div>
         </div>
         <!-- PDP 2016 JS -->

@@ -1,8 +1,8 @@
 <div class="designarea-directive">
 	<div ng-repeat="side in sideList" id="sidedesign-{{side.side_id}}" class="design-side-item" ng-show="side.side_id == activeSideId">
 		<img alt="Background Image" ng-src="{{side.background_image}}"/>
-		<div class="wrap-canvas" style="top: {{side.canvas_top}}px; left: {{side.canvas_left}}px;">
-			<canvas width="{{side.canvas_width}}" height="{{side.canvas_height}}" id="canvas_side_{{side.side_id}}"></canvas>
+		<div class="wrap-canvas" style="width: {{side.canvas_width}}px; height: {{side.canvas_height}}px; top: {{side.canvas_top}}px; left: {{side.canvas_left}}px; overflow: scroll;">
+			<canvas id="canvas_side_{{side.side_id}}"></canvas>
 		</div>
 	</div>
 </div>	

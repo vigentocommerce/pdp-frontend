@@ -207,13 +207,210 @@ define([
                         });
                     });
                 }
-            }  
+            };  
+        var pdpZoom = {
+                SCALE_FACTOR: 1.2,
+                maxWidth: 1000,
+                minWidth: 300,
+                maxHeightForAutoZoom: 560,
+                zoomIn: function(_canvas, SCALE_FACTOR) {
+                    var self = this;
+                    _canvas = _canvas;
+                    if(!self.validateBeforeZoomIn(_canvas)) return false;
+                    _canvas.scale = (_canvas.scale || 1) * self.SCALE_FACTOR;
+                    _canvas.setHeight(_canvas.getHeight() * self.SCALE_FACTOR);
+                    _canvas.setWidth(_canvas.getWidth() * self.SCALE_FACTOR);
+                    _canvas.calcOffset();
+
+                    var objects = _canvas.getObjects();
+                    for (var i in objects) {
+                        var scaleX = objects[i].scaleX;
+                        var scaleY = objects[i].scaleY;
+                        var left = objects[i].left;
+                        var top = objects[i].top;
+
+                        var tempScaleX = scaleX * self.SCALE_FACTOR;
+                        var tempScaleY = scaleY * self.SCALE_FACTOR;
+                        var tempLeft = left * self.SCALE_FACTOR;
+                        var tempTop = top * self.SCALE_FACTOR;
+
+                        objects[i].scaleX = tempScaleX;
+                        objects[i].scaleY = tempScaleY;
+                        objects[i].left = tempLeft;
+                        objects[i].top = tempTop;
+
+                        objects[i].setCoords();
+                    }
+                    _canvas.renderAll();
+                    this.updateWrappSize(_canvas);
+                    
+                },
+                zoomOut: function(_canvas, SCALE_FACTOR) {
+                    var self = this;
+                    _canvas = _canvas;
+                    if(!self.validateBeforeZoomOut(_canvas)) return false;
+                    _canvas.scale = (_canvas.scale || 1) / self.SCALE_FACTOR;
+                    _canvas.setHeight(_canvas.getHeight() * (1 / self.SCALE_FACTOR));
+                    _canvas.setWidth(_canvas.getWidth() * (1 / self.SCALE_FACTOR));
+                    _canvas.calcOffset();
+                    var objects = _canvas.getObjects();
+                    for (var i in objects) {
+                        var scaleX = objects[i].scaleX;
+                        var scaleY = objects[i].scaleY;
+                        var left = objects[i].left;
+                        var top = objects[i].top;
+                        
+                        var tempScaleX = scaleX * (1 / self.SCALE_FACTOR);
+                        var tempScaleY = scaleY * (1 / self.SCALE_FACTOR);
+                        var tempLeft = left * (1 / self.SCALE_FACTOR);
+                        var tempTop = top * (1 / self.SCALE_FACTOR);
+                        
+                        objects[i].scaleX = tempScaleX;
+                        objects[i].scaleY = tempScaleY;
+                        objects[i].left = tempLeft;
+                        objects[i].top = tempTop;
+                        objects[i].setCoords();
+                    }
+                    _canvas.renderAll();  
+                    this.updateWrappSize(_canvas);
+                },
+                resetZoom: function(_canvas, canvasScale) {
+                    var self = this;
+                    _canvas = _canvas;
+                    _canvas.scale = (_canvas.scale || 1);
+                    _canvas.setHeight(_canvas.getHeight() * (1 / _canvas.scale));
+                    _canvas.setWidth(_canvas.getWidth() * (1 / _canvas.scale));
+                    _canvas.calcOffset();
+                    var objects = _canvas.getObjects();
+                    for (var i in objects) {
+                        var scaleX = objects[i].scaleX;
+                        var scaleY = objects[i].scaleY;
+                        var left = objects[i].left;
+                        var top = objects[i].top;
+
+                        var tempScaleX = scaleX * (1 / _canvas.scale);
+                        var tempScaleY = scaleY * (1 / _canvas.scale);
+                        var tempLeft = left * (1 / _canvas.scale);
+                        var tempTop = top * (1 / _canvas.scale);
+
+                        objects[i].scaleX = tempScaleX;
+                        objects[i].scaleY = tempScaleY;
+                        objects[i].left = tempLeft;
+                        objects[i].top = tempTop;
+
+                        objects[i].setCoords();
+                    }
+                    _canvas.renderAll();
+                    _canvas.scale = 1;
+                    this.updateWrappSize(_canvas);
+                },
+                updateWrappSize: function(_canvas) {
+                    console.info('update wrap size', _canvas);
+                    //angular.element(document.querySelector("#"))
+                    // $('[pdc-data="main-canvas"]').css({
+                    //     width: _canvas.getWidth(),
+                    //     height: _canvas.getHeight()
+                    // });
+                    var newWidth = _canvas.getWidth(),
+                    originalWidth = _canvas.getWidth() * (1 / (_canvas.scale || 1));
+                    var percent = (newWidth * 100) / originalWidth;
+                    angular.element(document.querySelector("#zoom_percent")).html(parseInt(percent) + "%");
+                },
+                validateBeforeZoomIn: function(_canvas) {
+                    if(parseFloat(_canvas.getWidth()) > this.maxWidth) {
+                        alert("Canvas size is too big. You shouldn't zoom in any more!");
+                        return false;
+                    }
+                    return true;
+                },
+                validateBeforeZoomOut: function(_canvas) {
+                    if(parseFloat(_canvas.getWidth()) < this.minWidth) {
+                        console.warn("Canvas size is too small. You shouldn't zoom out any more!");
+                        return false;
+                    }
+                    return true;
+                },
+                resetZoomBeforeSave: function(_canvas) {
+                    var self = this;
+                    if(!_canvas) return;
+                    _canvas.scale = _canvas.scale || 1;
+                    _canvas.setHeight(_canvas.getHeight() * (1 / _canvas.scale));
+                    _canvas.setWidth(_canvas.getWidth() * (1 / _canvas.scale));
+                    _canvas.calcOffset();
+                    var objects = _canvas.getObjects();
+                    for (var i in objects) {
+                        var scaleX = objects[i].scaleX;
+                        var scaleY = objects[i].scaleY;
+                        var left = objects[i].left;
+                        var top = objects[i].top;
+
+                        var tempScaleX = scaleX * (1 / _canvas.scale);
+                        var tempScaleY = scaleY * (1 / _canvas.scale);
+                        var tempLeft = left * (1 / _canvas.scale);
+                        var tempTop = top * (1 / _canvas.scale);
+
+                        objects[i].scaleX = tempScaleX;
+                        objects[i].scaleY = tempScaleY;
+                        objects[i].left = tempLeft;
+                        objects[i].top = tempTop;
+
+                        objects[i].setCoords();
+                    }
+                    _canvas.renderAll();
+                    return _canvas;  
+                },
+                autoZoom: function(_canvas) {
+                    if(!_canvas) return;
+                    if(_canvas.height <= this.maxHeightForAutoZoom) return false;
+                    var _scale = 1,
+                        _tempHeight = _canvas.height;
+                    while(_tempHeight > this.maxHeightForAutoZoom) {
+                        _scale *= (1/ this.SCALE_FACTOR);
+                        _tempHeight = _tempHeight * (1/ this.SCALE_FACTOR);
+                        //console.log(_scale, ' after scale ', _tempHeight);
+                    }
+                    if(_scale > 0 && _tempHeight <= this.maxHeightForAutoZoom) {
+                        //auto zoom out here
+                        if(!this.validateBeforeZoomOut(_canvas)) return false;
+                        _canvas.originalScale = _scale;
+                        this.zoomOutTo(_canvas, _scale);
+                    }
+                }, 
+                zoomOutTo: function(_canvas, _scale) {
+                    if(!_canvas || !_scale) return false;
+                    _canvas.scale = _scale;
+                    _canvas.setHeight(_canvas.getHeight() * _scale);
+                    _canvas.setWidth(_canvas.getWidth() * _scale);
+                    _canvas.calcOffset();
+                    var objects = _canvas.getObjects();
+                    for (var i in objects) {
+                        var scaleX = objects[i].scaleX;
+                        var scaleY = objects[i].scaleY;
+                        var left = objects[i].left;
+                        var top = objects[i].top;
+
+                        var tempScaleX = scaleX * _scale;
+                        var tempScaleY = scaleY * _scale;
+                        var tempLeft = left * _scale;
+                        var tempTop = top * _scale;
+
+                        objects[i].scaleX = tempScaleX;
+                        objects[i].scaleY = tempScaleY;
+                        objects[i].left = tempLeft;
+                        objects[i].top = tempTop;
+                        objects[i].setCoords();
+                    }
+                    _canvas.renderAll();  
+                    this.updateWrappSize(_canvas);
+                }
+            };
             // Return public API.
             return({
                 allCanvas: {},
                 getProductConfig: getProductConfig,
                 pdpHelper: pdpHelper,
-                history: history
+                history: history,
+                pdpZoom: pdpZoom
             });
             function getProductConfig($productId) {
                 var configUrl = baseUrl + 'getProductConfig&id=' + $productId;

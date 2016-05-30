@@ -1445,3 +1445,10 @@ ul.txt-list-btn li a:hover {
 .mainview .design-side-item .wrap-canvas {
   position: absolute;
 }
+canvas.lower-canvas,
+canvas.upper-canvas  {
+  border: none;
+}
+.designarea .wrap-canvas {
+  border: 1px solid #ccc;
+}

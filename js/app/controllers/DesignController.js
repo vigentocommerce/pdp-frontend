@@ -77,7 +77,10 @@ define([
 							if(angular.element(document.querySelector("#canvas_side_" + sideId)).length) {
 								if(!PdpServices.allCanvas[sideId]) {
 									PdpServices.allCanvas[sideId] = new fabric.Canvas('canvas_side_' + sideId);
-									PdpServices.allCanvas[sideId].allowTouchScrolling = true;	
+									PdpServices.allCanvas[sideId].allowTouchScrolling = true;
+									PdpServices.allCanvas[sideId].setWidth(side.canvas_width);
+									PdpServices.allCanvas[sideId].setHeight(side.canvas_height);
+									PdpServices.allCanvas[sideId].canvas_id = sideId;	 
 								}
 								//Active first side of first color
 								if(counter == 1) {
@@ -116,6 +119,21 @@ define([
 			$scope.changeProductColor = function(colorId) {
 				if(colorId == $scope.activeColorId) return false;
 				$scope.setSideListByColorId(colorId);
+			}
+			$scope.zoomIn = function() {
+				PdpServices.pdpZoom.zoomIn($scope.getCurrentCanvas());
+			}
+			$scope.zoomOut = function() {
+				PdpServices.pdpZoom.zoomOut($scope.getCurrentCanvas());
+			}
+			$scope.resetZoom = function() {
+				PdpServices.pdpZoom.resetZoom($scope.getCurrentCanvas());
+				//Step 1: reset to 100%
+				//PdpServices.pdpZoom.resetZoom();
+				//Step 2: zoom out to original 100%
+				//var _canvas = pdc.getCurrentCanvas(),
+				//	_originalScale = _canvas.originalScale || 1;
+				//pdc.pdcZoom.zoomOutTo(_canvas, _originalScale);
 			}
 		}
 	];
