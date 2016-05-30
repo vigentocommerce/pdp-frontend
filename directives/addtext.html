@@ -1,4 +1,4 @@
-<div class="pdp-add-text-directive">
+<div class="pdp-add-text-directive" ng-controller="TextController">
 	<div class="tab-content text">
 		<div class="form-col">
 			<div class="form-group">
@@ -9,21 +9,24 @@
 				</ul>
 			</div>
 			<div class="form-group">
-				<textarea class="form-field input-text" data-text-field="object" name="text-1"  placeholder="Type your text here..."></textarea>
+				<textarea class="form-field input-text" data-text-field="object" ng-model="text.currentText" id="pdp-textbox"  placeholder="Type your text here..."></textarea>
+				<p>
+					<button type="button" class="form-field" ng-click="addText()">{{text.addTextBtnLabel}}</button>
+				</p>
 				<div class="col-6 f-left">
 					<ul class="txt-list-btn">
-						<li><a title="Bold"><span class="lnr lnr-bold"></span></a></li>
-						<li><a title="Italic"><span class="lnr lnr-italic"></span></a></li>
-						<li><a title="Underline"><span class="lnr lnr-underline"></span></a></li>
-						<li><a title="Strike Through"><span class="lnr lnr-strikethrough"></span></a></li>
+						<li><a ng-click="text.changeTextProperty('fontWeight')" ng-class="{active: text.fontWeight == 'bold'}" title="Bold"><span class="lnr lnr-bold"></span></a></li>
+						<li><a ng-click="text.changeTextProperty('fontStyle')" ng-class="{active: text.fontStyle == 'italic'}" title="Italic"><span class="lnr lnr-italic"></span></a></li>
+						<li><a ng-class="{active: text.textDecoration == 'underline'}" title="Underline"><span class="lnr lnr-underline"></span></a></li>
+						<li><a ng-class="{active: text.textDecoration == 'line-through'}" title="Strike Through"><span class="lnr lnr-strikethrough"></span></a></li>
 					</ul>
 				</div>
 				<div class="col-6 f-right">
 					<ul class="txt-list-btn f-right">
-						<li><a title="Left"><span class="lnr lnr-text-align-left"></span></a></li>
-						<li><a title="Center"><span class="lnr lnr-text-align-center"></span></a></li>
-						<li><a title="Right"><span class="lnr lnr-text-align-right"></span></a></li>
-						<li><a title="Justufy"><span class="lnr lnr-text-align-justify"></span></a></li>
+						<li><a ng-class="{active: text.textAlign == 'left'}" title="Left"><span class="lnr lnr-text-align-left"></span></a></li>
+						<li><a ng-class="{active: text.textAlign == 'center'}" title="Center"><span class="lnr lnr-text-align-center"></span></a></li>
+						<li><a ng-class="{active: text.textAlign == 'right'}" title="Right"><span class="lnr lnr-text-align-right"></span></a></li>
+						<li><a ng-class="{active: text.textAlign == 'justify'}" title="Justify"><span class="lnr lnr-text-align-justify"></span></a></li>
 					</ul>
 					
 				</div>
@@ -31,7 +34,7 @@
 			<div class="form-group">
 				<h3>Basic Settings</h3>
 				<label for="text-2">Change Font:</label>
-				<input type="text" class="text-field-readonly" data-text-field="font" name="text-2" style="font-family: Arial;" value="Arial" readonly="readonly" />
+				<input type="text" class="text-field-readonly" data-text-field="font" name="text-2" ng-model="text.fontFamily" style="font-family: {{text.fontFamily}};" value="Arial" readonly="readonly" />
 			</div>
 			<div class="form-group">
 				<label for="text-3">Text Color:</label>
@@ -40,19 +43,20 @@
 				
 			</div>
 			<div class="form-group">
-				<label for="text-5">Text Size: <small>(inch)</small> </label>
-				<input type="range" min="0" max="75" step="1" />
-				<input type="number" max="100" min="0" class="small-input" data-text-field="size" placeholder="Eg 1" />
+				<label for="text-5">Text Size: <small>(px)</small> </label>
+				<input type="range" ng-model="text.fontSize" min="0" max="75" step="1" />
+				<input type="number" ng-model="text.fontSize" max="100" min="0" class="small-input" data-text-field="size" placeholder="Eg 1" />
 			</div>
+			<!--
 			<div class="form-group">
-				<label for="text-6">Line Height: <small>(inch)</small> </label>
-				<input  type="range" min="0" max="25" step="1" />
-				<input type="number" max="100" min="0" class="small-input" data-text-field="line-height" placeholder="Eg 1.5" />
-			</div>
+				<label for="text-6">Line Height: <small>(px)</small> </label>
+				<input  type="range" ng-model="text.lineHeight" min="0" max="10" step="0.5" />
+				<input type="number" ng-model="text.lineHeight" max="10" min="0" class="small-input" data-text-field="line-height" placeholder="Eg 1.5" />
+			</div>-->
 			<div class="form-group">
 				<label for="text-2">Text Outline:</label>
-				<input id="outline" type="range" min="0" max="10" step="1" />
-				<input type="number" max="100" min="0" class="small-input" data-text-field="outline"   placeholder="0" />
+				<input id="outline" ng-model="text.strokeWidth" type="range" value="0" min="0" max="5" step="0.1" />
+				<input type="number" ng-model="text.strokeWidth" max="5" value="0" min="0" step="0.1" class="small-input" data-text-field="outline"   placeholder="0" />
 				
 				
 			</div>
@@ -133,16 +137,9 @@
 			</div>
 			<div class="filter-results">
 				<ul class="font-list">
-					<li><a style="font-family:'Arial';">Arial</a></li>
-					<li><a style="font-family:'Trebuchet MS';">Trebuchet MS</a></li>
-					<li><a style="font-family:'Verdana';">Verdana</a></li>
-					<li><a style="font-family:'Times New Roman';">Times New Roman</a></li>
-					<li><a style="font-family:'Arial';">Arial</a></li>
-					<li><a style="font-family:'Trebuchet MS';">Trebuchet MS</a></li>
-					<li><a style="font-family:'Verdana';">Verdana</a></li>
-					<li><a style="font-family:'Times New Roman';">Times New Roman</a></li>
-					<li><a style="font-family:'Arial';">Arial</a></li>
-					<li><a style="font-family:'Trebuchet MS';">Trebuchet MS</a></li>
+					<li ng-repeat="font in text.fontList">
+						<a ng-click="changeFont(font.fontFamily)" style="font-family:'{{font.fontFamily}}';">{{font.displayText || font.name}}</a>
+					</li>
 				</ul>
 			</div>
 		</div>

@@ -106,9 +106,6 @@ define([
 				$scope.activeSideId = sideId;
 				PdpServices.history.init($scope.getCurrentCanvas());	
 			}
-			$scope.addText = function() {
-				PdpServices.pdpHelper.addText('Angular', '70', $scope.getCurrentCanvas());
-			}
 			$scope.addImage = function() {
 				PdpServices.pdpHelper.addImage('images/demo1.svg', {}, null, $scope.getCurrentCanvas());
 				PdpServices.pdpHelper.addImage('images/demo.svg', {}, null, $scope.getCurrentCanvas());
@@ -134,6 +131,11 @@ define([
 				//var _canvas = pdc.getCurrentCanvas(),
 				//	_originalScale = _canvas.originalScale || 1;
 				//pdc.pdcZoom.zoomOutTo(_canvas, _originalScale);
+			}
+			$scope.getActiveObject = function() {
+				if($scope.getCurrentCanvas() && $scope.getCurrentCanvas().getActiveObject()) {
+					return $scope.getCurrentCanvas().getActiveObject();
+				}
 			}
 		}
 	];

@@ -1207,7 +1207,8 @@ ul.txt-list-btn li a::before {
 ul.txt-list-btn li a:hover::after, ul.txt-list-btn li a:hover::before {
   opacity: 1;
 }
-ul.txt-list-btn li a:hover {
+ul.txt-list-btn li a:hover,
+ul.txt-list-btn li a.active {
   border-color: #ffa500;
   color: #ffa500;
 }
