@@ -17,6 +17,8 @@ define([
 				lineHeight: 1.0,
 				stroke: '#e06666',
 				strokeWidth: 0,
+				showUpdateButton: false,
+				updateTextBtnLabel: 'Update Text'
 			};	
 			$scope.text.fontList = [
 				{
@@ -45,10 +47,19 @@ define([
 				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'stroke', $scope.text.stroke);
 				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'strokeWidth', $scope.text.strokeWidth);
 			});
-			$scope.addText = function() {
+			$scope.text.addText = function() {
 				if($scope.text.currentText) {
 					$scope.text.selectedTextEvents();
-					PdpServices.pdpHelper.addText($scope.text.currentText, 25, $scope.getCurrentCanvas());	
+					PdpServices.pdpHelper.addText($scope.text.currentText, 25, $scope.getCurrentCanvas());
+				}
+			}
+			$scope.text.updateText = function() {
+				if($scope.text.currentText) {
+					var activeObject = $scope.getActiveObject();
+					if(activeObject && activeObject.type == "text") {
+						activeObject.setText($scope.text.currentText);
+						$scope.getCurrentCanvas().renderAll();
+					}	
 				}
 			}
 			//Selected text event
@@ -62,18 +73,24 @@ define([
 					$scope.getCurrentCanvas().observe('selection:cleared', function() {
 						$timeout(function() {
 							$scope.text.currentText = '';
+							$scope.text.showUpdateButton = false;
 						});
 					});
 				}
 			}
 			$scope.text.updateTextInfo = function(activeObject) {
 				if(activeObject) {
-					var textProperties = ['fontFamily', 'fontSize', 'stroke', 'strokeWidth', 'fontStyle', 'fontWeight'];
+					var textProperties = [
+						'fontFamily', 'fontSize', 'stroke', 
+						'strokeWidth', 'fontStyle', 'fontWeight', 
+						'textAlign', 'textDecoration'];
 					$timeout(function() {
 						$scope.text.currentText = activeObject.text;
 						angular.forEach(textProperties, function(textProp, index) {
 							$scope.text[textProp] = activeObject[textProp] || $scope.text[textProp];
 						});
+						//show update button
+						$scope.text.showUpdateButton = true;
 						//$scope.text.fontFamily = activeObject.fontFamily;
 						//$scope.text.fontSize = activeObject.fontSize;	
 						//$scope.text.stroke = activeObject.stroke || $scope.text.stroke;
@@ -90,7 +107,8 @@ define([
 					canvas.renderAll();
 				}
 			}
-			$scope.text.changeTextProperty = function(property) {
+			$scope.text.changeTextProperty = function(property, value) {
+				value = value || '';
 				if($scope.getCurrentCanvas() && $scope.getActiveObject()) {
 					var activeObject = $scope.getActiveObject();
 					if(activeObject && activeObject.type == "text") {
@@ -109,7 +127,14 @@ define([
 									$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'fontStyle', 'normal');
 								}
 								break;	
-						
+							case 'textAlign':
+								var alignValue = value || 'left';
+								$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'textAlign', alignValue);
+								break;
+							case 'textDecoration':
+								var textDecoration = value || 'left';
+								$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'textDecoration', textDecoration);
+								break;						
 							default:
 								break;
 						}

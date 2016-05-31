@@ -1,6 +1,7 @@
 <div class="pdp-add-text-directive" ng-controller="TextController">
 	<div class="tab-content text">
 		<div class="form-col">
+			<!--
 			<div class="form-group">
 				<ul class="action-text">
 					<li><a class="current">New text</a></li>
@@ -8,25 +9,27 @@
 					<li><a>Edit text</a></li>
 				</ul>
 			</div>
+			-->
 			<div class="form-group">
 				<textarea class="form-field input-text" data-text-field="object" ng-model="text.currentText" id="pdp-textbox"  placeholder="Type your text here..."></textarea>
 				<p>
-					<button type="button" class="form-field" ng-click="addText()">{{text.addTextBtnLabel}}</button>
+					<button type="button" class="form-field" ng-click="text.addText()">{{text.addTextBtnLabel}}</button>
+					<button type="button" ng-show="text.showUpdateButton == true" class="form-field" ng-click="text.updateText()">{{text.updateTextBtnLabel}}</button>
 				</p>
 				<div class="col-6 f-left">
 					<ul class="txt-list-btn">
 						<li><a ng-click="text.changeTextProperty('fontWeight')" ng-class="{active: text.fontWeight == 'bold'}" title="Bold"><span class="lnr lnr-bold"></span></a></li>
 						<li><a ng-click="text.changeTextProperty('fontStyle')" ng-class="{active: text.fontStyle == 'italic'}" title="Italic"><span class="lnr lnr-italic"></span></a></li>
-						<li><a ng-class="{active: text.textDecoration == 'underline'}" title="Underline"><span class="lnr lnr-underline"></span></a></li>
-						<li><a ng-class="{active: text.textDecoration == 'line-through'}" title="Strike Through"><span class="lnr lnr-strikethrough"></span></a></li>
+						<li><a ng-click="text.changeTextProperty('textDecoration', 'underline')" ng-class="{active: text.textDecoration == 'underline'}" title="Underline"><span class="lnr lnr-underline"></span></a></li>
+						<li><a ng-click="text.changeTextProperty('textDecoration', 'line-through')" ng-class="{active: text.textDecoration == 'line-through'}" title="Strike Through"><span class="lnr lnr-strikethrough"></span></a></li>
 					</ul>
 				</div>
 				<div class="col-6 f-right">
 					<ul class="txt-list-btn f-right">
-						<li><a ng-class="{active: text.textAlign == 'left'}" title="Left"><span class="lnr lnr-text-align-left"></span></a></li>
-						<li><a ng-class="{active: text.textAlign == 'center'}" title="Center"><span class="lnr lnr-text-align-center"></span></a></li>
-						<li><a ng-class="{active: text.textAlign == 'right'}" title="Right"><span class="lnr lnr-text-align-right"></span></a></li>
-						<li><a ng-class="{active: text.textAlign == 'justify'}" title="Justify"><span class="lnr lnr-text-align-justify"></span></a></li>
+						<li><a ng-click="text.changeTextProperty('textAlign', 'left')" ng-class="{active: text.textAlign == 'left'}" title="Left"><span class="lnr lnr-text-align-left"></span></a></li>
+						<li><a ng-click="text.changeTextProperty('textAlign', 'center')" ng-class="{active: text.textAlign == 'center'}" title="Center"><span class="lnr lnr-text-align-center"></span></a></li>
+						<li><a ng-click="text.changeTextProperty('textAlign', 'right')" ng-class="{active: text.textAlign == 'right'}" title="Right"><span class="lnr lnr-text-align-right"></span></a></li>
+						<li><a ng-click="text.changeTextProperty('textAlign', 'justify')" ng-class="{active: text.textAlign == 'justify'}" title="Justify"><span class="lnr lnr-text-align-justify"></span></a></li>
 					</ul>
 					
 				</div>

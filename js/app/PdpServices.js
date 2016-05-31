@@ -103,7 +103,7 @@ define([
                         //left: center.left,
                         //top: center.top,
                         fontSize: fontSize || 25,
-                        textAlign: "left",
+                        textAlign: "center",
                         fontStyle: 'normal',
                         //perPixelTargetFind : true,
                         fill: "#000",
