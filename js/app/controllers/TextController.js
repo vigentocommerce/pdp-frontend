@@ -118,7 +118,7 @@ define([
 					var textOptions = {
 						fill: $scope.text.fill,
 						//stroke: $scope.text.stroke,
-						price: 0
+						price: 0,
 					}
 					PdpServices.pdpHelper.addText($scope.text.currentText, 25, $scope.getCurrentCanvas(), textOptions);
 				}
@@ -157,7 +157,7 @@ define([
 					$timeout(function() {
 						$scope.text.currentText = activeObject.text;
 						angular.forEach(textProperties, function(textProp, index) {
-							$scope.text[textProp] = activeObject[textProp] || $scope.text[textProp];
+							$scope.text[textProp] = activeObject[textProp];
 						});
 						//show update button
 						$scope.text.showUpdateButton = true;
@@ -202,8 +202,20 @@ define([
 								$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'textAlign', alignValue);
 								break;
 							case 'textDecoration':
-								var textDecoration = value || 'left';
-								$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'textDecoration', textDecoration);
+								var textDecoration = value || '';
+								if(textDecoration === 'underline') {
+									if(activeObject.textDecoration == 'underline') {
+										$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'textDecoration', '');
+									} else {
+										$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'textDecoration', textDecoration);
+									}
+								} else {
+									if(activeObject.textDecoration == 'line-through') {
+										$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'textDecoration', '');
+									} else {
+										$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'textDecoration', textDecoration);
+									}
+								}
 								break;						
 							default:
 								break;
