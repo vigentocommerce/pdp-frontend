@@ -97,7 +97,8 @@ define([
                 }
             };
             var pdpHelper = {
-                addText: function(text, fontSize, _canvas) {
+                addText: function(text, fontSize, _canvas, options) {
+                    options = options || {};
                     var textObj = new fabric.Text(text, {
                         fontFamily: 'Arial',
                         //left: center.left,
@@ -106,8 +107,8 @@ define([
                         textAlign: "center",
                         fontStyle: 'normal',
                         //perPixelTargetFind : true,
-                        fill: "#000",
-                        price: 0,
+                        fill: options.fill || "#000",
+                        price: options.price || 0,
                         lineHeight: 1.0,
                         strokeWidth: 0,
                         borderColor: '#808080',

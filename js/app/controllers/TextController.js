@@ -18,8 +18,73 @@ define([
 				stroke: '#e06666',
 				strokeWidth: 0,
 				showUpdateButton: false,
-				updateTextBtnLabel: 'Update Text'
-			};	
+				updateTextBtnLabel: 'Update Text',
+				fill: '#000'
+			};
+			$scope.text.colorList = [
+				{
+					'color_name': '',
+					'color_code': '#000000'
+				},
+				{
+					'color_name': '',
+					'color_code': '#ff9900'
+				},
+				{
+					'color_name': '',
+					'color_code': '#d5a6bd'
+				},
+				{
+					'color_name': '',
+					'color_code': '#4c1130'
+				},
+				{
+					'color_name': '',
+					'color_code': '#f6b26b'
+				},
+				{
+					'color_name': '',
+					'color_code': '#ffd966'
+				},
+				{
+					'color_name': '',
+					'color_code': '#93c47d'
+				},
+				{
+					'color_name': '',
+					'color_code': '#3d85c6'
+				},
+				{
+					'color_name': '',
+					'color_code': '#134f5c'
+				},
+				{
+					'color_name': '',
+					'color_code': '#9fc5e8'
+				},
+				{
+					'color_name': '',
+					'color_code': '#073763'
+				},
+				{
+					'color_name': '',
+					'color_code': '#cc0000'
+				},
+			];
+			$scope.text.init = function() {
+				if($scope.text.colorList) {
+					for(var i = 0; i < $scope.text.colorList.length; i++) {
+						if(i === 0) {
+							$scope.text.fill = $scope.text.colorList[i].color_code;
+						}
+						if(i === 1) {
+							$scope.text.stroke = $scope.text.colorList[i].color_code;
+							break;
+						}
+					}
+				}
+			}
+			$scope.text.init();	
 			$scope.text.fontList = [
 				{
 					'fontFamily': 'Arial',
@@ -50,7 +115,12 @@ define([
 			$scope.text.addText = function() {
 				if($scope.text.currentText) {
 					$scope.text.selectedTextEvents();
-					PdpServices.pdpHelper.addText($scope.text.currentText, 25, $scope.getCurrentCanvas());
+					var textOptions = {
+						fill: $scope.text.fill,
+						//stroke: $scope.text.stroke,
+						price: 0
+					}
+					PdpServices.pdpHelper.addText($scope.text.currentText, 25, $scope.getCurrentCanvas(), textOptions);
 				}
 			}
 			$scope.text.updateText = function() {
@@ -83,7 +153,7 @@ define([
 					var textProperties = [
 						'fontFamily', 'fontSize', 'stroke', 
 						'strokeWidth', 'fontStyle', 'fontWeight', 
-						'textAlign', 'textDecoration'];
+						'textAlign', 'textDecoration', 'fill', 'stroke'];
 					$timeout(function() {
 						$scope.text.currentText = activeObject.text;
 						angular.forEach(textProperties, function(textProp, index) {
@@ -141,11 +211,27 @@ define([
 					}
 				}
 			}
-			$scope.changeFont = function(fontFamily) {
+			$scope.text.changeFont = function(fontFamily) {
 				if(fontFamily && $scope.getCurrentCanvas()) {
 					var canvas = $scope.getCurrentCanvas();
 					if(canvas) {
 						$scope.text.updateTextProperty(canvas, 'fontFamily', fontFamily);	
+					}
+				}
+			}
+			$scope.text.changeTextColor = function(colorCode) {
+				if(colorCode && $scope.getCurrentCanvas()) {
+					var canvas = $scope.getCurrentCanvas();
+					if(canvas) {
+						$scope.text.updateTextProperty(canvas, 'fill', colorCode);	
+					}
+				}
+			}
+			$scope.text.changeTextStroke = function(colorCode) {
+				if(colorCode && $scope.getCurrentCanvas()) {
+					var canvas = $scope.getCurrentCanvas();
+					if(canvas) {
+						$scope.text.updateTextProperty(canvas, 'stroke', colorCode);	
 					}
 				}
 			}

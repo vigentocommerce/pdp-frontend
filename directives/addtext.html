@@ -31,7 +31,6 @@
 						<li><a ng-click="text.changeTextProperty('textAlign', 'right')" ng-class="{active: text.textAlign == 'right'}" title="Right"><span class="lnr lnr-text-align-right"></span></a></li>
 						<li><a ng-click="text.changeTextProperty('textAlign', 'justify')" ng-class="{active: text.textAlign == 'justify'}" title="Justify"><span class="lnr lnr-text-align-justify"></span></a></li>
 					</ul>
-					
 				</div>
 			</div>
 			<div class="form-group">
@@ -42,6 +41,13 @@
 			<div class="form-group">
 				<label for="text-3">Text Color:</label>
 				<input type="text" class="text-field-readonly" data-text-field="color" name="text-3" style="background-color: #000;"  readonly="readonly" />
+				<ul class="color-list">
+					<li ng-repeat="color in text.colorList" ng-click="text.changeTextColor(color.color_code)" ng-class="{active: text.fill == color.color_code}">
+						<a title="{{color.color_name}}">
+							<span style="background-color: #{{color.color_code.replace('#', '')}}; margin: 4px; padding: 4px;"></span>
+						</a>
+					</li>
+				</ul>
 				<!-- <button type="button" class="primary-button medium"><span><span class="lnr lnr-plus-circle"></span> Add Text</span></button> -->
 				
 			</div>
@@ -66,7 +72,13 @@
 			<div class="form-group">
 				<label for="text-3">Outline Color:</label>
 				<input type="text" class="text-field-readonly" data-text-field="outlinecolor" style="background-color: #000;"  readonly="readonly" />
-				
+				<ul class="color-list">
+					<li ng-repeat="color in text.colorList" ng-click="text.changeTextStroke(color.color_code)" ng-class="{active: text.stroke == color.color_code}">
+						<a title="{{color.color_name}}">
+							<span style="background-color: #{{color.color_code.replace('#', '')}}; margin: 4px; padding: 4px;"></span>
+						</a>
+					</li>
+				</ul>
 			</div>		
 		</div>
 		<div class="form-col">
@@ -141,7 +153,7 @@
 			<div class="filter-results">
 				<ul class="font-list">
 					<li ng-repeat="font in text.fontList">
-						<a ng-click="changeFont(font.fontFamily)" style="font-family:'{{font.fontFamily}}';">{{font.displayText || font.name}}</a>
+						<a ng-click="text.changeFont(font.fontFamily)" style="font-family:'{{font.fontFamily}}';">{{font.displayText || font.name}}</a>
 					</li>
 				</ul>
 			</div>
