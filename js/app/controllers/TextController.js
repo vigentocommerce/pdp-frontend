@@ -115,6 +115,7 @@ define([
 			});
 			$scope.$watch('text.strokeWidth', function() {
 				$scope.text.strokeWidth = parseFloat($scope.text.strokeWidth);
+				console.info($scope.text.stroke);
 				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'stroke', $scope.text.stroke);
 				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'strokeWidth', $scope.text.strokeWidth);
 			});
@@ -140,7 +141,7 @@ define([
 					$scope.text.selectedTextEvents();
 					var textOptions = {
 						fill: $scope.text.fill,
-						//stroke: $scope.text.stroke,
+						stroke: $scope.text.stroke,
 						price: 0,
 					}
 					PdpServices.pdpHelper.addText($scope.text.currentText, 25, $scope.getCurrentCanvas(), textOptions);
@@ -177,7 +178,7 @@ define([
 						'fontFamily', 'fontSize', 'stroke', 
 						'strokeWidth', 'fontStyle', 'fontWeight', 
 						'textAlign', 'textDecoration', 'fill', 
-						'stroke', 'effect', 'reverse', 'smallFont', 'largeFont'];
+						'effect', 'reverse', 'smallFont', 'largeFont'];
 					$timeout(function() {
 						$scope.text.currentText = activeObject.text;
 						angular.forEach(textProperties, function(textProp, index) {

@@ -111,6 +111,7 @@ define([
                         price: options.price || 0,
                         lineHeight: 1.0,
                         strokeWidth: 0,
+                        stroke: options.stroke || '',
                         borderColor: '#808080',
                         cornerColor: 'rgba(68,180,170,0.7)',
                         cornerSize: 16,
