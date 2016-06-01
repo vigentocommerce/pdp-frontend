@@ -126,6 +126,92 @@ define([
                     _canvas.calcOffset().renderAll();
                     history.createHistory();
                 },
+                changeTextEffect: function(canvas, effect) {
+                    if(!canvas || !effect) return false;
+                    var active = canvas.getActiveObject();
+                    if (!active) {
+                        alert("Please select a text!");
+                        return false;
+                    }
+                    var fontSize = parseInt(active.fontSize),
+                        largeFont = fontSize,
+                        smallFont = fontSize;
+                    if(!active.largeFont) {
+                        smallFont = parseInt(largeFont / 2);
+                    } else {
+                        largeFont = parseInt(active.largeFont);
+                        smallFont = parseInt(active.smallFont);
+                            //Someone might change the font from transform slider, just roll back to make it look like sample text
+                        if(smallFont > largeFont) {
+                            var _tempLarge = largeFont;
+                            largeFont = smallFont,
+                            smallFont = _tempLarge;
+                        }
+                    }
+                    if(effect == "obulge") {
+                        if(smallFont < largeFont) {
+                            smallFont = largeFont;
+                            largeFont =  parseInt(smallFont / 2);
+                        }
+                        effect = "bulge";
+                    }
+                    if((active.type=='text') || (active.type=='i-text')) {
+                        var CurvedText = new fabric.CurvedText(active.text, {
+                            left: active.left,
+                            top: active.top,
+                            textAlign: 'center',
+                            fill: active.fill,
+                            radius: 100,
+                            fontSize: fontSize,
+                            spacing: 15,
+                            fontFamily: active.fontFamily,
+                            name: active.name || '',
+                            scaleX: active.scaleX,
+                            scaleY: active.scaleY,
+                            opacity: active.opacity,
+                            fontWeight: active.fontWeight,
+                            fontStyle: active.fontStyle,
+                            stroke: active.stroke,
+                            strokeWidth: active.strokeWidth,
+                            price: active.price,
+                            effect: effect,//curved, arc, smallToLarge, largeToSmallTop, largeToSmallBottom, bulge, STRAIGHT
+                            angle: active.angle,
+                            smallFont: smallFont,
+                            largeFont: largeFont,
+                            borderColor: '#808080',
+                            cornerColor: 'rgba(68,180,170,0.7)',
+                            cornerSize: 16,
+                            cornerRadius: 12,
+                            transparentCorners: false,
+                            centeredScaling:true,
+                            rotatingPointOffset: 40,
+                            padding: 5
+                        });
+                        canvas.remove(active);
+                        canvas.add(CurvedText).setActiveObject(CurvedText).calcOffset().renderAll();
+                    } else if (active.type == 'curvedText') {
+                        active.set({
+                            effect: effect,
+                            smallFont: smallFont,
+                            largeFont: largeFont
+                        });
+                        canvas.renderAll();
+                    }
+                },
+                reverseCurvedText: function(canvas, isReverse) {
+                    var obj = canvas.getActiveObject(); 
+                    if(obj){
+                        var scaleXobj =  obj.scaleX,
+                            scaleYobj = obj.scaleY;
+                        obj.set('reverse', isReverse); 
+                        canvas.renderAll();
+                        obj.set({
+                            scaleX: scaleXobj,
+                            scaleY: scaleYobj
+                        })
+                        canvas.renderAll();
+                    }  
+                },
                 addImage: function(src, options, callback, _canvas) {
                     options = options || {};
                     if(src && _canvas) {

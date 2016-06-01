@@ -19,7 +19,13 @@ define([
 				strokeWidth: 0,
 				showUpdateButton: false,
 				updateTextBtnLabel: 'Update Text',
-				fill: '#000'
+				fill: '#000',
+				effect: 'STRAIGHT',
+				radius: 100,
+				spacing: 15,
+				smallFont: 20,
+				largeFont: 40,
+				reverse: false
 			};
 			$scope.text.colorList = [
 				{
@@ -112,6 +118,23 @@ define([
 				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'stroke', $scope.text.stroke);
 				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'strokeWidth', $scope.text.strokeWidth);
 			});
+			//Curved text options
+			$scope.$watch('text.radius', function() {
+				$scope.text.radius = parseFloat($scope.text.radius);
+				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'radius', $scope.text.radius);
+			});
+			$scope.$watch('text.spacing', function() {
+				$scope.text.spacing = parseFloat($scope.text.spacing);
+				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'spacing', $scope.text.spacing);
+			});
+			$scope.$watch('text.smallFont', function() {
+				$scope.text.smallFont = parseFloat($scope.text.smallFont);
+				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'smallFont', $scope.text.smallFont);
+			});
+			$scope.$watch('text.largeFont', function() {
+				$scope.text.largeFont = parseFloat($scope.text.largeFont);
+				$scope.text.updateTextProperty($scope.getCurrentCanvas(), 'largeFont', $scope.text.largeFont);
+			});
 			$scope.text.addText = function() {
 				if($scope.text.currentText) {
 					$scope.text.selectedTextEvents();
@@ -126,7 +149,7 @@ define([
 			$scope.text.updateText = function() {
 				if($scope.text.currentText) {
 					var activeObject = $scope.getActiveObject();
-					if(activeObject && activeObject.type == "text") {
+					if(activeObject && (activeObject.type == "text" || activeObject.type == "curvedText")) {
 						activeObject.setText($scope.text.currentText);
 						$scope.getCurrentCanvas().renderAll();
 					}	
@@ -136,7 +159,7 @@ define([
 			$scope.text.selectedTextEvents = function() {
 				if($scope.getCurrentCanvas()) {
 					$scope.getCurrentCanvas().observe('object:selected', function() {
-						if($scope.getActiveObject() && $scope.getActiveObject().type == "text") {
+						if($scope.getActiveObject() && ($scope.getActiveObject().type == "text" || $scope.getActiveObject().type == "curvedText")) {
 							$scope.text.updateTextInfo($scope.getActiveObject());
 						}
 					});
@@ -153,7 +176,8 @@ define([
 					var textProperties = [
 						'fontFamily', 'fontSize', 'stroke', 
 						'strokeWidth', 'fontStyle', 'fontWeight', 
-						'textAlign', 'textDecoration', 'fill', 'stroke'];
+						'textAlign', 'textDecoration', 'fill', 
+						'stroke', 'effect', 'reverse', 'smallFont', 'largeFont'];
 					$timeout(function() {
 						$scope.text.currentText = activeObject.text;
 						angular.forEach(textProperties, function(textProp, index) {
@@ -181,7 +205,7 @@ define([
 				value = value || '';
 				if($scope.getCurrentCanvas() && $scope.getActiveObject()) {
 					var activeObject = $scope.getActiveObject();
-					if(activeObject && activeObject.type == "text") {
+					if(activeObject && (activeObject.type == "text" || activeObject.type == "curvedText")) {
 						switch (property) {
 							case 'fontWeight':
 								if(activeObject.fontWeight == 'normal') {
@@ -246,6 +270,31 @@ define([
 						$scope.text.updateTextProperty(canvas, 'stroke', colorCode);	
 					}
 				}
+			}
+			$scope.text.changeTextEffect = function(effect) {
+				var canvas = $scope.getCurrentCanvas(),
+					activeObject = canvas.getActiveObject();
+				if(activeObject && (activeObject.type == "text" || activeObject.type == "curvedText")) {
+					$scope.text.effect = effect;
+					PdpServices.pdpHelper.changeTextEffect(canvas, $scope.text.effect);
+				}
+			}
+			$scope.text.isCurvedText = function() {
+				if($scope.text.effect == 'curved') {
+					return true;
+				}
+				return false;
+			}
+			$scope.text.isOtherEffects = function() {
+				if($scope.text.effect && $scope.text.effect != 'curved' && $scope.text.effect != 'STRAIGHT') {
+					return true;
+				}
+				return false;
+			}
+			$scope.text.reverseCurvedText = function() {
+				var canvas = $scope.getCurrentCanvas();
+				$scope.text.reverse = !$scope.text.reverse;
+				PdpServices.pdpHelper.reverseCurvedText(canvas, $scope.text.reverse);
 			}
 		}
 	];

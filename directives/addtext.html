@@ -87,29 +87,42 @@
 				<div class="advanced-settings" data-toggle-content="advancedSettings">
 					<div class="curves-thumbnail"><a href=""><img src="assets/media/curved.png" alt="" /></a>
 						<ul class="select-curves">
-							<li><a><img src="assets/media/curved.png" alt=""/></a></li>
-							<li><a><img src="assets/media/bulge.png" alt=""/></a></li>
-							<li><a><img src="assets/media/obulge.png" alt=""/></a></li>
-							<li><a><img src="assets/media/largeToSmallTop.png" alt=""/></a></li>
-							<li><a><img src="assets/media/smallToLarge.png" alt=""/></a></li>
-							<li><a><img src="assets/media/normaltext.png" alt=""/></a></li>
+							<li ng-click="text.changeTextEffect('curved')"><a><img src="assets/media/curved.png" alt=""/></a></li>
+							<li ng-click="text.changeTextEffect('bulge')"><a><img src="assets/media/bulge.png" alt=""/></a></li>
+							<li ng-click="text.changeTextEffect('obulge')"><a><img src="assets/media/obulge.png" alt=""/></a></li>
+							<li ng-click="text.changeTextEffect('largeToSmallTop')"><a><img src="assets/media/largeToSmallTop.png" alt=""/></a></li>
+							<li ng-click="text.changeTextEffect('smallToLarge')"><a><img src="assets/media/smallToLarge.png" alt=""/></a></li>
+							<li ng-click="text.changeTextEffect('STRAIGHT')"><a><img src="assets/media/normaltext.png" alt=""/></a></li>
 						</ul>
 					</div>
 					<div class="curves-option">
-						<div class="">
-							<label>Small font:</label><br/>
-							<input type="range" min="0" max="10" step="1" />
-							<input type="number" placeholder="0" class="small-input" min="0" max="100">
+						<div class="effect-others" ng-show="text.isOtherEffects()">
+							<div class="">
+								<label>Small font:</label><br/>
+								<input type="range" ng-model="text.smallFont" min="5" max="144" step="1" />
+								<input type="number" ng-model="text.smallFont" placeholder="0" class="small-input" min="5" max="144">
+							</div>
+							<div class="">
+								<label>Large font:</label><br/>
+								<input type="range" ng-model="text.largeFont" min="5" max="144" step="1" />
+								<input type="number" ng-model="text.largeFont" placeholder="0" class="small-input" min="5" max="144">
+							</div>
 						</div>
-						<div class="">
-							<label>Large font:</label><br/>
-							<input type="range" min="0" max="10" step="1" />
-							<input type="number" placeholder="0" class="small-input" min="0" max="100">
+						<div class="effect-curved" ng-show="text.isCurvedText()">
+							<div class="">
+								<label>Radius:</label><br/>
+								<input type="range" ng-model="text.radius" min="0" max="360" step="1" />
+								<input type="number" ng-model="text.radius" placeholder="0" class="small-input" min="0" max="360">
+							</div>
+							<div class="">
+								<label>Spacing:</label><br/>
+								<input type="range" ng-model="text.spacing" min="1" max="50" step="1" />
+								<input type="number" ng-model="text.spacing" placeholder="0" class="small-input" min="1" max="50">
+							</div>
+							<div class="">
+								<label><input ng-click="text.reverseCurvedText()" ng-checked="text.reverse" id="pdc_ctext_reverse" type="checkbox" name="reverse"> Reverse</label>
+							</div>
 						</div>
-						<div class="">
-							<label><input id="pdc_ctext_reverse" type="checkbox" name="reverse"> Reverse</label>
-						</div>
-						
 					</div>
 				</div>
 			</div>
