@@ -14,6 +14,7 @@ requirejs.config({
             'https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.2/fabric.min',
             'js/lib/fabric' 
         ],
+        'curvedtext': 'js/lib/curvedtext',
         'simplebar': 'js/lib/simplebar',
         'spectrum': 'js/lib/spectrum',
         'pdp' : 'js/app/pdp',
@@ -42,6 +43,9 @@ requirejs.config({
         },
         'spectrum': {
             deps: ['jquery']
+        },
+        'curvedtext' : {
+            deps: ['fabricjs']  
         },
         'action' : {
             deps: ['jquery', 'fabricjs', 'pdp']
