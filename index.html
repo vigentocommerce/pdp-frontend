@@ -97,22 +97,36 @@
             </div>
             <div class="sidebar-bottom" data-area="bottom">
                 <label>Zoom/Scale: </label>
-                <button class="primary-button small grey" ng-click="zoomOut()" type="button">
+                <button ng-click="zoomIn(-1)" class="primary-button small grey" type="button">
                 <span>
-                <span class="lnr lnr-circle-minus"></span> ZoomOut
+                <span class="lnr lnr-circle-minus"></span> 2X
                 </span>
                 </button>
-                <button class="primary-button small grey" ng-click="zoomIn()" type="button">
+                <button ng-click="zoomIn(1)" class="primary-button small grey" type="button">
                 <span>
-                <span class="lnr lnr-plus-circle"></span> ZoomIn
+                <span class="lnr lnr-plus-circle"></span> 2X
                 </span>
                 </button>
-                <button class="primary-button small greyplus" ng-click="resetZoom()" type="button">
+                <button ng-click="zoomIn(2)" class="primary-button small grey" type="button">
+                <span>
+                <span class="lnr lnr-plus-circle"></span> 3X
+                </span>
+                </button>
+                <button ng-click="zoomIn(3)" class="primary-button small grey" type="button">
+                <span>
+                <span class="lnr lnr-plus-circle"></span> 4X
+                </span>
+                </button>
+                <button ng-click="zoomIn(4)" class="primary-button small grey" type="button">
+                <span>
+                <span class="lnr lnr-plus-circle"></span> 5X
+                </span>
+                </button>
+                <button ng-click="zoomIn(0)" class="primary-button small greyplus" type="button">
                 <span>
                 <span class="lnr lnr-sync"></span> Reset zoom
                 </span>
                 </button>
-                <span id="zoom_percent"></span>
             </div>
         </div>
         <!-- PDP 2016 JS -->

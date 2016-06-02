@@ -80,7 +80,9 @@ define([
 									PdpServices.allCanvas[sideId].allowTouchScrolling = true;
 									PdpServices.allCanvas[sideId].setWidth(side.canvas_width);
 									PdpServices.allCanvas[sideId].setHeight(side.canvas_height);
-									PdpServices.allCanvas[sideId].canvas_id = sideId;	 
+									PdpServices.allCanvas[sideId].canvas_id = sideId;
+									PdpServices.allCanvas[sideId].originalWidth = side.canvas_width;
+									PdpServices.allCanvas[sideId].originalHeight = side.canvas_height;	 
 								}
 								//Active first side of first color
 								if(counter == 1) {
@@ -117,8 +119,8 @@ define([
 				if(colorId == $scope.activeColorId) return false;
 				$scope.setSideListByColorId(colorId);
 			}
-			$scope.zoomIn = function() {
-				PdpServices.pdpZoom.zoomIn($scope.getCurrentCanvas());
+			$scope.zoomIn = function(zoomX) {
+				PdpServices.pdpZoom.zoomIn($scope.getCurrentCanvas(), zoomX);
 			}
 			$scope.zoomOut = function() {
 				PdpServices.pdpZoom.zoomOut($scope.getCurrentCanvas());
