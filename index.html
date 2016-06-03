@@ -95,37 +95,12 @@
 					<pdp-hidden-popup></pdp-hidden-popup>
                 </div>
             </div>
-            <div class="sidebar-bottom" data-area="bottom">
+            <div ng-cloak ng-show="showZoom == true" class="sidebar-bottom" data-area="bottom">
                 <label>Zoom/Scale: </label>
-                <button ng-click="zoomIn(-1)" class="primary-button small grey" type="button">
-                <span>
-                <span class="lnr lnr-circle-minus"></span> 2X
-                </span>
-                </button>
-                <button ng-click="zoomIn(1)" class="primary-button small grey" type="button">
-                <span>
-                <span class="lnr lnr-plus-circle"></span> 2X
-                </span>
-                </button>
-                <button ng-click="zoomIn(2)" class="primary-button small grey" type="button">
-                <span>
-                <span class="lnr lnr-plus-circle"></span> 3X
-                </span>
-                </button>
-                <button ng-click="zoomIn(3)" class="primary-button small grey" type="button">
-                <span>
-                <span class="lnr lnr-plus-circle"></span> 4X
-                </span>
-                </button>
-                <button ng-click="zoomIn(4)" class="primary-button small grey" type="button">
-                <span>
-                <span class="lnr lnr-plus-circle"></span> 5X
-                </span>
-                </button>
-                <button ng-click="zoomIn(0)" class="primary-button small greyplus" type="button">
-                <span>
-                <span class="lnr lnr-sync"></span> Reset zoom
-                </span>
+                <button ng-repeat="zoom in zoomList" ng-click="zoomIn(zoom.zoom)" class="primary-button small grey" type="button">
+                    <span>
+                        <span class="{{zoom.spanClass}}"></span> {{zoom.title}}
+                    </span>
                 </button>
             </div>
         </div>

@@ -300,9 +300,7 @@ define([
             };  
         var pdpZoom = {
                 SCALE_FACTOR: 2,
-                maxWidth: 2000,
-                minWidth: 300,
-                maxHeightForAutoZoom: 560,
+                maxWidth: 3000,
                 zoomIn: function(_canvas, zoomX) {
                     var self = this;
                     if(!_canvas) return false;
@@ -313,15 +311,6 @@ define([
                         _canvas.scale = Math.pow(self.SCALE_FACTOR, zoomX); 
                         _canvas.oldScale = 1;  
                     }
-                    // if(zoomX === 1) {
-                    //     if(!_canvas.oldScale) {
-                    //         _canvas.oldScale = _canvas.scale = 1;
-                    //     } else {
-                    //         _canvas.scale = 1;
-                    //     }
-                    // }
-                    //console.info(_canvas.scale);
-                    //_canvas.scale = (_canvas.scale || 1) * self.SCALE_FACTOR;
                     _canvas.setHeight((_canvas.getHeight() /_canvas.oldScale) * _canvas.scale);
                     _canvas.setWidth((_canvas.getWidth() / _canvas.oldScale) * _canvas.scale);
                     _canvas.calcOffset();
@@ -347,35 +336,6 @@ define([
                         objects[i].setCoords();
                     }
                     _canvas.renderAll();
-                    this.updateWrappSize(_canvas);
-                },
-                zoomOut: function(_canvas, SCALE_FACTOR) {
-                    var self = this;
-                    _canvas = _canvas;
-                    _canvas.scale = (_canvas.scale || 1) / self.SCALE_FACTOR;
-                    _canvas.setHeight(_canvas.getHeight() * (1 / self.SCALE_FACTOR));
-                    _canvas.setWidth(_canvas.getWidth() * (1 / self.SCALE_FACTOR));
-                    _canvas.calcOffset();
-                    var objects = _canvas.getObjects();
-                    for (var i in objects) {
-                        var scaleX = objects[i].scaleX;
-                        var scaleY = objects[i].scaleY;
-                        var left = objects[i].left;
-                        var top = objects[i].top;
-                        
-                        var tempScaleX = scaleX * (1 / self.SCALE_FACTOR);
-                        var tempScaleY = scaleY * (1 / self.SCALE_FACTOR);
-                        var tempLeft = left * (1 / self.SCALE_FACTOR);
-                        var tempTop = top * (1 / self.SCALE_FACTOR);
-                        
-                        objects[i].scaleX = tempScaleX;
-                        objects[i].scaleY = tempScaleY;
-                        objects[i].left = tempLeft;
-                        objects[i].top = tempTop;
-                        objects[i].setCoords();
-                    }
-                    _canvas.renderAll();  
-                    this.updateWrappSize(_canvas);
                 },
                 resetZoom: function(_canvas, canvasScale) {
                     var self = this;
@@ -405,21 +365,6 @@ define([
                     }
                     _canvas.renderAll();
                     _canvas.scale = 1;
-                    this.updateWrappSize(_canvas);
-                },
-                updateWrappSize: function(_canvas) {
-                    var newWidth = _canvas.getWidth(),
-                    originalWidth = _canvas.getWidth() * (1 / (_canvas.scale || 1));
-                    var percent = (newWidth * 100) / originalWidth;
-                    angular.element(document.querySelector("#zoom_percent")).html(parseInt(percent) + "%");
-                },
-                getMaxScaleFactor: function(width) {
-                    //Get 4 step 
-                    //if x = y^4
-                    //then y = x^1/4 means y = x^0.25
-                    var diffWidth = this.maxWidth / parseFloat(width);
-                    var factor = Math.pow(diffWidth, 0.25);
-                    return factor;
                 }
             };
             // Return public API.

@@ -9,6 +9,8 @@ define([
 			$scope.sideList = {};
 			$scope.activeSideId = 0;
 			$scope.activeColorId = 0;
+			$scope.zoomList = [];
+			$scope.showZoom = false;
 			if(!$scope.productConfig) {
 				//$scope.productConfig = {};
 				PdpServices.getProductConfig($scope.currentProductId)
@@ -94,6 +96,7 @@ define([
 							}
 						});
 						PdpServices.history.init($scope.getCurrentCanvas());
+						$scope.setZoomList($scope.getCurrentCanvas());
 					}, 1000);
 				}
 			}
@@ -106,6 +109,7 @@ define([
 			}
 			$scope.switchSide = function(sideId) {
 				$scope.activeSideId = sideId;
+				$scope.setZoomList($scope.getCurrentCanvas());
 				PdpServices.history.init($scope.getCurrentCanvas());	
 			}
 			$scope.addImage = function() {
@@ -119,20 +123,45 @@ define([
 				if(colorId == $scope.activeColorId) return false;
 				$scope.setSideListByColorId(colorId);
 			}
+			$scope.setZoomList = function(canvas) {
+				$scope.defaultZoomList = [
+					{
+						zoom: 1,
+						title: '2X',
+						spanClass: 'lnr lnr-plus-circle'
+					},
+					{
+						zoom: 2,
+						title: '3X',
+						spanClass: 'lnr lnr-plus-circle'
+					},
+					{
+						zoom: 3,
+						title: '4X',
+						spanClass: 'lnr lnr-plus-circle'
+					}
+				];
+				$scope.zoomList.push({
+					zoom: -1,
+					title: '2X',
+					spanClass: 'lnr lnr-circle-minus'
+				});
+				angular.forEach($scope.defaultZoomList, function(zoom, index) {
+					var widthAfterScale = Math.pow(PdpServices.pdpZoom.SCALE_FACTOR, zoom.zoom) * canvas.originalWidth;
+					if(widthAfterScale < PdpServices.pdpZoom.maxWidth) {
+						$scope.zoomList.push(zoom);	
+					}
+				});
+				$scope.zoomList.push({
+					zoom: 0,
+					title: 'Reset Zoom',
+					spanClass: 'lnr lnr-sync'
+				});
+				$scope.showZoom = true;
+				return $scope.zoomList;
+			}
 			$scope.zoomIn = function(zoomX) {
 				PdpServices.pdpZoom.zoomIn($scope.getCurrentCanvas(), zoomX);
-			}
-			$scope.zoomOut = function() {
-				PdpServices.pdpZoom.zoomOut($scope.getCurrentCanvas());
-			}
-			$scope.resetZoom = function() {
-				PdpServices.pdpZoom.resetZoom($scope.getCurrentCanvas());
-				//Step 1: reset to 100%
-				//PdpServices.pdpZoom.resetZoom();
-				//Step 2: zoom out to original 100%
-				//var _canvas = pdc.getCurrentCanvas(),
-				//	_originalScale = _canvas.originalScale || 1;
-				//pdc.pdcZoom.zoomOutTo(_canvas, _originalScale);
 			}
 			$scope.getActiveObject = function() {
 				if($scope.getCurrentCanvas() && $scope.getCurrentCanvas().getActiveObject()) {
