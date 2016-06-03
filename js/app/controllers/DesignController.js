@@ -124,6 +124,7 @@ define([
 				$scope.setSideListByColorId(colorId);
 			}
 			$scope.setZoomList = function(canvas) {
+				$scope.zoomList = [];
 				$scope.defaultZoomList = [
 					{
 						zoom: 1,
@@ -161,7 +162,37 @@ define([
 				return $scope.zoomList;
 			}
 			$scope.zoomIn = function(zoomX) {
+				if(zoomX !== 0) {
+					$scope.beforeZoom($scope.getCurrentCanvas());	
+				} else {
+					$scope.resetZoom($scope.getCurrentCanvas());
+				}
 				PdpServices.pdpZoom.zoomIn($scope.getCurrentCanvas(), zoomX);
+			}
+			$scope.beforeZoom = function(canvas) {
+				var previewBg = angular.element(document.querySelector('#background-preview-' + canvas.canvas_id)),
+					wrapCanvas = angular.element(document.querySelector('#wrap-canvas-' + canvas.canvas_id)),
+					canvasContainer = angular.element(document.querySelector('#wrap-canvas-' + canvas.canvas_id + ' .canvas-container'));
+				previewBg.css('display', 'none');
+				wrapCanvas.css('top', 0);
+				wrapCanvas.css('left', 0);
+				wrapCanvas.css('width', '100%');
+				canvasContainer.css('margin', '0 auto');
+			}
+			$scope.resetZoom = function(canvas) {
+				//Show background preview, re-position wrap canvas
+				var previewBg = angular.element(document.querySelector('#background-preview-' + canvas.canvas_id)),
+					wrapCanvas = angular.element(document.querySelector('#wrap-canvas-' + canvas.canvas_id)),
+					canvasContainer = angular.element(document.querySelector('#wrap-canvas-' + canvas.canvas_id + ' .canvas-container'));
+				previewBg.css('display', 'block');
+				var activeSide = $scope.sideList[$scope.activeSideId];
+				if(activeSide) {
+					console.info(activeSide);
+					wrapCanvas.css('top', activeSide.canvas_top + 'px');
+					wrapCanvas.css('left', activeSide.canvas_left + 'px');
+					wrapCanvas.css('width', '');
+					canvasContainer.css('margin', '');
+				}
 			}
 			$scope.getActiveObject = function() {
 				if($scope.getCurrentCanvas() && $scope.getCurrentCanvas().getActiveObject()) {
