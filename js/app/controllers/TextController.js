@@ -158,19 +158,34 @@ define([
 					}	
 				}
 			}
-            $scope.text.showColorControl = function() {
-                if($scope.text.isshowColorControl==true){
-                    $scope.text.isshowColorControl = false;
-                }else{
-                    $scope.text.isshowColorControl = true;
+            $scope.text.showColorControl = function(box) {
+                switch (box) {
+                    case 1 :
+                        if($scope.text.isshowColorControl==true){
+                            $scope.text.isshowColorControl = false;
+                        }else{
+                            $scope.text.isshowColorControl = true;
+                        }
+                        break;
+                    case 2 : 
+                        if($scope.text.isshowOutLineColorControl==true){
+                            $scope.text.isshowOutLineColorControl = false;
+                        }else{
+                            $scope.text.isshowOutLineColorControl = true;
+                        }
+                        break; 
                 }
             }
-            $scope.text.showOutLineColorControl = function() {
-                if($scope.text.isshowOutLineColorControl==true){
-                    $scope.text.isshowOutLineColorControl = false;
-                }else{
-                    $scope.text.isshowOutLineColorControl = true;
+            $scope.text.hideBoxColor = function(box) {
+                switch (box) {
+                    case 1 :
+                        $scope.text.isshowColorControl = false;
+                        break;
+                    case 2 : 
+                        $scope.text.isshowOutLineColorControl = false;
+                        break; 
                 }
+                
             }
 			//Selected text event
 			$scope.text.selectedTextEvents = function() {

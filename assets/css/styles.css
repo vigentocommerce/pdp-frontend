@@ -1448,20 +1448,32 @@ ul.txt-list-btn li a.active {
 }
 .pdp-add-text-directive .color-list {
   background: #ccc none repeat scroll 0 0;
+  border: 1px solid #f0c49b;
+  border-radius: 5px;
   left: 104px;
-  padding: 10px 0 0;
+  padding: 10px;
   position: absolute;
-  width: 230px;
+  width: 210px;
   z-index: 999;
 }
+.overlay_span {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 995;
+}
 .pdp-add-text-directive .color-list li a span {
+  border: 1px solid #d0d0d0;
   float: left;
   height: 20px;
+  margin: 0 2px;
   width: 20px;
-  border: 1px solid transparent;
 }
 .pdp-add-text-directive .color-list li a span.active {
   border: 1px solid #fff;   
+  background: rgba(0, 0, 0, 0) url("../images/color_checked.png") repeat scroll 0 0;
 }
 .text_color_control {
   background: #000 none repeat scroll 0 0;
