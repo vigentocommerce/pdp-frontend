@@ -22,6 +22,8 @@ define([
 				fill: '#000',
 				effect: 'STRAIGHT',
 				radius: 100,
+                isshowColorControl: false,
+                isshowOutLineColorControl: false,
 				spacing: 15,
 				smallFont: 20,
 				largeFont: 40,
@@ -156,6 +158,20 @@ define([
 					}	
 				}
 			}
+            $scope.text.showColorControl = function() {
+                if($scope.text.isshowColorControl==true){
+                    $scope.text.isshowColorControl = false;
+                }else{
+                    $scope.text.isshowColorControl = true;
+                }
+            }
+            $scope.text.showOutLineColorControl = function() {
+                if($scope.text.isshowOutLineColorControl==true){
+                    $scope.text.isshowOutLineColorControl = false;
+                }else{
+                    $scope.text.isshowOutLineColorControl = true;
+                }
+            }
 			//Selected text event
 			$scope.text.selectedTextEvents = function() {
 				if($scope.getCurrentCanvas()) {

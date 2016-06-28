@@ -40,8 +40,9 @@
 			</div>
 			<div class="form-group">
 				<label for="text-3">Text Color:</label>
-				<input type="text" class="text-field-readonly" data-text-field="color" name="text-3" style="background-color: #000;"  readonly="readonly" />
-				<ul class="color-list">
+				<!--input type="text" class="text-field-readonly" data-text-field="color" name="text-3" style="background-color: #000;"  readonly="readonly" /-->
+                <span ng-click="text.showColorControl()" class="text_color_control">Color</span>
+				<ul class="color-list" ng-show="text.isshowColorControl == true">
 					<li ng-repeat="color in text.colorList" ng-click="text.changeTextColor(color.color_code)" ng-class="{active: text.fill == color.color_code}">
 						<a title="{{color.color_name}}">
 							<span style="background-color: #{{color.color_code.replace('#', '')}}; margin: 4px; padding: 4px;"></span>
@@ -71,8 +72,9 @@
 			</div>
 			<div class="form-group">
 				<label for="text-3">Outline Color:</label>
-				<input type="text" class="text-field-readonly" data-text-field="outlinecolor" style="background-color: #000;"  readonly="readonly" />
-				<ul class="color-list">
+				<!--input type="text" class="text-field-readonly" data-text-field="color" name="text-3" style="background-color: #000;"  readonly="readonly" /-->
+                <span ng-click="text.showOutLineColorControl()" class="text_color_control">Color</span>
+				<ul class="color-list" ng-show="text.isshowOutLineColorControl == true">
 					<li ng-repeat="color in text.colorList" ng-click="text.changeTextStroke(color.color_code)" ng-class="{active: text.stroke == color.color_code}">
 						<a title="{{color.color_name}}">
 							<span style="background-color: #{{color.color_code.replace('#', '')}}; margin: 4px; padding: 4px;"></span>
